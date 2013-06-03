@@ -1,5 +1,6 @@
 CleanestCard::Application.routes.draw do
-  get "users/new"
+  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
