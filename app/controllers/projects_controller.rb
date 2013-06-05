@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
 	#before_filter :correct_user  #ToDo: Is something like this necessary for these actions for security?
 	
 	def index
+		@projects = Project.filter_by_status(params[:status])
 		render :layout => 'application_mobile'
 	end
 
