@@ -1,7 +1,9 @@
 CleanestCard::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :projects
+  resources :projects do
+  	resources :tasks
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

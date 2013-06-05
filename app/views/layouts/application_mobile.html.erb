@@ -37,32 +37,10 @@
 			</fieldset>
 
 		</div><!-- /panel -->
-		<div data-role="header">
-			<h1>This Week</h1>
-			<a href="#mypanel" data-icon="bars" data-iconpos="notext">Menu</a>
-			<div data-role="navbar">
-		    <ul>
-		        <li><a href="#" class="ui-btn-active">Nav 1</a></li>
-		        <li><a href="#">Nav 2</a></li>
-		        <li><a href="#">Nav 3</a></li>
-		    </ul>
-			</div><!-- /navbar -->			
-		</div>
+		
+		<%= yield %>
 
-		<div data-role="content">
-
-			<ul data-role="listview">
-			    <li>Acura</li>
-			    <li>Audi</li>
-			    <li>BMW</li>
-			    <li>Cadillac</li>
-			    <li>Ferrari</li>
-			</ul>
-			
-			<%= yield %>
-
-		</div>
 	</div>
-
+	
 </body>
 </html>
