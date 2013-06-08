@@ -6,6 +6,7 @@ namespace :db do
 		make_planned_projects
 		make_started_projects
 		make_done_projects
+		make_tasks
 	end
 end
 
@@ -36,5 +37,17 @@ def make_done_projects
 		Project.create!(:title => title,
 			:status => status
 		)
+	end
+end
+
+def make_tasks
+	projects = Project.all
+	projects.each do |project|
+		5.times do |n|
+			title = Faker::Company.catch_phrase
+			status = "planned"
+			task = project.tasks.create!(:title => title, :status => status)
+			task.save
+		end
 	end
 end

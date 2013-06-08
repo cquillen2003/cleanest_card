@@ -1,5 +1,5 @@
 <div data-role="header">
-	<h1>This Week</h1>
+	<h1>Header Title</h1>
 	<a href="#mypanel" data-icon="bars" data-iconpos="notext">Menu</a>
 	<div data-role="navbar">
     <ul>
@@ -11,11 +11,9 @@
 </div>
 
 <div data-role="content">
-
 	<ul data-role="listview">
 		<% @projects.each do |project| %>
-	    <li><a href="<%= "/projects/#{project.id}/tasks" %>"><%= project.title %></a></li>
-    <% end %>
+	    <li><a href="<%= "/projects/#{project.id}/tasks?status=planned" %>"><%= project.title %></a></li>
+	  <% end %>
 	</ul>
-	
 </div>

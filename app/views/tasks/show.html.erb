@@ -1,0 +1,38 @@
+<div data-role="header">
+	<h1>Tasks</h1>
+	<a href="#mypanel" data-icon="bars" data-iconpos="notext">Menu</a>
+	<a href="#mytaskpanel" data-icon="gears" data-iconpos="notext">Edit</a>
+	<div data-role="navbar">
+    <ul>
+        <li><a href="<%= "/projects/#{@project.id}/tasks?status=planned" %>" class="ui-btn-active">Nav 1</a></li>
+        <li><a href="<%= "/projects/#{@project.id}/tasks?status=started" %>">Nav 2</a></li>
+        <li><a href="<%= "/projects/#{@project.id}/tasks?status=done" %>">Nav 3</a></li>
+    </ul>
+	</div><!-- /navbar -->
+</div>
+
+<div data-role="content">
+	<h2>Title:</h2>
+	<p><%= @task.title %></p>
+	
+	<h2>Status:</h2>
+	<p><%= @task.status %></p>
+	
+	<h2>Notes:</h2>
+	<p>Someday...</p>
+</div>
+
+<div data-role="panel" data-position="right" data-position-fixed="true" data-display="overlay" data-theme="b" id="mytaskpanel">
+		<h2>Update task:</h2>
+		
+		<%= form_for @task, :url => { :action => "update" } do |f| %>
+					<label>Update task status:</label>
+					<%= f.hidden_field :status, :value => "started" %>
+					<%= f.submit "Not Started" %>
+		<% end %>				
+		
+    <input type="submit" value="Started" disabled="true">
+    <input type="submit" value="Done">
+
+		<a href="#" data-rel="close" data-role="button" data-theme="c">Edit Details</a>
+</div>
