@@ -1,11 +1,11 @@
 <div data-role="header">
-	<h1>Tasks</h1>
+	<h1>Tasks in Project</h1>
 	<a href="#mypanel" data-icon="bars" data-iconpos="notext">Menu</a>
 	<div data-role="navbar">
     <ul>
-        <li><a href="<%= "/projects/#{@project.id}/tasks?status=planned" %>" class="ui-btn-active">Nav 1</a></li>
-        <li><a href="<%= "/projects/#{@project.id}/tasks?status=started" %>">Nav 2</a></li>
-        <li><a href="<%= "/projects/#{@project.id}/tasks?status=done" %>">Nav 3</a></li>
+        <li><a href="<%= "/projects/#{@project.id}/tasks?status=planned" %>" class="ui-btn-active">Planned</a></li>
+        <li><a href="<%= "/projects/#{@project.id}/tasks?status=started" %>">Started</a></li>
+        <li><a href="<%= "/projects/#{@project.id}/tasks?status=done" %>">Done</a></li>
     </ul>
 	</div><!-- /navbar -->
 </div>

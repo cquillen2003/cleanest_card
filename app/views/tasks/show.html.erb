@@ -1,14 +1,7 @@
 <div data-role="header">
-	<h1>Tasks</h1>
+	<h1>Task details</h1>
 	<a href="#mypanel" data-icon="bars" data-iconpos="notext">Menu</a>
 	<a href="#mytaskpanel" data-icon="gears" data-iconpos="notext">Edit</a>
-	<div data-role="navbar">
-    <ul>
-        <li><a href="<%= "/projects/#{@project.id}/tasks?status=planned" %>" class="ui-btn-active">Nav 1</a></li>
-        <li><a href="<%= "/projects/#{@project.id}/tasks?status=started" %>">Nav 2</a></li>
-        <li><a href="<%= "/projects/#{@project.id}/tasks?status=done" %>">Nav 3</a></li>
-    </ul>
-	</div><!-- /navbar -->
 </div>
 
 <div data-role="content">
@@ -27,12 +20,32 @@
 		
 		<%= form_for @task, :url => { :action => "update" } do |f| %>
 					<label>Update task status:</label>
-					<%= f.hidden_field :status, :value => "started" %>
-					<%= f.submit "Not Started" %>
-		<% end %>				
+					<%= f.hidden_field :status, :value => "planned" %>
+					<% if @task.status == "planned" %>
+						<%= f.submit "Planned", :disabled => true %>
+					<% else%>
+						<%= f.submit "Planned " %>
+					<% end %>
+		<% end %>
 		
-    <input type="submit" value="Started" disabled="true">
-    <input type="submit" value="Done">
+		<%= form_for @task, :url => { :action => "update" } do |f| %>
+					<%= f.hidden_field :status, :value => "started" %>
+					<% if @task.status == "started" %>
+						<%= f.submit "Started", :disabled => true %>
+					<% else %>
+						<%= f.submit "Started" %>
+					<% end %>
+		<% end %>
+		
+		<%= form_for @task, :url => { :action => "update" } do |f| %>
+					<%= f.hidden_field :status, :value => "done" %>
+					<% if @task.status == "done" %>
+						<%= f.submit "Done", :disabled => true %>
+					<% else %>
+						<%= f.submit "Done" %>
+					<% end %>
+		<% end %>								
+		
 
 		<a href="#" data-rel="close" data-role="button" data-theme="c">Edit Details</a>
 </div>
