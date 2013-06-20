@@ -1,16 +1,18 @@
 <div data-role="header">
-	<h1>Selected projects</h1>
-	<a href="#mypanel" data-icon="bars" data-iconpos="notext">Menu</a>
-	<div data-role="navbar">
-    <ul>
-        <li><a href="/projects?status=planned" class="ui-btn-active">Planned</a></li>
-        <li><a href="/projects?status=started">Started</a></li>
-        <li><a href="/projects?status=done">Done</a></li>
-    </ul>
-	</div><!-- /navbar -->			
+	<a href="#mypanel" data-icon="bars">Menu</a>	
+	<h1>Projects</h1>			
 </div>
 
 <div data-role="content">
+	
+	<div data-role="controlgroup" data-type="horizontal">
+    <a href="<%= "/projects?status=planned" %>" data-role="button">Planned</a>
+    <a href="<%= "/projects?status=started" %>" data-role="button">Started</a>
+    <a href="<%= "/projects?status=done" %>" data-role="button">Done</a>
+	</div><!-- /navbar -->
+	
+	<br />	
+	
 	<ul data-role="listview">
 		<% @projects.each do |project| %>
 	    <li><a href="<%= "/projects/#{project.id}/tasks?status=planned" %>"><%= project.title %></a></li>

@@ -1,23 +1,43 @@
 <div data-role="header">
-	<h1>Tasks in Project</h1>
-	<a href="#mypanel" data-icon="bars" data-iconpos="notext">Menu</a>
-	<div data-role="navbar">
-    <ul>
-        <li><a href="<%= "/projects/#{@project.id}/tasks?status=planned" %>" class="ui-btn-active">Planned</a></li>
-        <li><a href="<%= "/projects/#{@project.id}/tasks?status=started" %>">Started</a></li>
-        <li><a href="<%= "/projects/#{@project.id}/tasks?status=done" %>">Done</a></li>
-    </ul>
-	</div><!-- /navbar -->
+	<a href="/projects?status=started" data-icon="back">Projects</a>
+	<h1>Project</h1>	
 </div>
 
+
+
 <div data-role="content">
-	<ul data-role="listview">
-		<% @tasks.each do |task| %>
-	    <li>
-	    	<a href="<%= "/projects/#{@project.id}/tasks/#{task.id}" %>">
-	    		<%= task.title %>
-	    	</a>
-	  	</li>
-	  <% end %>
-	</ul>
+	
+	<h2><%= @project.title %></h2>
+	
+	<div data-role="controlgroup" data-type="horizontal">
+    <a href="<%= "/projects/#{@project.id}/tasks?status=planned" %>" data-role="button">Planned</a>
+    <a href="<%= "/projects/#{@project.id}/tasks?status=started" %>" data-role="button">Started</a>
+    <a href="<%= "/projects/#{@project.id}/tasks?status=done" %>" data-role="button">Done</a>
+	</div><!-- /navbar -->
+		
+	<br />
+	
+	<%= form_tag discontinue_project_tasks_path, :method => :put do %>	
+		<ul data-role="listview">
+
+			<% @tasks.each_with_index do |task, index| %>
+		    <li>
+		    	<%= check_box_tag "task_ids[]", task.id, false, :data => { "role" => "none" } %>
+    			<label for="checkbox-corey"><%= task.title %></label>
+		    </li>	
+	    <% end %>
+    
+		</ul>
+	<br />
+	<%= submit_tag "edit collection" %>
+	<% end %>
+	
 </div>
+
+<div data-role="footer" data-position="fixed" id="footer-controls" style="display:none">
+		<input type="button" value="Input" data-mini="true" data-inline="true" data-icon="plus">
+		<input type="button" value="Input" data-mini="true" data-inline="true" data-icon="arrow-l">
+		<input type="button" value="Input" data-mini="true" data-inline="true" data-icon="arrow-r">
+</div>
+
+

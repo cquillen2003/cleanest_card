@@ -18,6 +18,11 @@ class TasksController < ApplicationController
 		render :layout => 'application_mobile'
 	end
 	
+	def discontinue
+		Task.update_all({ :status => "done" }, { :id => params[:task_ids] })
+		redirect_to project_tasks_url
+	end
+	
 	def update
 		@project = Project.find(params[:project_id])
 		@task = Task.find(params[:id])

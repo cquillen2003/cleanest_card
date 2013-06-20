@@ -18,7 +18,7 @@
 <div data-role="panel" data-position="right" data-position-fixed="true" data-display="overlay" data-theme="b" id="mytaskpanel">
 		<h2>Update task:</h2>
 		
-		<%= form_for @task, :url => { :action => "update" } do |f| %>
+		<%= form_for @task, :url => { :action => "update" }, :remote => true do |f| %>
 					<label>Update task status:</label>
 					<%= f.hidden_field :status, :value => "planned" %>
 					<% if @task.status == "planned" %>
