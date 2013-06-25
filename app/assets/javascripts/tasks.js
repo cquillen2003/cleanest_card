@@ -9,4 +9,8 @@ $(document).on('change', '.task-input', function () {
 });
 
 
+$(document).on('click', '#mark-task-done', function () {
+	//alert("why do they make this so hard?");
+	$("#mass-update-form").submit();
+});
 

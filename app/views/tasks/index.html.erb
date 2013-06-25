@@ -17,7 +17,7 @@
 		
 	<br />
 	
-	<%= form_tag mass_update_project_tasks_path(@project), :method => :put, :data => { :ajax => "false" } do %>
+	<%= form_tag mass_update_project_tasks_path(@project), :method => :put, :data => { :ajax => "false" }, :id => "mass-update-form" do %>
 	<!-- 
 		ajax set to false on form submission to fix problem with URL after redirect 
 		http://stackoverflow.com/questions/9202233/rails3-jquery-mobile-and-remote-true-ajax-calls-processing-as-html
@@ -33,7 +33,6 @@
     
 		</ul>
 	<br />
-	<%= submit_tag "edit collection" %>
 	<% end %>
 	
 </div>
@@ -41,7 +40,7 @@
 <div data-role="footer" data-position="fixed" id="footer-controls" style="display:none">
 		<input type="button" value="Input" data-mini="true" data-inline="true" data-icon="plus">
 		<input type="button" value="Input" data-mini="true" data-inline="true" data-icon="arrow-l">
-		<input type="button" value="Input" data-mini="true" data-inline="true" data-icon="arrow-r">
+		<input type="button" value="Input" data-mini="true" data-inline="true" data-icon="arrow-r" id="mark-task-done">
 </div>
 
 
