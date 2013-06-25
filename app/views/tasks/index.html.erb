@@ -17,7 +17,11 @@
 		
 	<br />
 	
-	<%= form_tag discontinue_project_tasks_path, :method => :put do %>	
+	<%= form_tag mass_update_project_tasks_path(@project), :method => :put, :data => { :ajax => "false" } do %>
+	<!-- 
+		ajax set to false on form submission to fix problem with URL after redirect 
+		http://stackoverflow.com/questions/9202233/rails3-jquery-mobile-and-remote-true-ajax-calls-processing-as-html
+	-->
 		<ul data-role="listview">
 
 			<% @tasks.each_with_index do |task, index| %>

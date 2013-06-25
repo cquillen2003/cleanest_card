@@ -4,7 +4,7 @@ CleanestCard::Application.routes.draw do
   resources :projects do
   	resources :tasks do
   		collection do
-  			get :discontinue
+  			put :mass_update
   		end
   	end
   end

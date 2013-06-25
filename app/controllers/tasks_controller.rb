@@ -18,9 +18,10 @@ class TasksController < ApplicationController
 		render :layout => 'application_mobile'
 	end
 	
-	def discontinue
+	def mass_update
+		@project = Project.find(params[:project_id])
 		Task.update_all({ :status => "done" }, { :id => params[:task_ids] })
-		redirect_to project_tasks_url
+		redirect_to project_tasks_url(@project.id, :status => "planned")
 	end
 	
 	def update
