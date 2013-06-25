@@ -26,7 +26,7 @@
 
 			<% @tasks.each_with_index do |task, index| %>
 		    <li>
-		    	<%= check_box_tag "task_ids[]", task.id, false, :data => { "role" => "none" } %>
+		    	<%= check_box_tag "task_ids[]", task.id, false, :data => { "role" => "none" }, :class => "task-input" %>
     			<label for="checkbox-corey"><%= task.title %></label>
 		    </li>	
 	    <% end %>
