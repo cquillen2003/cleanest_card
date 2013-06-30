@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>CleanestCard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />  
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  
+  <!-- <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script> -->
   <%= javascript_include_tag "application" %>
+  <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+  
   <%= csrf_meta_tags %>
 </head>
+
 <body>
-
-<%= yield %>
-
+	
+	<div data-role="page" id="application-page">	
+		<%= yield %>
+		
+		<div data-role="panel" data-position-fixed="true" id="mypanel">
+			<!-- panel content goes here -->
+			
+			<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+			        <input type="radio" name="radio-choice-b" id="radio-choice-c" value="list" checked="checked">
+			        <label for="radio-choice-c">Today</label>
+			        <input type="radio" name="radio-choice-b" id="radio-choice-d" value="grid">
+			        <label for="radio-choice-d">Week</label>
+			        <input type="radio" name="radio-choice-b" id="radio-choice-e" value="gallery">
+			        <label for="radio-choice-e">Month</label>
+			</fieldset>
+			
+			<fieldset data-role="controlgroup">
+			    <legend>Project Categories:</legend>
+			    <input type="checkbox" name="checkbox-1a" id="checkbox-1a" checked="">
+			    <label for="checkbox-1a">Personal</label>
+			    <input type="checkbox" name="checkbox-2a" id="checkbox-2a">
+			    <label for="checkbox-2a">Kinnser</label>
+			    <input type="checkbox" name="checkbox-3a" id="checkbox-3a">
+			    <label for="checkbox-3a">Streamline Aviation</label>
+			</fieldset>
+		
+		</div>
+	</div>
+	
 </body>
+
 </html>

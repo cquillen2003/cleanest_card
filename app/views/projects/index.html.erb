@@ -6,16 +6,16 @@
 <div data-role="content">
 	
 	<div data-role="controlgroup" data-type="horizontal">
-    <a href="<%= "/projects?status=planned" %>" data-role="button">Planned</a>
-    <a href="<%= "/projects?status=started" %>" data-role="button">Started</a>
-    <a href="<%= "/projects?status=done" %>" data-role="button">Done</a>
+    <a href="<%= "/projects?status=planned" %>" data-role="button" data-ajax="false">Planned</a>
+    <a href="<%= "/projects?status=started" %>" data-role="button" data-ajax="false">Started</a>
+    <a href="<%= "/projects?status=done" %>" data-role="button" data-ajax="false">Done</a>
 	</div><!-- /navbar -->
 	
 	<br />	
 	
 	<ul data-role="listview">
 		<% @projects.each do |project| %>
-	    <li><a href="<%= "/projects/#{project.id}/tasks?status=planned" %>"><%= project.title %></a></li>
+	    <li><a href="<%= "/projects/#{project.id}/tasks?status=planned" %>" data-ajax="false"><%= project.title %></a></li>
 	  <% end %>
 	</ul>
 </div>

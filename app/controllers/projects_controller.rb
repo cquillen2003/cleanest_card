@@ -5,7 +5,6 @@ class ProjectsController < ApplicationController
 	
 	def index
 		@projects = Project.filter_by_status(params[:status])
-		render :layout => 'application_mobile'
 	end
 
 

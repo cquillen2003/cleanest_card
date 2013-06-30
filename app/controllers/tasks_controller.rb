@@ -3,24 +3,25 @@ class TasksController < ApplicationController
 	def index
 		@project = Project.find(params[:project_id])
 		@tasks = @project.tasks.filter_by_status(params[:status])
-		render :layout => 'application_mobile'
+		@planned_count = @project.tasks.filter_by_status("planned").count
+		@started_count = @project.tasks.filter_by_status("started").count
+		@done_count = @project.tasks.filter_by_status("done").count
 	end
 	
 	def show
 		@project = Project.find(params[:project_id])
 		@task = Task.find(params[:id])
-		render :layout => 'application_mobile'
 	end
 	
 	def edit
 		@project = Project.find(params[:project_id])
 		@task = Task.find(params[:id])
-		render :layout => 'application_mobile'
 	end
 	
 	def mass_update
 		@project = Project.find(params[:project_id])
-		Task.update_all({ :status => "done" }, { :id => params[:task_ids] })
+		status = params[:status]
+		Task.update_all({ :status => status }, { :id => params[:task_ids] })
 		redirect_to project_tasks_url(@project.id, :status => "planned")
 	end
 	

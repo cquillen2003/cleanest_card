@@ -9,12 +9,13 @@
 	
 	<h2><%= @project.title %></h2>
 	
-	<div data-role="controlgroup" data-type="horizontal">
-    <a href="<%= "/projects/#{@project.id}/tasks?status=planned" %>" data-role="button">Planned</a>
-    <a href="<%= "/projects/#{@project.id}/tasks?status=started" %>" data-role="button">Started</a>
-    <a href="<%= "/projects/#{@project.id}/tasks?status=done" %>" data-role="button">Done</a>
+	<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+    <a href="<%= "/projects/#{@project.id}/tasks?status=planned" %>" data-role="button" data-ajax="false">Planned<span class="task-count"><%= @planned_count %></span></a>
+    <a href="<%= "/projects/#{@project.id}/tasks?status=started" %>" data-role="button" data-ajax="false">Started<span class="task-count"><%= @started_count %></span></a>
+    <a href="<%= "/projects/#{@project.id}/tasks?status=done" %>" data-role="button" data-ajax="false">Done<span class="task-count"><%= @done_count %></span></a>
 	</div><!-- /navbar -->
 		
+	<br />
 	<br />
 	
 	<%= form_tag mass_update_project_tasks_path(@project), :method => :put, :data => { :ajax => "false" }, :id => "mass-update-form" do %>
@@ -22,6 +23,7 @@
 		ajax set to false on form submission to fix problem with URL after redirect 
 		http://stackoverflow.com/questions/9202233/rails3-jquery-mobile-and-remote-true-ajax-calls-processing-as-html
 	-->
+		<%= hidden_field_tag "status", "value", { :id => "task-status" } %>
 		<ul data-role="listview">
 
 			<% @tasks.each_with_index do |task, index| %>
@@ -37,10 +39,15 @@
 	
 </div>
 
-<div data-role="footer" data-position="fixed" id="footer-controls" style="display:none">
-		<input type="button" value="Input" data-mini="true" data-inline="true" data-icon="plus">
-		<input type="button" value="Input" data-mini="true" data-inline="true" data-icon="arrow-l">
-		<input type="button" value="Input" data-mini="true" data-inline="true" data-icon="arrow-r" id="mark-task-done">
+<div data-role="footer" data-position="fixed" id="footer-controls-1" style="display:none;">
+	<input type="button" value="Planned" data-mini="true" data-inline="true" data-icon="arrow-l" id="mark-task-planned">
+	<input type="button" value="Started" data-mini="true" data-inline="true" data-icon="arrow-l" id="mark-task-started">
+	<input type="button" value="Done" data-mini="true" data-inline="true" data-icon="arrow-r" id="mark-task-done">
+	<input type="button" value="View" data-mini="true" data-inline="true" data-icon="arrow-r" id="view-task">
 </div>
 
-
+<div data-role="footer" data-position="fixed" id="footer-controls-2" style="display:none;">
+	<input type="button" value="Planned" data-mini="true" data-inline="true" data-icon="arrow-l" id="mark-task-planned">
+	<input type="button" value="Started" data-mini="true" data-inline="true" data-icon="arrow-l" id="mark-task-started">
+	<input type="button" value="Done" data-mini="true" data-inline="true" data-icon="arrow-r" id="mark-task-done">
+</div>
