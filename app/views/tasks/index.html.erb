@@ -10,15 +10,15 @@
 	<h2><%= @project.title %></h2>
 	
 	<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-    <a href="<%= "/projects/#{@project.id}/tasks?status=planned" %>" data-role="button" data-ajax="false">Planned<span class="task-count"><%= @planned_count %></span></a>
-    <a href="<%= "/projects/#{@project.id}/tasks?status=started" %>" data-role="button" data-ajax="false">Started<span class="task-count"><%= @started_count %></span></a>
-    <a href="<%= "/projects/#{@project.id}/tasks?status=done" %>" data-role="button" data-ajax="false">Done<span class="task-count"><%= @done_count %></span></a>
+    <a href="<%= "/projects/#{@project.id}/tasks?status=planned" %>" data-role="button">Planned<span class="task-count"><%= @planned_count %></span></a>
+    <a href="<%= "/projects/#{@project.id}/tasks?status=started" %>" data-role="button">Started<span class="task-count"><%= @started_count %></span></a>
+    <a href="<%= "/projects/#{@project.id}/tasks?status=done" %>" data-role="button">Done<span class="task-count"><%= @done_count %></span></a>
 	</div><!-- /navbar -->
 		
 	<br />
 	<br />
 	
-	<%= form_tag mass_update_project_tasks_path(@project), :method => :put, :data => { :ajax => "false" }, :id => "mass-update-form" do %>
+	<%= form_tag mass_update_project_tasks_path(@project), :method => :put, :id => "mass-update-form" do %>
 	<!-- 
 		ajax set to false on form submission to fix problem with URL after redirect 
 		http://stackoverflow.com/questions/9202233/rails3-jquery-mobile-and-remote-true-ajax-calls-processing-as-html
