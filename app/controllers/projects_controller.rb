@@ -6,6 +6,9 @@ class ProjectsController < ApplicationController
 	def index
 		@projects = Project.filter_by_status(params[:status])
 	end
+	
+	def board
+	end
 
 
   private

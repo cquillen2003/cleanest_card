@@ -1,21 +1,42 @@
-<div data-role="header">
-	<a href="#mypanel" data-icon="bars">Menu</a>	
-	<h1>Projects</h1>			
+<div class="row">
+	<div class="col-8">
+		<table class="table-clean-card">
+			<tr>
+				<th class="col-thirty-three-percent"><h3>Planned</h3></th>
+				<th class="col-thirty-three-percent"><h3>Started</h3></th>
+				<th class="col-thirty-three-percent"><h3>Done</h3></th>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<div class="card card-project">
+						<div class="project-right-margin pull-right"></div>
+						<div class="project-body pull-right">
+							<p>Take out the papers and the trash</p>
+						</div>
+						<div class="project-footer pull-right">Footer</div>
+						<div class="project-left-margin"></div>
+					</div>
+					<div class="card card-project">
+						<div class="project-right-margin pull-right"></div>
+						<div class="project-body pull-right">
+							<p>Take out the papers and the trash</p>
+						</div>
+						<div class="project-footer pull-right">Footer</div>
+						<div class="project-left-margin"></div>
+					</div>
+					<div class="card card-project">
+						<div class="project-right-margin pull-right"></div>
+						<div class="project-body pull-right">
+							<p>Take out the papers and the trash</p>
+						</div>
+						<div class="project-footer pull-right">Footer</div>
+						<div class="project-left-margin"></div>
+					</div>																					
+				</td>
+			</tr>						
+		</table>
+	</div>
 </div>
-
-<div data-role="content">
-	
-	<div data-role="controlgroup" data-type="horizontal">
-    <a href="<%= "/projects?status=planned" %>" data-role="button">Planned</a>
-    <a href="<%= "/projects?status=started" %>" data-role="button">Started</a>
-    <a href="<%= "/projects?status=done" %>" data-role="button">Done</a>
-	</div><!-- /navbar -->
-	
-	<br />	
-	
-	<ul data-role="listview">
-		<% @projects.each do |project| %>
-	    <li><a href="<%= "/projects/#{project.id}/tasks?status=planned" %>" data-ajax="false"><%= project.title %></a></li>
-	  <% end %>
-	</ul>
+<div class="row">
+	<div class="col-4"></div>
 </div>
