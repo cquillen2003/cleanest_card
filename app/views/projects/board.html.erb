@@ -8,59 +8,48 @@
 			</tr>
 			<tr>
 				<td>
-					<div class="card card-project">
-						<div class="project-right-margin pull-right"></div>
-						<div class="project-body pull-right">
-							<p>Take out the papers and the trash</p>
+					<% @projects.each do |project| %>
+					<div class="project">
+						<div class="project-right-margin pull-right">
+							<a href="#" class="pull-right">Edit</a>
 						</div>
-						<div class="project-footer pull-right">Footer</div>
-						<div class="project-left-margin"></div>
+						<div class="project-body pull-right">
+							<span><%= project.title %></span>
+						</div>
+						<div class="project-footer pull-right">
+							<span class="badge pull-right">CQ</span>
+							<span class="badge">4</span>
+							<span><a href="#">Tasks</a></span>
+						</div>				
+						<div class="project-left-edge"></div>
 					</div>
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
-					</div>
-					<div class="show-tasks">
-						<div class="card card-task">Task numero uno</div>
-					</div>
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
-					</div>
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
-					</div>																					
+					<% end %>																
 				</td>
 				<td>
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
+					<div class="task">
+						<div class="task-right-margin pull-right">
+							<a href="#" class="pull-right">Edit</a>
+						</div>						
+						<div class="task-body pull-right">
+							<span>Take out the papers and the trash</span>
+						</div>
+						<div class="task-left-margin pull-right">
+							<input type="checkbox" class="pull-right">
+						</div>
+						<div class="task-left-edge"></div>
 					</div>
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
+					<div class="task">
+						<span>Take out the papers</span>
 					</div>
-					<div class="show-tasks"></div>														
+					<div class="task">
+						<span>Take out the papers</span>
+					</div>
+					<div class="task">
+						<span>Take out the papers</span>
+					</div>																							
 				</td>
 				<td>
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
-					</div>
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
-					</div>
-					<div class="show-tasks"></div>	
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
-					</div>
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
-					</div>
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
-					</div>
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
-					</div>
-					<div class="card card-project">
-						<p>Take out the papers and the trash</p>
-					</div>																																																	
+
 				</td>
 			</tr>						
 		</table>

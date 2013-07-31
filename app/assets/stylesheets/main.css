@@ -21,10 +21,9 @@ body {
 	border-color: gray;
 }
 
-/*Scrum/Kanban board and calendar tables */
-
 .table-clean-card {
 	width: 100%;
+	min-width: 960px;
 }
 
 .table-clean-card th {
@@ -56,49 +55,6 @@ body {
 
 .col-thirty-three-percent {
 	width: 33%;
-}
-
-
-/*Scrum/Kanban cards */
-
-.card {
-	margin: 3px 5px;
-	background-color: white;
-	border-width: 2px;
-	border-style: solid;
-	border-color: #D8D8D8;
-}
-
-.card-project {
-	height: 60px;
-}
-
-.project-left-margin {
-	height: 56px;
-	width: 1%;
-	background-color: #2980B9;
-}
-
-.project-body {
-	height: 30px;
-	width: 94%;
-	padding: 2px 5px;
-}
-
-.project-footer {
-	height: 26px;
-	width: 94%;
-	padding: 2px 5px;
-}
-
-.project-right-margin {
-	height: 56px;
-	width: 5%;
-	background-color: gray;
-}
-
-.card-task {
-	height: 30px;
 }
 
 .show-tasks {

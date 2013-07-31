@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
 	end
 	
 	def board
+		@projects = Project.filter_by_status("planned")
 	end
 
 

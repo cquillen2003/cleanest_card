@@ -1,0 +1,41 @@
+.project {
+	height: 64px;
+	margin: 2px 5px 0 5px;
+	border-width: 2px 2px 2px 0;
+	border-style: solid;
+	border-color: #D8D8D8;
+	background-color: white;	
+}
+
+.project a {
+	color: gray;
+	text-decoration: underline;
+}
+
+.project-left-edge {
+	height: 60px;
+	width: 2%;
+	background-color: #2980B9;
+}
+
+.project-body {
+	height: 35px;
+	width: 89%;
+	padding: 2px 5px; /*TODO: Research why top and bottom padding is not increasing height*/
+	color: #2980B9;
+	font-weight: bold;
+	line-height: 1.2;
+}
+
+.project-footer {
+	height: 25px;
+	width: 89%;
+	padding: 2px 5px; /*TODO: Research why top and bottom padding is not increasing height*/
+}
+
+.project-right-margin {
+	height: 60px;
+	width: 9%;
+	padding-top: 2px;
+	padding-right: 1%;
+}

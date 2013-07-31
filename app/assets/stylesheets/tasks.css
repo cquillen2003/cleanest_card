@@ -1,0 +1,38 @@
+.task {
+	height: 31px;
+	margin: 2px 5px 0 5px;
+	border-width: 1px 1px 1px 0;
+	border-style: solid;
+	border-color: #D8D8D8;	
+	background-color: white;
+}
+
+.task a {
+	color: gray;
+	text-decoration: underline;
+}
+
+.task-left-edge {
+	height: 29px;
+	width: 1%;
+	background-color: gray;
+}
+
+.task-left-margin {
+	height: 29px;
+	width: 5%;
+	padding-top: 4px;
+}
+
+.task-body {
+	height: 29px;
+	width: 85%;
+	padding: 4px 5px 0 5px;
+}
+
+.task-right-margin {
+	height: 29px;
+	width: 9%;
+	padding-top: 2px;
+	padding-right: 1%;
+}
