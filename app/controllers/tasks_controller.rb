@@ -26,7 +26,7 @@ class TasksController < ApplicationController
 	end
 	
 	def update
-		@project = Project.find(params[:project_id])
+		#@project = Project.find(params[:project_id])
 		@task = Task.find(params[:id])
 		@task.update_attributes(params[:task])
 		render 'show'

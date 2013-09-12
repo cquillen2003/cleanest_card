@@ -5,6 +5,10 @@ class Task < ActiveRecord::Base
   
   def self.filter_by_status(status)
   	where("status = ?", status)
-  end  
+  end
+  
+  def self.stand_alone_tasks
+  	where("project_id = ?", 0)
+  end    
   
 end

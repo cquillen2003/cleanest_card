@@ -4,6 +4,7 @@ CleanestCard::Application.routes.draw do
   resources :projects do
   	collection do
   		get 'board'
+  		get 'list'
   	end
   	resources :tasks do
   		collection do
@@ -11,6 +12,7 @@ CleanestCard::Application.routes.draw do
   		end
   	end
   end
+  resources :tasks #Needed for stand-alone tasks (not tied to project)
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,42 +1,45 @@
-<div class="row">
-	<div class="col-8">
-		<table class="table-clean-card">
-			<tr>
-				<th class="col-thirty-three-percent"><h3>Planned</h3></th>
-				<th class="col-thirty-three-percent"><h3>Started</h3></th>
-				<th class="col-thirty-three-percent"><h3>Done</h3></th>
-			</tr>
-			<tr>
-				<td colspan="3">
-					<div class="card card-project">
-						<div class="project-right-margin pull-right"></div>
-						<div class="project-body pull-right">
-							<p>Take out the papers and the trash</p>
-						</div>
-						<div class="project-footer pull-right">Footer</div>
-						<div class="project-left-margin"></div>
-					</div>
-					<div class="card card-project">
-						<div class="project-right-margin pull-right"></div>
-						<div class="project-body pull-right">
-							<p>Take out the papers and the trash</p>
-						</div>
-						<div class="project-footer pull-right">Footer</div>
-						<div class="project-left-margin"></div>
-					</div>
-					<div class="card card-project">
-						<div class="project-right-margin pull-right"></div>
-						<div class="project-body pull-right">
-							<p>Take out the papers and the trash</p>
-						</div>
-						<div class="project-footer pull-right">Footer</div>
-						<div class="project-left-margin"></div>
-					</div>																					
-				</td>
-			</tr>						
-		</table>
-	</div>
-</div>
-<div class="row">
-	<div class="col-4"></div>
-</div>
+<table class="index-table">
+  <thead>
+    <tr>
+    	<th></th>
+      <th><h4>Title</h4></th>
+      <th><h4>Due</h4></th>
+      <th><h4>Status</h4></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @items.each do |project| %>
+      <tr class="index-table-row">
+      	<td>
+      		<div class="project-cell-edge pull-left"></div>
+      		<input type="checkbox"></td>
+        <td><%= project.title %></td>
+        <td>8/15/2013</td>
+        <td><%= project.status %></td>
+        <td><%= link_to 'Tasks', project %></td>
+        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+        <td><%= link_to 'Del', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    
+    <%= form_for(@project) do |f| %>
+    <tr class="add-entry-row">
+    	<td></td>
+    	<td><%= f.text_field :title, :class => "form-control input-small" %></td>
+    	<td><input type="date" class="form-control input-small"></td>
+    	<td><%= f.text_field :status, :class => "form-control input-small" %></td>
+    	<td></td>
+    	<td></td>
+    	<td></td>
+    </tr>
+    <% end %>    
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Project', new_project_path %>

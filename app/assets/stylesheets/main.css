@@ -21,32 +21,85 @@ body {
 	border-color: gray;
 }
 
-.table-clean-card {
+/* board table */
+
+.board-table {
 	width: 100%;
-	min-width: 960px;
+	min-width: 960px;	
 }
 
-.table-clean-card th {
+.board-table th {
 	padding: 0 0 0 10px;
-	border-style: solid;
+ 	border-style: solid;
 	border-width: 0 1px;
-	border-color: gray;
+	border-color: gray;	
 }
 
-.table-clean-card th h4 {
+.board-table th h4 {
 	color: gray;
 }
 
-.table-clean-card td {
+.board-table td {
 	height: 800px;
+	vertical-align: top;
 	border-style: solid;
 	border-width: 1px 1px;
-	border-color: gray;
-	vertical-align: top;
+	border-color: gray;		
 }
+
+.show-tasks {
+	height: 300px;
+	padding: 10px 0 10px 15px;
+	background-color: white;
+}
+
+/* index table */
+
+.index-table {
+	width: 100%;
+}
+
+.index-table th h4 {
+	color: gray;
+}
+
+.index-table-row {
+	height: 40px;
+	border-style: solid;
+	border-width: 2px 0;
+	border-color: #ECF0F1;
+	background-color: white;
+}
+
+.index-table-cell-one {}
+
+.project-cell-edge {
+	height: 30px;
+	width: 5px;
+	background-color: #2980B9;
+}
+
+.task-cell-edge {
+	
+}
+
+.add-entry-row {
+	height: 40px;
+	background-color: white;
+}
+
+.add-entry-row td {
+	padding-right: 20px;
+}
+
+/* all tables */
 
 .col-five-percent {
 	width: 5%;
+}
+
+.col-fifteen-percent {
+	width: 15%;
 }
 
 .col-nineteen-percent {
@@ -57,8 +110,15 @@ body {
 	width: 33%;
 }
 
-.show-tasks {
-	height: 300px;
-	padding: 10px 0 10px 15px;
+.col-sixty-five-percent {
+	width: 65%;
+}
+
+/* list concept, may not use */
+
+.side-bar {
+	min-height: 800px;
+	margin-top: 45px;
+	padding: 10px 6px;
 	background-color: white;
 }

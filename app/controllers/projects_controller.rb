@@ -4,11 +4,28 @@ class ProjectsController < ApplicationController
 	#before_filter :correct_user  #ToDo: Is something like this necessary for these actions for security?
 	
 	def index
-		@projects = Project.filter_by_status(params[:status])
+		projects = Project.filter_by_status("planned")
+		tasks = Task.stand_alone_tasks
+		items = projects + tasks
+		@items = items.sort_by &:order
+		@project = Project.new
 	end
 	
+	def list #concept to possibly replace index
+		@projects = Project.filter_by_status(params[:status])
+		@project = Project.new		
+	end	
+	
 	def board
-		@projects = Project.filter_by_status("planned")
+		projects = Project.filter_by_status("planned")
+		tasks = Task.stand_alone_tasks
+		items = projects + tasks
+		@items = items.sort_by &:order
+	end
+	
+	def update
+		@project = Project.find(params[:id])
+		@project.update_attributes(params[:project])
 	end
 
 

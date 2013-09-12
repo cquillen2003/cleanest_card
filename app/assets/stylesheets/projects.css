@@ -39,3 +39,50 @@
 	padding-top: 2px;
 	padding-right: 1%;
 }
+
+
+/* list concept, may not use */
+
+.project-row {
+	height: 45px;
+	margin: 3px 0 0 0;
+	background-color: white;
+}
+
+.project-row-left-edge {
+	height: 45px;
+	width: 0.5%;
+	background-color: #2980B9;	
+}
+
+.project-row-cell-one {
+	height: 45px;
+	width: 4.5%;
+	padding: 12px 0 0 10px;
+}
+
+.project-row-cell-two {
+	height: 45px;
+	width: 65%;
+	padding: 12px 0 0 6px;
+	color: #2980B9;
+	font-weight: bold;		
+}
+
+.project-row-cell-three {
+	height: 45px;
+	width: 15%;
+	padding: 12px 0 0 6px;
+	color: #2980B9;
+	font-weight: bold;	
+}
+
+.project-row-cell-four {
+	height: 45px;
+	width: 15%;
+	padding: 12px 0 0 6px;
+	color: #2980B9;
+	font-weight: bold;	
+}
+
+/* end list concept */

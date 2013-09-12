@@ -1,0 +1,54 @@
+<div class="row">
+	<div class="col-8">
+		<table class="table-clean-card min-width-600">
+			<tr>
+				<th class="col-five-percent"></th>
+				<th class="col-sixty-five-percent"><h4>Title</h4></th>
+				<th class="col-fifteen-percent"><h4>Category</h4></th>
+				<th class="col-fifteen-percent"><h4>Status</h4></th>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<div class="project-row">
+						<div class="project-row-left-edge pull-left"></div>
+						<div class="project-row-cell-one pull-left">
+							<input type="checkbox">
+						</div>
+						<div class="project-row-cell-two pull-left">
+							<span>Take out the papers and the trash</span>
+						</div>
+						<div class="project-row-cell-three pull-left">
+							<span>Personal</span>
+						</div>
+						<div class="project-row-cell-four pull-left">
+							<span>Planned</span>
+						</div>
+					</div>
+					<div class="project-row"></div>
+					<div class="project-row"></div>
+					<div class="project-row"></div>
+				</td>						
+			</tr>															
+		</table>
+	</div>
+	<div class="col-4">
+		<div class="side-bar">
+			<div id="new-project-panel">
+				
+				<%= form_for(@project) do |f| %>
+					<fieldset>
+						<legend>Add Project</legend>
+						<div class="form-group">
+    					<%= f.label :title %>
+    					<%= f.text_field :title, :class => "form-control" %>
+    				</div>
+						<div class="form-group">
+							<label>Description</label>
+							<textarea class="form-control" rows="3"></textarea>
+    				</div>    				
+    			</fieldset>				
+				<% end %>
+			</div>
+		</div>
+	</div>	
+</div>
