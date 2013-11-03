@@ -3,11 +3,27 @@ require 'faker'
 namespace :db do
 	desc "Fill database with sample data"
 	task populate: :environment do
-		#make_planned_projects
-		#make_started_projects
-		#make_done_projects
-		#make_project_tasks
+		make_backlog_projects
+		make_planned_projects
+		make_started_projects
+		make_done_projects
+		make_project_tasks
 		make_independent_tasks
+	end
+end
+
+def make_backlog_projects
+	10.times do |n|
+		title = Faker::Company.catch_phrase
+		notes = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
+		status = "backlog"
+		priority = "high"
+		#order = order + 1
+		Project.create!(:title => title,
+			:notes => notes,
+			:status => status,
+			:priority => priority
+		)
 	end
 end
 
@@ -15,7 +31,7 @@ def make_planned_projects
 	5.times do |n|
 		title = Faker::Company.catch_phrase
 		status = "planned"
-		order = order + 1
+		#order = order + 1
 		Project.create!(:title => title,
 			:status => status
 		)

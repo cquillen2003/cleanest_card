@@ -28,6 +28,8 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'nested_form'
+
 
 group :test do
 	gem 'capybara', '1.1.2'

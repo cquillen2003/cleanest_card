@@ -1,83 +1,59 @@
-<div class="row">
-	<div class="col-12">
-		<table class="board-table">
-			<tr>
-				<th class="col-thirty-three-percent"><h4>Planned</h4></th>
-				<th class="col-thirty-three-percent"><h4>Started</h4></th>
-				<th class="col-thirty-three-percent"><h4>Done</h4></th>
-			</tr>
-			<tr>
-				<td id= "column-one" class="columns">
-					<% @items.each do |item| %>
-						<% if item.class.name == "Project" %>
-							<div class="project">
-								<div class="project-right-margin pull-right">
-									<a href="#" class="pull-right">Edit</a>
-								</div>
-								<div class="project-body pull-right">
-									<span><%= item.title %></span>
-								</div>
-								<div class="project-footer pull-right">
-									<span class="badge pull-right">CQ</span>
-									<span class="badge">4</span>
-									<span><a href="#">Tasks</a></span>
-								</div>				
-								<div class="project-left-edge"></div>
-								<%= form_for item, :class => "hide", :remote => true do |f| %>
-									<%= f.hidden_field :status, :value => item.status, :class => "status_field" %>
-									<%= f.hidden_field :order, :value => "", :class => "order_field" %>
-									<%= f.submit :class => "hide jquery_sub" %>
-								<% end %>
-							</div>
-						<% end %>
-						<% if item.class.name == "Task" %>
-							<div class="task">
-								<div class="task-right-margin pull-right">
-									<a href="#" class="pull-right">Edit</a>
-								</div>						
-								<div class="task-body pull-right">
-									<span><%= item.title %></span>
-								</div>
-								<div class="task-left-margin pull-right">
-									<input type="checkbox" class="pull-right">
-								</div>
-								<div class="task-left-edge"></div>
-								<%= form_for item, :class => "hide", :remote => true do |f| %>
-									<%= f.hidden_field :status, :value => item.status, :class => "status_field" %>
-									<%= f.hidden_field :order, :value => "", :class => "order_field" %>
-									<%= f.submit :class => "hide jquery_sub" %>
-								<% end %>								
-							</div>
-						<% end %>							
-					<% end %>																
-				</td>
-				<td id="column-two" class="columns">
-					<div class="task">
-						<div class="task-right-margin pull-right">
-							<a href="#" class="pull-right">Edit</a>
-						</div>						
-						<div class="task-body pull-right">
-							<span>Take out the papers and the trash</span>
-						</div>
-						<div class="task-left-margin pull-right">
-							<input type="checkbox" class="pull-right">
-						</div>
-						<div class="task-left-edge"></div>
-					</div>
-					<div class="task">
-						<span>Take out the papers</span>
-					</div>
-					<div class="task">
-						<span>Take out the papers</span>
-					</div>
-					<div class="task">
-						<span>Take out the papers</span>
-					</div>																							
-				</td>
-				<td id="column-three" class="columns">
-
-				</td>
-			</tr>						
-		</table>
-	</div>
+<div class="container">
+	<h4>
+		<span style="text-decoration: underline">Projects</span>
+		for
+		<span style="text-decoration: underline">this week</span>
+		in category
+		<span style="text-decoration: underline">Kinnser</span>
+		
+	</h4>
 </div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="panel panel-default column">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">Planned</div>
+			
+			  <!-- List group -->
+			  <ul class="list-group">
+					<% @projects.each do |project| %>				
+					  <a href="#" class="list-group-item">
+					  	<span class="badge">14</span>
+					    <h4 class="list-group-item-heading"><%= project.title %></h4>
+					    <p class="list-group-item-text">...</p>
+					  </a>				
+					<% end %>    
+			  </ul>	
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="panel panel-default column">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">Started</div>
+			
+			  <!-- List group -->
+			  <ul class="list-group">
+					<% @projects.each do |project| %>				
+					  <a href="#" class="list-group-item">
+					  	<span class="badge">14</span>
+					    <h4 class="list-group-item-heading"><%= project.title %></h4>
+					    <p class="list-group-item-text">...</p>
+					  </a>				
+					<% end %>
+			  </ul>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="panel panel-default column">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">Done</div>
+			
+			  <!-- List group -->
+		
+			</div>
+		</div>
+		
+	</div>
+</div>	

@@ -1,54 +1,116 @@
-<div class="row">
-	<div class="col-8">
-		<table class="table-clean-card min-width-600">
-			<tr>
-				<th class="col-five-percent"></th>
-				<th class="col-sixty-five-percent"><h4>Title</h4></th>
-				<th class="col-fifteen-percent"><h4>Category</h4></th>
-				<th class="col-fifteen-percent"><h4>Status</h4></th>
-			</tr>
-			<tr>
-				<td colspan="4">
-					<div class="project-row">
-						<div class="project-row-left-edge pull-left"></div>
-						<div class="project-row-cell-one pull-left">
-							<input type="checkbox">
-						</div>
-						<div class="project-row-cell-two pull-left">
-							<span>Take out the papers and the trash</span>
-						</div>
-						<div class="project-row-cell-three pull-left">
-							<span>Personal</span>
-						</div>
-						<div class="project-row-cell-four pull-left">
-							<span>Planned</span>
-						</div>
-					</div>
-					<div class="project-row"></div>
-					<div class="project-row"></div>
-					<div class="project-row"></div>
-				</td>						
-			</tr>															
-		</table>
-	</div>
-	<div class="col-4">
-		<div class="side-bar">
-			<div id="new-project-panel">
-				
-				<%= form_for(@project) do |f| %>
-					<fieldset>
-						<legend>Add Project</legend>
-						<div class="form-group">
-    					<%= f.label :title %>
-    					<%= f.text_field :title, :class => "form-control" %>
-    				</div>
-						<div class="form-group">
-							<label>Description</label>
-							<textarea class="form-control" rows="3"></textarea>
-    				</div>    				
-    			</fieldset>				
-				<% end %>
-			</div>
-		</div>
-	</div>	
+<div class="container">
+	<h4>
+		<span style="text-decoration: underline">Projects</span>
+		for
+		<span style="text-decoration: underline">this week</span>
+		in category
+		<span style="text-decoration: underline">Kinnser</span>
+		
+		<a data-toggle="modal" href="#myModal" class="btn btn-primary">Launch demo modal</a>
+		
+	</h4>
 </div>
+
+<div class="container cq-white">
+		<table class="table">
+			<tr class="active">
+				<th style="width:34%">Project</th>
+				<th style="width:42%">Notes</th>
+				<th style="width:10%">Due</th>
+				<th style="width:8%">Priority</th>
+				<th style="width:3%"></th>
+				<th style="width:3%"></th>
+			</tr>
+			<% @projects.each do |project| %>
+			<tr>
+				<td><%= project.title %></td>
+				<td><%= project.notes %></td>
+				<td><%= project.due_date %></td>
+				<td><%= project.priority %></td>
+				<td><a href="#">Edit</a></td>
+				<td><a href="#">Del</a></td>
+			</tr>			
+			<% end %>
+			<tr>
+				<%= form_for(@project) do |f| %>
+				<td><%= f.text_field :title, :class => "form-control input-sm" %></td>
+				<td><%= f.text_area :notes, :class => "form-control input-sm", :rows => 3 %></td>
+				<td><%= f.text_field :title, :class => "form-control input-sm", :id => "datepicker" %></td>
+				<td><%= f.select(:status, options_for_select([["High", "High"], ["Low", "Low"]]), {}, :class => "form-control input-sm") %></td>
+				<td><a href="#"></td>
+				<td><a href="#">Save</a></td>
+				<% end %>
+			</tr>						
+		</table>
+</div>
+
+  
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      	
+<%= nested_form_for @project, :remote => true do |f| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, :class => "form-control" %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :notes %>
+    <%= f.text_area :notes, :class => "form-control", :rows => 4 %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :status %>
+    <%= f.text_field :status, :class => "form-control" %>
+  </div>
+  
+  	<div class="row">
+			<div class="col-lg-9">Task</div>
+			<div class="col-lg-3">Due Date</div>
+		</div>
+
+		<%= f.fields_for :tasks do |ff| %>
+  	<div class="row">
+			<div class="col-lg-9"><%= ff.text_field :title, :class => "form-control" %></div>
+			<div class="col-lg-3"><%= ff.text_field :status, :class => "form-control" %></div>
+		</div>		
+		<% end %>					
+				
+			
+			<p><%= f.link_to_add "Add a task", :tasks %></p>  
+  
+        
+ 
+    <%= f.submit %>
+<% end %>      	
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

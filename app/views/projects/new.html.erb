@@ -1,0 +1,19 @@
+<%= nested_form_for @project, :remote => true do |f| %>
+	
+			<%= f.label :title, "Project Name" %>
+			<%= f.text_field :title, :class => "input-xlarge" %>
+		
+			<%= f.label :status, "Status" %>								
+			<%= f.select(:status, options_for_select([["Not Started", "Not Started"], ["Planned", "Planned"], ["In Progress", "In Progress"], ["Resolved", "Done"]])) %>	
+
+			<%= f.fields_for :tasks do |ff| %>
+				<%= ff.label :title, "Task Name" %>
+				<%= ff.text_field :title, :class => "input-xlarge" %>
+			<% end %>
+			
+			<%= f.link_to_add "Add a task", :tasks %>
+
+
+    <%= f.submit "Add project", :class => "btn btn-primary" %>
+
+<% end %>

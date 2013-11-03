@@ -34,4 +34,6 @@ $(function() {
 	$( ".columns" ).disableSelection();
 	
 	
+    $( "#datepicker" ).datepicker();
+	
 });
