@@ -1,0 +1,7 @@
+//alert("<%= params[:row] %>");
+
+//$("#row-<%= params[:row] %>").after("<tr><td>Yellow world</td></tr>");
+
+
+
+$("#proj_id-<%= params[:proj_id] %>").after("<%= j(render "new_row") %>");

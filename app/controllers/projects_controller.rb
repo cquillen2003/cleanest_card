@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
 	before_filter :signed_in_user
 	#before_filter :correct_user  #ToDo: Is something like this necessary for these actions for security?
 	
-	respond_to :html, :json
+	respond_to :html, :json, :js
 	
 	def index
 		projects = Project.filter_by_status("planned")
@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
 	
 	def list #concept to possibly replace index
 		@projects = Project.filter_by_status("backlog")
-		@project = Project.new		
+		@project = Project.new	
 	end	
 	
 	def board
@@ -34,6 +34,22 @@ class ProjectsController < ApplicationController
 		@project = Project.new
 	end
 	
+	def create
+		@project = Project.new(params[:project])
+		@project.save
+		
+		respond_with(@project)
+			#flash[:notice] = "Project created successfully"
+		#else
+			#render 'edit'
+		#end
+	end
+	
+	def destroy
+		@project = Project.find(params[:id])
+    @project.destroy
+    respond_with(@project)
+  end
 
 
   private

@@ -14,35 +14,29 @@
 <div class="container cq-white">
 		<table class="table">
 			<tr class="active">
-				<th style="width:34%">Project</th>
+				<th style="width:31%">Project</th>
 				<th style="width:42%">Notes</th>
 				<th style="width:10%">Due</th>
 				<th style="width:8%">Priority</th>
 				<th style="width:3%"></th>
 				<th style="width:3%"></th>
+				<th style="width:3%"></th>
 			</tr>
 			<% @projects.each do |project| %>
-			<tr>
+			<tr id="proj_id-<%= project.id %>">
 				<td><%= project.title %></td>
 				<td><%= project.notes %></td>
 				<td><%= project.due_date %></td>
 				<td><%= project.priority %></td>
 				<td><a href="#">Edit</a></td>
-				<td><a href="#">Del</a></td>
+				<td><%= link_to 'Del', project, method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %></a></td>
+				<td><%= link_to "+", new_project_path(:proj_id => project.id), :remote => true %></td>
 			</tr>			
-			<% end %>
-			<tr>
-				<%= form_for(@project) do |f| %>
-				<td><%= f.text_field :title, :class => "form-control input-sm" %></td>
-				<td><%= f.text_area :notes, :class => "form-control input-sm", :rows => 3 %></td>
-				<td><%= f.text_field :title, :class => "form-control input-sm", :id => "datepicker" %></td>
-				<td><%= f.select(:status, options_for_select([["High", "High"], ["Low", "Low"]]), {}, :class => "form-control input-sm") %></td>
-				<td><a href="#"></td>
-				<td><a href="#">Save</a></td>
-				<% end %>
-			</tr>						
+			<% end %>						
 		</table>
 </div>
+
+
 
   
 <!-- Modal -->
