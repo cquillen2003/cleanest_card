@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  attr_accessible :project_id, :title, :status, :order
+  attr_accessible :project_id, :name, :description, :notes, :status, :order
   
   belongs_to :project
   

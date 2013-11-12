@@ -1,8 +1,8 @@
 <tr id="new-row">
 	<%= form_for(@project, :remote => true) do |f| %>
 	<%= f.hidden_field :status, :value => "backlog" %>
-	<td><%= f.text_field :title, :class => "form-control input-sm" %></td>
-	<td><%= f.text_field :notes, :class => "form-control input-sm" %></td>
+	<td><%= f.text_field :name, :class => "form-control input-sm" %></td>
+	<td><%= f.text_field :description, :class => "form-control input-sm" %></td>
 	<td><%= f.text_field :due_date, :class => "form-control input-sm", :id => "datepicker" %></td>
 	<td><%= f.select(:priority, options_for_select([["High", "High"], ["Low", "Low"]]), {}, :class => "form-control input-sm") %></td>
 	<td><a href="#"></td>

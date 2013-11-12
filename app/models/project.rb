@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  attr_accessible :title, :notes, :status, :order, :due_date, :priority, :tasks_attributes
+  attr_accessible :name, :description, :notes, :status, :order, :due_date, :priority, :tasks_attributes
   
   has_many :tasks
   accepts_nested_attributes_for :tasks

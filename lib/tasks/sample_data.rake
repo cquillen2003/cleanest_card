@@ -14,13 +14,13 @@ end
 
 def make_backlog_projects
 	10.times do |n|
-		title = Faker::Company.catch_phrase
-		notes = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
+		name = Faker::Company.catch_phrase
+		description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
 		status = "backlog"
 		priority = "high"
 		#order = order + 1
-		Project.create!(:title => title,
-			:notes => notes,
+		Project.create!(:name => name,
+			:description => description,
 			:status => status,
 			:priority => priority
 		)
@@ -29,10 +29,10 @@ end
 
 def make_planned_projects
 	5.times do |n|
-		title = Faker::Company.catch_phrase
+		name = Faker::Company.catch_phrase
 		status = "planned"
 		#order = order + 1
-		Project.create!(:title => title,
+		Project.create!(:name => name,
 			:status => status
 		)
 	end
@@ -40,9 +40,9 @@ end
 
 def make_started_projects
 	3.times do |n|
-		title = Faker::Company.catch_phrase
+		name = Faker::Company.catch_phrase
 		status = "started"
-		Project.create!(:title => title,
+		Project.create!(:name => name,
 			:status => status
 		)
 	end
@@ -50,9 +50,9 @@ end
 
 def make_done_projects
 	4.times do |n|
-		title = Faker::Company.catch_phrase
+		name = Faker::Company.catch_phrase
 		status = "done"
-		Project.create!(:title => title,
+		Project.create!(:name => name,
 			:status => status
 		)
 	end
@@ -62,9 +62,9 @@ def make_project_tasks
 	projects = Project.all
 	projects.each do |project|
 		5.times do |n|
-			title = Faker::Company.catch_phrase
+			name = Faker::Company.catch_phrase
 			status = "planned"
-			task = project.tasks.create!(:title => title, :status => status)
+			task = project.tasks.create!(:name => name, :status => status)
 			task.save
 		end
 	end
@@ -72,9 +72,9 @@ end
 
 def make_independent_tasks
 	4.times do |n|
-		title = Faker::Company.catch_phrase
+		name = Faker::Company.catch_phrase
 		status = "planned"
-		Task.create!(:title => title,
+		Task.create!(:name => name,
 			:status => status,
 			:project_id => 0
 		)

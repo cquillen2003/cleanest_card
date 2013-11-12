@@ -15,7 +15,7 @@
 		<table class="table">
 			<tr class="active">
 				<th style="width:31%">Project</th>
-				<th style="width:42%">Notes</th>
+				<th style="width:42%">Description</th>
 				<th style="width:10%">Due</th>
 				<th style="width:8%">Priority</th>
 				<th style="width:3%"></th>
@@ -24,8 +24,8 @@
 			</tr>
 			<% @projects.each do |project| %>
 			<tr id="proj_id-<%= project.id %>">
-				<td><%= project.title %></td>
-				<td><%= project.notes %></td>
+				<td><%= project.name %></td>
+				<td><%= project.description %></td>
 				<td><%= project.due_date %></td>
 				<td><%= project.priority %></td>
 				<td><a href="#">Edit</a></td>
@@ -64,8 +64,8 @@
   
   
   <div class="form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title, :class => "form-control" %>
+    <%= f.label :name %>
+    <%= f.text_field :name, :class => "form-control" %>
   </div>
   
   <div class="form-group">
@@ -85,7 +85,7 @@
 
 		<%= f.fields_for :tasks do |ff| %>
   	<div class="row">
-			<div class="col-lg-9"><%= ff.text_field :title, :class => "form-control" %></div>
+			<div class="col-lg-9"><%= ff.text_field :name, :class => "form-control" %></div>
 			<div class="col-lg-3"><%= ff.text_field :status, :class => "form-control" %></div>
 		</div>		
 		<% end %>					
