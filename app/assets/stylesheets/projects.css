@@ -86,3 +86,14 @@
 }
 
 /* end list concept */
+
+.show-project-header {
+	padding: 0 30px;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-color: gray;
+}
+
+.show-project-notes {
+	padding: 0 30px;
+}

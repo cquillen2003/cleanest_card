@@ -14,15 +14,21 @@ class ProjectsController < ApplicationController
 	end
 	
 	def list #concept to possibly replace index
-		@projects = Project.filter_by_status("backlog")
+		@projects = Project.all
 		@project = Project.new	
 	end	
 	
 	def board
 		@projects = Project.filter_by_status("planned")
+		@project = Project.new
 		#tasks = Task.stand_alone_tasks
 		#items = projects + tasks
 		#@items = items.sort_by &:order
+	end
+	
+	def show
+		@project = Project.find(params[:id])
+		respond_with(@project)
 	end
 	
 	def update

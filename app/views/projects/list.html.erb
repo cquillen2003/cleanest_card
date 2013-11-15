@@ -5,29 +5,24 @@
 		<span style="text-decoration: underline">this week</span>
 		in category
 		<span style="text-decoration: underline">Kinnser</span>
-		
-		<a data-toggle="modal" href="#myModal" class="btn btn-primary">Launch demo modal</a>
-		
 	</h4>
 </div>
 
 <div class="container cq-white">
 		<table class="table">
 			<tr class="active">
-				<th style="width:31%">Project</th>
+				<th style="width:39%">Project</th>
 				<th style="width:42%">Description</th>
 				<th style="width:10%">Due</th>
-				<th style="width:8%">Priority</th>
 				<th style="width:3%"></th>
 				<th style="width:3%"></th>
 				<th style="width:3%"></th>
 			</tr>
 			<% @projects.each do |project| %>
 			<tr id="proj_id-<%= project.id %>">
-				<td><%= project.name %></td>
+				<td><%= link_to project.name, project_path(project) %>
 				<td><%= project.description %></td>
 				<td><%= project.due_date %></td>
-				<td><%= project.priority %></td>
 				<td><a href="#">Edit</a></td>
 				<td><%= link_to 'Del', project, method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %></a></td>
 				<td><%= link_to "+", new_project_path(:proj_id => project.id), :remote => true %></td>
@@ -37,8 +32,6 @@
 </div>
 
 
-
-  
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -48,55 +41,7 @@
         <h4 class="modal-title">Modal title</h4>
       </div>
       <div class="modal-body">
-      	
-<%= nested_form_for @project, :remote => true do |f| %>
-  <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
-      <ul>
-      <% @project.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  
-  
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, :class => "form-control" %>
-  </div>
-  
-  <div class="form-group">
-    <%= f.label :notes %>
-    <%= f.text_area :notes, :class => "form-control", :rows => 4 %>
-  </div>
-  
-  <div class="form-group">
-    <%= f.label :status %>
-    <%= f.text_field :status, :class => "form-control" %>
-  </div>
-  
-  	<div class="row">
-			<div class="col-lg-9">Task</div>
-			<div class="col-lg-3">Due Date</div>
-		</div>
-
-		<%= f.fields_for :tasks do |ff| %>
-  	<div class="row">
-			<div class="col-lg-9"><%= ff.text_field :name, :class => "form-control" %></div>
-			<div class="col-lg-3"><%= ff.text_field :status, :class => "form-control" %></div>
-		</div>		
-		<% end %>					
-				
-			
-			<p><%= f.link_to_add "Add a task", :tasks %></p>  
-  
-        
- 
-    <%= f.submit %>
-<% end %>      	
+      	      	
 
 
 
@@ -107,4 +52,5 @@
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div><!-- /.modal -->	
+  

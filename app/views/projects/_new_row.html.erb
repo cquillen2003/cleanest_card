@@ -4,7 +4,6 @@
 	<td><%= f.text_field :name, :class => "form-control input-sm" %></td>
 	<td><%= f.text_field :description, :class => "form-control input-sm" %></td>
 	<td><%= f.text_field :due_date, :class => "form-control input-sm", :id => "datepicker" %></td>
-	<td><%= f.select(:priority, options_for_select([["High", "High"], ["Low", "Low"]]), {}, :class => "form-control input-sm") %></td>
 	<td><a href="#"></td>
 	<td><%= f.submit "Add", :class => "btn btn-primary btn-sm" %></td>
 	<% end %>

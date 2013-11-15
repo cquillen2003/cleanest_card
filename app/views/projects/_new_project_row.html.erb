@@ -2,7 +2,6 @@
 	<td><%= @project.name %></td>
 	<td><%= @project.description %></td>
 	<td><%= @project.due_date %></td>
-	<td><%= @project.priority %></td>
 	<td><a href="#">Edit</a></td>
 	<td><a href="#">Del</a></td>
 	<td><%= link_to "+", new_project_path(:proj_id => @project.id), :remote => true %></td>
