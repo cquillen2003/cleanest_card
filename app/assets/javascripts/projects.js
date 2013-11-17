@@ -34,6 +34,10 @@ $(function() {
 	$( ".columns" ).disableSelection();
 	
 	
-    $( "#datepicker" ).datepicker();
+  $( "#datepicker" ).datepicker();
+  
+  $("#cq-scrollbar").slimScroll({
+  	height: 'auto'
+  });
 	
 });

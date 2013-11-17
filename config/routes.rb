@@ -5,6 +5,7 @@ CleanestCard::Application.routes.draw do
   	collection do
   		get 'board'
   		get 'list'
+  		get 'plan'
   	end
   	resources :tasks do
   		collection do

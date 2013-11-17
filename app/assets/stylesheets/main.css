@@ -1,14 +1,27 @@
-body {
-	padding-top: 80px;
-	background-color: #ECF0F1;
-}
-
-.column {
-	height: 600px;
-}
 
 .cq-white {
-	min-height: 600px;
+	/*min-height: 700px;*/
 	padding: 10px 10px 0 10px;
 	background-color: white;
 }
+
+table {
+	width: 100%;
+}
+
+td {
+	height: 600px;
+}
+
+.left-middle-columns {
+	border-width: 1px 5px 1px 1px;
+	border-style: solid;
+	border-color: #ECF0F1;	
+}
+
+.right-column {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #ECF0F1;
+}
+

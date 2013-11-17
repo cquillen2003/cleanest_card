@@ -1,99 +1,90 @@
-.project {
-	height: 64px;
-	margin: 2px 5px 0 5px;
-	border-width: 2px 2px 2px 0;
-	border-style: solid;
-	border-color: #D8D8D8;
-	background-color: white;	
+html {
+	height: 100%;
 }
 
-.project a {
-	color: gray;
+body {
+	height: 100%;
+	background-color: #D8D8D8;
+}
+
+.list-group-item:first-child {
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+
+.list-group-item {
+	border-left-width: 0;
+	border-right-width: 0;
+}
+
+.list-group-item:last-child {
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.submenu {
+	height: 40px;
+	margin-top: 80px;
+	padding-left: 12px;
+}
+
+.submenu a {
+	font-size: 16px;
+	font-weight: bold;
+	color: black;
 	text-decoration: underline;
 }
 
-.project-left-edge {
-	height: 60px;
-	width: 2%;
-	background-color: #2980B9;
+.container-full-width {
+	height: 100%;
+	padding: 0 15px;
+	margin-left: 0;
+	margin-right: 13px;
 }
 
-.project-body {
-	height: 35px;
-	width: 89%;
-	padding: 2px 5px; /*TODO: Research why top and bottom padding is not increasing height*/
-	color: #2980B9;
-	font-weight: bold;
-	line-height: 1.2;
+.planned {
+	padding-left: 27px;
+	padding-right: 3px;
 }
 
-.project-footer {
-	height: 25px;
-	width: 89%;
-	padding: 2px 5px; /*TODO: Research why top and bottom padding is not increasing height*/
+.started {
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
-.project-right-margin {
-	height: 60px;
-	width: 9%;
-	padding-top: 2px;
-	padding-right: 1%;
+.done {
+	padding-left: 3px;
+	padding-right: 27px;
 }
 
-
-/* list concept, may not use */
-
-.project-row {
-	height: 45px;
-	margin: 3px 0 0 0;
+.column {
+	height: 600px;
 	background-color: white;
 }
 
-.project-row-left-edge {
+.column-header {
 	height: 45px;
-	width: 0.5%;
-	background-color: #2980B9;	
-}
-
-.project-row-cell-one {
-	height: 45px;
-	width: 4.5%;
-	padding: 12px 0 0 10px;
-}
-
-.project-row-cell-two {
-	height: 45px;
-	width: 65%;
-	padding: 12px 0 0 6px;
-	color: #2980B9;
-	font-weight: bold;		
-}
-
-.project-row-cell-three {
-	height: 45px;
-	width: 15%;
-	padding: 12px 0 0 6px;
-	color: #2980B9;
-	font-weight: bold;	
-}
-
-.project-row-cell-four {
-	height: 45px;
-	width: 15%;
-	padding: 12px 0 0 6px;
-	color: #2980B9;
-	font-weight: bold;	
-}
-
-/* end list concept */
-
-.show-project-header {
-	padding: 0 30px;
-	border-width: 0 0 1px 0;
+	border-width: 1px;
 	border-style: solid;
-	border-color: gray;
+	border-color: #f5f5f5;
+	background-color: #f5f5f5;
 }
 
-.show-project-notes {
-	padding: 0 30px;
+.backlog-header, .column-header h3 {
+	margin: 10px 0 0 15px;
+}
+
+.sidebar {
+	height: 100%;
+	padding: 0;
+	border-width: 0 2px 0 1px;
+	border-style: solid;
+	border-color: #A0A0A0;
+	background-color: #D8D8D8;
+	overflow: hidden;
+}
+
+.sidebar-top {
+	height: 150px;
+	background-color: #D8D8D8;
 }
