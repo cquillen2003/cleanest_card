@@ -57,9 +57,17 @@ body {
 	padding-right: 27px;
 }
 
-.column {
+#column {
 	height: 600px;
-	background-color: white;
+	background-color: #ffffff;
+}
+
+#column .list-group {
+	margin: 0;
+}
+
+#column .list-group-item {
+	color: black;
 }
 
 .column-header {
