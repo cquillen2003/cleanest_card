@@ -34,16 +34,24 @@ $(function() {
 	$( ".columns" ).disableSelection();
 	
 	
-  $( "#datepicker" ).datepicker();
-  
-  $("#cq-scrollbar").slimScroll({
-  	height: 'auto'
-  });
+	$("#backlog").slimScroll({
+			height: 'auto',
+			distance: '3px'
+	});
 	
 });
 
-$("#toggle-menu").click(function() {
-	$("#sidebar").detach();
-	$("#board").removeClass("col-sm-9").addClass("col-sm-12");
-	
+$(".card").mouseenter(function() {
+	$(this).children(".card-controls").removeClass("invisible");
 });
+
+$(".card").mouseleave(function() {
+	$(this).children(".card-controls").addClass("invisible");
+});
+
+$(".hide-tasks").click(function() {
+	$(this).closest("li")
+	.nextUntil(".project")
+	.remove();
+});
+

@@ -1,11 +1,11 @@
 class TasksController < ApplicationController
+
+	respond_to :html, :json, :js
 	
 	def index
 		@project = Project.find(params[:project_id])
-		@tasks = @project.tasks.filter_by_status(params[:status])
-		@planned_count = @project.tasks.filter_by_status("planned").count
-		@started_count = @project.tasks.filter_by_status("started").count
-		@done_count = @project.tasks.filter_by_status("done").count
+		@tasks = @project.tasks.filter_by_status("planned")
+		respond_with(@project, @tasks)
 	end
 	
 	def show

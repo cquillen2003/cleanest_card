@@ -1,0 +1,8 @@
+$("#proj-<%= @project.id %> .show-tasks").addClass("hidden");
+$("#proj-<%= @project.id %> .hide-tasks").removeClass("hidden");
+	
+
+
+<% @tasks.each do |task| %>
+	$("#proj-<%= @project.id %>").after("<%= j(render :partial => "task_card", :locals => { :project => @project, :task => task }) %>");
+<% end %>

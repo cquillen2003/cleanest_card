@@ -43,6 +43,7 @@ class ProjectsController < ApplicationController
 	
 	def new
 		@project = Project.new
+		respond_with(@project)
 	end
 	
 	def create

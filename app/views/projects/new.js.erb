@@ -3,5 +3,8 @@
 //$("#row-<%= params[:row] %>").after("<tr><td>Yellow world</td></tr>");
 
 
+//For list view
+//$("#proj_id-<%= params[:proj_id] %>").after("<%= j(render "new_row") %>");
 
-$("#proj_id-<%= params[:proj_id] %>").after("<%= j(render "new_row") %>");
+//For board view
+$("#proj-<%= params[:proj_id] %>").after("<%= j(render "new_card") %>");

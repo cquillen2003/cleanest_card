@@ -1,141 +1,103 @@
-<div class="container-full-width">
+<div class="container-full">
 
-	<div class="row" style="background-color: #E8E8E8; height: 100%;">
-		<div class="col-sm-3 sidebar" id="sidebar">
-			<div class="submenu">
-				<span>Category</span>
-				<a href="#">Kinnser</a>
-				&nbsp;
-				&nbsp;
-				<span>Sort by</span>
-				<a href="#">Priority</a>
-			</div>
-	
-			<div class="column-header">
-				<h3>Backlog</h3>
-			</div>
-			
-			<div class="list-group" id="cq-scrollbar">
-			<% @projects.each do |project| %>	
-			  <a href="#" class="list-group-item">
-			    <h4 class="list-group-item-heading"><%= project.name %></h4>
-			    <p class="list-group-item-text">...</p>
-			  </a>
-			<% end %>
-			</div>
+	<div class="row">
+		<div class="col-md-7">
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Backlog</h3>
+			  </div>
+			  
+				<ul class="list-group" style="height: 750px">
+				<div id="backlog">
+					<% @projects.each do |project| %>
+						<% if project.status == "backlog" %>
+						  <li class="list-group-item card project" id="proj-<%= project.id %>">
+					  		<i class="fa fa-folder-o pull-right"></i>
+					    	<h5 class="list-group-item-heading"><%= project.name %></h5>
+					    	<p class="list-group-item-text"><%= project.description %></p>
+					    	<small class="card-controls invisible">
+					    		<i class="fa fa-plus-square-o"></i>&nbsp;
+					    		<%= link_to "Tasks", project_tasks_url(project), :remote => true , :class => "show-tasks" %>
+									<a href="#" class="hide-tasks hidden">Hide Tasks</a>
+									&nbsp;&nbsp;&nbsp;
+				    		</small>				    		
+					    	<small class="card-controls invisible">
+					    		<i class="fa fa-folder-open-o"></i>&nbsp;View&nbsp;&nbsp;&nbsp;
+				    		</small>
+					    	<small class="card-controls invisible">
+					    		<i class="fa fa-chevron-down"></i>&nbsp;
+					    		<%= link_to "Insert", new_project_path(:proj_id => project.id), :remote => true %>&nbsp;&nbsp;&nbsp;
+				    		</small>
+					    	<small class="card-controls invisible">
+					    		<i class="fa fa-times"></i>&nbsp;
+					    		<%= link_to 'Delete', project, method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %>
+				    		</small>
+					    </li>
+					  <% end %>
+				  <% end %>
+   
+				</div>
+				</ul>
+			</div>			
 		</div>
-		
-		<div class="col-sm-9" id="board">
+		<div class="col-md-17">
 			<div class="row">
-				<div class="col-sm-12">
-					<div class="submenu" id="toggle-menu">
-						<a href="#">Projects</a>
-						<span>this</span>
-						<a href="#">Week</a>
-						<span>in category</span>
-						<a href="#">Kinnser</a>
-					</div>
+				<div class="col-md-8">
+					<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Not Started</h3>
+					  </div>
+
+						<div class="list-group">
+							<% @projects.each do |project| %>
+								<% if project.status == "planned" %>
+								  <a href="#" class="list-group-item">
+								    <h5 class="list-group-item-heading"><%= project.name %></h5>
+								    <p class="list-group-item-text"><%= project.description %></p>
+								  </a>
+							  <% end %>
+						  <% end %>
+						</div>
+
+
+					</div>		
+				</div>
+				<div class="col-md-8">
+					<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Started</h3>
+					  </div>
+						<div class="list-group">
+							<% @projects.each do |project| %>
+								<% if project.status == "started" %>
+								  <a href="#" class="list-group-item">
+								    <h5 class="list-group-item-heading"><%= project.name %></h5>
+								    <p class="list-group-item-text"><%= project.description %></p>
+								  </a>
+							  <% end %>
+						  <% end %>
+						</div>
+					</div>		
+				</div>		
+				<div class="col-md-8">
+					<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Done</h3>
+					  </div>
+						<div class="list-group">
+							<% @projects.each do |project| %>
+								<% if project.status == "done" %>
+								  <a href="#" class="list-group-item">
+								    <h5 class="list-group-item-heading"><%= project.name %></h5>
+								    <p class="list-group-item-text"><%= project.description %></p>
+								  </a>
+							  <% end %>
+						  <% end %>
+						</div>
+					</div>		
 				</div>
 			</div>
-			<div class="row">	
-			  <div class="col-sm-4 planned">
-					<div class="column-header">
-						<h3>Planned</h3>
-					</div>
-					<div class="column">				
-						<div class="list-group">
-						  <a href="#" class="list-group-item">
-						    <h4 class="list-group-item-heading">List group item heading</h4>
-						    <p class="list-group-item-text">...</p>
-						  </a>
-						  <a href="#" class="list-group-item">
-						    <h4 class="list-group-item-heading">List group item heading</h4>
-						    <p class="list-group-item-text">...</p>
-						  </a>
-						  <a href="#" class="list-group-item">
-						    <h4 class="list-group-item-heading">List group item heading</h4>
-						    <p class="list-group-item-text">...</p>
-						  </a>  
-						</div>			
-					</div>
-			  </div>
-			  <div class="col-sm-4 started">
-					<div class="column-header">
-						<h3>Started</h3>
-					</div>
-					<div class="column"></div>	    	
-			  </div>
-			  <div class="col-sm-4 done">
-					<div class="column-header">
-						<h3>Done</h3>
-					</div>
-					<div class="column"></div>
-			  </div>	
-			</div>
-		</div>	
+		</div>
 	</div>
 	
 </div>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">New Project</h4>
-      </div>
-      <div class="modal-body">
-              
-<%= nested_form_for @project, :remote => true do |f| %>
-  <% if @project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
-
-      <ul>
-      <% @project.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  
-  
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, :class => "form-control" %>
-  </div>
-  
-  <div class="form-group">
-    <%= f.label :description %>
-    <%= f.text_area :description, :class => "form-control", :rows => 3 %>
-  </div>
-  
-  <div class="form-group">
-    <%= f.label :status %>
-    <%= f.select(:status, options_for_select([["Backlog", "Backlog"], ["Planned", "Planned"]]), {}, :class => "form-control") %>
-  </div>
-
-	  <%= f.fields_for :tasks do |ff| %>
-	
-	  <%= ff.text_field :name, :class => "form-control" %>
-	  <%= ff.text_field :status, :class => "form-control" %>               
-	  <% end %>                                        
-	                  
-	  <%= f.link_to_add "Add a task", :tasks %>
- 
-  <%= f.submit %>
-<% end %>              
-
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
