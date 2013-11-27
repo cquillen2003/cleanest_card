@@ -8,28 +8,9 @@ class ProjectsController < ApplicationController
 	def index
 		projects = Project.filter_by_status("planned")
 		tasks = Task.stand_alone_tasks
-		items = projects + tasks
-		@items = items.sort_by &:order
+		@items = projects + tasks
 		@project = Project.new
 	end
-	
-	def list #concept to possibly replace index
-		@projects = Project.all
-		@project = Project.new	
-	end	
-	
-	def board
-		@projects = Project.all
-		@project = Project.new
-		#tasks = Task.stand_alone_tasks
-		#items = projects + tasks
-		#@items = items.sort_by &:order
-	end
-
-	def plan
-		@projects = Project.filter_by_status("planned")
-		@project = Project.new
-	end	
 	
 	def show
 		@project = Project.find(params[:id])

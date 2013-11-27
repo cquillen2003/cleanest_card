@@ -1,12 +1,12 @@
 CleanestCard::Application.routes.draw do
+	
+  get "boards/plan"
+
+  get "boards/current"
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :projects do
-  	collection do
-  		get 'board'
-  		get 'list'
-  		get 'plan'
-  	end
   	resources :tasks do
   		collection do
   			put :mass_update

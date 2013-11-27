@@ -73,10 +73,9 @@ end
 def make_independent_tasks
 	4.times do |n|
 		name = Faker::Company.catch_phrase
-		status = "planned"
+		status = "backlog"
 		Task.create!(:name => name,
-			:status => status,
-			:project_id => 0
+			:status => status
 		)
 	end
 end

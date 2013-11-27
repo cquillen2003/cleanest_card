@@ -8,7 +8,7 @@ class Task < ActiveRecord::Base
   end
   
   def self.stand_alone_tasks
-  	where("project_id = ?", 0)
+  	where("project_id IS NULL")
   end    
   
 end

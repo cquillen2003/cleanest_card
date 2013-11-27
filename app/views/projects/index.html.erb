@@ -1,45 +1,56 @@
-<table class="index-table">
-  <thead>
-    <tr>
-    	<th></th>
-      <th><h4>Title</h4></th>
-      <th><h4>Due</h4></th>
-      <th><h4>Status</h4></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="container">
+	<h4>
+		<span style="text-decoration: underline">Projects</span>
+		for
+		<span style="text-decoration: underline">this week</span>
+		in category
+		<span style="text-decoration: underline">Kinnser</span>
+	</h4>
+</div>
 
-  <tbody>
-    <% @items.each do |project| %>
-      <tr class="index-table-row">
-      	<td>
-      		<div class="project-cell-edge pull-left"></div>
-      		<input type="checkbox"></td>
-        <td><%= project.title %></td>
-        <td>8/15/2013</td>
-        <td><%= project.status %></td>
-        <td><%= link_to 'Tasks', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Del', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-    
-    <%= form_for(@project) do |f| %>
-    <tr class="add-entry-row">
-    	<td></td>
-    	<td><%= f.text_field :title, :class => "form-control input-small" %></td>
-    	<td><input type="date" class="form-control input-small"></td>
-    	<td><%= f.text_field :status, :class => "form-control input-small" %></td>
-    	<td></td>
-    	<td></td>
-    	<td></td>
-    </tr>
-    <% end %>    
-  </tbody>
-</table>
+<div class="container cq-white">
+		<table class="table">
+			<tr class="active">
+				<th style="width:39%">Project</th>
+				<th style="width:42%">Description</th>
+				<th style="width:10%">Due</th>
+				<th style="width:3%"></th>
+				<th style="width:3%"></th>
+				<th style="width:3%"></th>
+			</tr>
+			<% @projects.each do |project| %>
+			<tr id="proj_id-<%= project.id %>">
+				<td><%= link_to project.name, project_path(project) %>
+				<td><%= project.description %></td>
+				<td><%= project.due_date %></td>
+				<td><a href="#">Edit</a></td>
+				<td><%= link_to 'Del', project, method: :delete, :remote => true, data: { confirm: 'Are you sure?' } %></a></td>
+				<td><%= link_to "+", new_project_path(:proj_id => project.id), :remote => true %></td>
+			</tr>			
+			<% end %>						
+		</table>
+</div>
 
-<br>
 
-<%= link_to 'New Project', new_project_path %>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      	      	
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->	
+  
