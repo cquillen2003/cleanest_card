@@ -20,6 +20,8 @@ class ProjectsController < ApplicationController
 	def update
 		@project = Project.find(params[:id])
 		@project.update_attributes(params[:project])
+		
+		respond_with(@project)
 	end
 	
 	def new

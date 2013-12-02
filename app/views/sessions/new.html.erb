@@ -1,13 +1,24 @@
-<h1>Sessions#new</h1>
-
-<%= form_for(:session, url: sessions_path) do |f| %>
+<div id="sign-in-form">
 	
-	<%= f.label :email %><br />
-  <%= f.text_field :email %><br />
+	<h2>Please sign in</h2>
+	
+	<br />
 
-  <%= f.label :password %><br />
-  <%= f.password_field :password %><br />
+	<%= form_for(:session, url: sessions_path) do |f| %>
+		
+		<div class="form-group">
+			<%= f.label :email %><br />
+	    <%= f.text_field :email, :class => "form-control" %>
+	  </div>
+		<div class="form-group">
+			<%= f.label :password %><br />
+	    <%= f.password_field :password, :class => "form-control" %>
+	  </div>
+	  
+	  <br />
+	
+	  <%= f.submit "Sign in", :class => "btn btn-primary btn-lg btn-block" %>
+	
+	<% end %>
 
-  <%= f.submit "Sign in" %>
-
-<% end %>
+</div>

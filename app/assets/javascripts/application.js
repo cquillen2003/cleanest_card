@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery-ui-1.10.3.custom
+//= require bootstrap
 //= require jquery_nested_form
 //= require jquery.slimscroll
 //= require_tree .

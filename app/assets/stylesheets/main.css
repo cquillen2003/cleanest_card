@@ -6,11 +6,29 @@ body {
 	padding: 0 15px;
 }
 
+.menu {
+	height: 30px;
+}
+
+.menu a {
+	margin: 0;
+	padding: 0;
+	color: inherit;
+	font-size: 16px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
 .card {
 	padding-bottom: 2px;
 }
 
 .card a {
 	color: inherit;
+}
+
+#sign-in-form {
+	margin: 100px auto 0 auto;
+	width: 300px;
 }
 

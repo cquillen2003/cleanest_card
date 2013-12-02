@@ -1,57 +1,71 @@
 $(function() {
 	
-	$( ".columns" ).sortable( 
-		{ connectWith: ".columns" },
-		{ items: ".project, .task"}
+	
+	$(".column").sortable( 
+		{ connectWith: ".column" },
+		{ items: ".sortable" }
 	);
 	
-	$(".columns").on("sortstop", function( event, ui ) {
+	$(".column").disableSelection();	
+	
+	$(".column").on("sortstop", function( event, ui ) {
 		
 		//Set order value of items in Planned column
-		$("#column-one .project, #column-one .task").each(function(index) {
-			if ($(this).find(".order_field").val() != index + 1) {
-				$(this).find(".order_field").val(index + 1);
-				$(this).find(".jquery_sub").trigger('click');
-			}
-		});
+		//$("#column-one .project, #column-one .task").each(function(index) {
+			//if ($(this).find(".order_field").val() != index + 1) {
+				//$(this).find(".order_field").val(index + 1);
+				//$(this).find(".jquery_sub").trigger('click');
+			//}
+		//});
 		
 		//Set status of dropped item
-		if (ui.item.closest(".columns").attr("id") == "column-one") {
+		if (ui.item.closest(".column").attr("id") == "column-backlog") {
+			var status = "backlog"
+		}
+		if (ui.item.closest(".column").attr("id") == "column-planned") {
 			var status = "planned"
 		}
-		if (ui.item.closest(".columns").attr("id") == "column-two") {
+		if (ui.item.closest(".column").attr("id") == "column-started") {
 			var status = "started"
 		}
-		if (ui.item.closest(".columns").attr("id") == "column-three") {
+		if (ui.item.closest(".column").attr("id") == "column-done") {
 			var status = "done"
 		}
 		//console.log(status)
 		$(ui.item).find(".status_field").val(status);
-		$(ui.item).find(".jquery_sub").trigger('click');
+	  $(ui.item).find(".jquery_sub").trigger('click');
 		 
 	});
 	
-	$( ".columns" ).disableSelection();
-	
-	
-	$("#backlog").slimScroll({
-			height: 'auto',
-			distance: '3px'
-	});
+	//Had to disable for now because it required a div wrapper #backlog around li's
+	//$("#backlog").slimScroll({
+			//height: 'auto',
+			//distance: '3px'
+	//});
 	
 });
 
-$(".card").mouseenter(function() {
+
+//Using .on and delegated event binding approach so that projects added via ajax work
+$(".column").on( "mouseenter", "li", function() {
 	$(this).children(".card-controls").removeClass("invisible");
 });
 
-$(".card").mouseleave(function() {
+$(".column").on( "mouseleave", "li", function() {
 	$(this).children(".card-controls").addClass("invisible");
 });
 
+
 $(".hide-tasks").click(function() {
 	$(this).closest("li")
-	.nextUntil(".project")
+	.nextUntil(".project, .task")
 	.remove();
+	
+	
+	$(this).siblings(".show-tasks").removeClass("hidden");
+	$(this).addClass("hidden");
+	
+	$(this).closest(".project").addClass("sortable");
+	
 });
 

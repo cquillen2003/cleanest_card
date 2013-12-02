@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
-gem  'bcrypt-ruby', '3.0.1'
+gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1'
 
 gem 'pg'
@@ -27,7 +27,6 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 gem 'nested_form'
 
 

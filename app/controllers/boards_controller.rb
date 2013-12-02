@@ -2,11 +2,12 @@ class BoardsController < ApplicationController
 	
   def plan
 		projects = Project.all
-		tasks = Task.stand_alone_tasks
-		@items = projects + tasks		
+		sa_tasks = Task.stand_alone_tasks
+		@cards = projects + sa_tasks
+		
 		@project = Project.new
 
-		#@items = items.sort_by &:order  	
+		#@cards = items.sort_by &:order  	
   end
 
   def current
