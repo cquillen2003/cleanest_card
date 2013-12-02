@@ -11,7 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130605044055) do
+ActiveRecord::Schema.define(:version => 20131202055024) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "category_users", :force => true do |t|
+    t.integer  "category_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "project_users", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "projects", :force => true do |t|
     t.string   "name"
@@ -26,7 +47,8 @@ ActiveRecord::Schema.define(:version => 20130605044055) do
   end
 
   create_table "tasks", :force => true do |t|
-    t.integer  "project_id"
+    t.integer  "taskable_id"
+    t.string   "taskable_type"
     t.string   "name"
     t.string   "description"
     t.text     "notes"
@@ -34,8 +56,8 @@ ActiveRecord::Schema.define(:version => 20130605044055) do
     t.string   "priority"
     t.integer  "order"
     t.date     "due_date"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|

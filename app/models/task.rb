@@ -1,14 +1,15 @@
 class Task < ActiveRecord::Base
   attr_accessible :project_id, :name, :description, :notes, :status, :order
   
-  belongs_to :project
+  belongs_to :taskable, :polymorphic => true
   
   def self.filter_by_status(status)
   	where("status = ?", status)
   end
   
-  def self.stand_alone_tasks
-  	where("project_id IS NULL")
-  end    
+  #This method is deprecated with the polymorphic setup with taskable_id
+  #def self.stand_alone_tasks
+  	#where("project_id IS NULL")
+  #end    
   
 end

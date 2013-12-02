@@ -2,8 +2,8 @@ class BoardsController < ApplicationController
 	
   def plan
 		projects = Project.all
-		sa_tasks = Task.stand_alone_tasks
-		@cards = projects + sa_tasks
+		#sa_tasks = Task.stand_alone_tasks
+		@cards = projects
 		
 		@project = Project.new
 
