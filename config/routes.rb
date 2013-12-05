@@ -11,6 +11,8 @@ CleanestCard::Application.routes.draw do
   
   match '/signout', to: 'sessions#destroy',     via: 'delete'
   
+  resources :category_users
+  
   resources :projects do
   	resources :tasks do
   		collection do

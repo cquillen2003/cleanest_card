@@ -3,7 +3,18 @@ class UsersController < ApplicationController
 	before_filter :signed_in_user, only: [:show]
 	before_filter :correct_user, only: [:show]
 	
+	respond_to :html, :json, :js
+	
   def new
+  end
+  
+  def create
+  	@user = User.new(params[:user])
+  	if @user.save
+  		respond_with(@user)
+  	else
+  		#handle errors
+  	end
   end
   
   def show

@@ -6,7 +6,16 @@
 		<div class="col-md-7">
 			<div class="menu">
 				<span>Category:</span>
-				<a href="#">Personal</a>
+
+				<div class="dropdown" style="display: inline;">
+					<a href="#" data-toggle="dropdown" class="menu-link"><%= @category.name %></a>
+					<ul class="dropdown-menu" role="menu">
+						<% @categories.each do |category| %>
+							<li><%= link_to category.name, :controller => "boards", :action => "plan", :cat => category.id  %></li>
+						<% end %>
+					</ul>
+				</div>
+
 			</div>			
 			<div class="panel panel-default">
 			  <div class="panel-heading">
@@ -29,15 +38,30 @@
 		</div>
 		<div class="col-md-17">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-24">
 					<div class="menu">
-						<a href="#">Projects</a>
+						<a href="#" class="menu-link">Projects</a>
 						<span>this</span>
-						<a href="#">Week</a>
+						<a href="#" class="menu-link">Week</a>
 						<span>in category</span>
-						<a href="#">Personal</a>
+						<a href="#" class="menu-link">Personal</a>
+						<div class="dropdown pull-right" style="width: 500px">
+							<a href="#" data-toggle="dropdown" class="pull-right menu-link">Collaborators</a>
+							<ul class="dropdown-menu" role="menu" id="category-users">
+								<% @category.users.each do |user| %>
+									<li><a href="#"><%= user.email %></a></li>
+								<% end %>
+								<li>
+									<%= form_tag('/category_users', :method => :post, :remote => true) do %>
+										<%= hidden_field_tag :category_id, @category.id %>
+										<%= text_field_tag :email %>
+									<% end %>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
+
 			</div>
 			<div class="row">
 				<div class="col-md-8">
