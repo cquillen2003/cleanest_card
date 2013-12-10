@@ -30,10 +30,8 @@ class ProjectsController < ApplicationController
 	end
 	
 	def create
-		@project = current_user.projects.create(params[:project])
-		
-		project_user = ProjectUser.where({ :user_id => current_user.id, :project_id => @project.id })
-		project_user.update_all(:category_id => params[:category_id])
+		@project = Project.new(params[:project])
+		@project.save
 		
 		respond_with(@project)
 			#flash[:notice] = "Project created successfully"

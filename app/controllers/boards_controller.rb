@@ -9,13 +9,13 @@ class BoardsController < ApplicationController
   	@category = Category.find(category_id)
   	@categories = current_user.categories
   	
-		projects = Project.plan_filter(current_user.id, category_id)
+  	projects = @category.projects
+  	
 		#sa_tasks = Task.stand_alone_tasks
 		@cards = projects
 		
-		@project = current_user.projects.build
+		@project = Project.new
 		@user = User.new
-		@category_user = CategoryUser.new
 
 		#@cards = items.sort_by &:order  	
   end

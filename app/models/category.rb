@@ -1,9 +1,9 @@
 class Category < ActiveRecord::Base
   attr_accessible :name
   
-  has_many :category_users
-  has_many :users, :through => :category_users
+  has_many :assignments, :as => :assignable
+  has_many :users, :through => :assignments
   
-  has_many :project_users
+  has_many :projects
   
 end

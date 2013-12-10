@@ -58,14 +58,12 @@ def make_projects
 				status = "backlog"
 				priority = "high"
 				#order = order + 1
-				project = user.projects.create!(:name => name,
+				project = category.projects.create!(:name => name,
 					:description => description,
 					:status => status,
 					:priority => priority
 				)
 				project.save
-				project_user = ProjectUser.where({ :user_id => user.id, :project_id => project.id })
-				project_user.update_all(:category_id => category.id) #update_all method used b/c where clause pulls collection
 			end
 		end
 	end

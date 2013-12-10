@@ -52,7 +52,7 @@
 									<li><a href="#"><%= user.email %></a></li>
 								<% end %>
 								<li>
-									<%= form_tag('/category_users', :method => :post, :remote => true) do %>
+									<%= form_tag('/assignments', :method => :post, :remote => true) do %>
 										<%= hidden_field_tag :category_id, @category.id %>
 										<%= text_field_tag :email %>
 									<% end %>
