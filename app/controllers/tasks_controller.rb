@@ -12,10 +12,24 @@ class TasksController < ApplicationController
 		@project = Project.find(params[:project_id])
 		@task = Task.find(params[:id])
 	end
+
+	def new
+		@project = Project.find(params[:project_id])
+		@task = @project.tasks.build
+		respond_with(@task)
+	end
 	
 	def edit
 		@project = Project.find(params[:project_id])
 		@task = Task.find(params[:id])
+	end
+
+	def create
+		@project = Project.find(params[:project_id])
+		@task = @project.tasks.build(params[:task])
+		@task.save
+
+		respond_with(@project, @task)
 	end
 	
 	def mass_update

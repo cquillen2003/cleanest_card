@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  attr_accessible :project_id, :name, :description, :notes, :status, :order
+  attr_accessible :taskable_id, :taskable_type, :name, :description, :notes, :status, :order
   
   belongs_to :taskable, :polymorphic => true
   

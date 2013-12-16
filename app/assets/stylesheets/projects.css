@@ -1,0 +1,22 @@
+#project-name {
+	border-bottom: 2px solid #dddddd;
+}
+
+#project-body {
+	padding-right: 15px;
+	border-right: 2px solid #dddddd;
+}
+
+#project-notes {
+	min-height: 250px;
+}
+
+#project-collaborators {
+	min-height: 500px;
+}
+
+.project-section h5 {
+	color: #C0C0C0;
+	font-weight: bold;	
+}
+

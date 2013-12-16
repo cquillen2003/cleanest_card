@@ -1,0 +1,7 @@
+$("#project-task-form-row").before("<%= j(render "project_task_row") %>");
+$("#project-task-form-row").remove();
+
+$.ajax({
+	url: "/projects/<%= @project.id %>/tasks/new",
+	accepts: {js: 'text/javascript'}
+});

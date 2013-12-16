@@ -72,13 +72,16 @@ end
 def make_project_tasks
 	users = User.all	
 	users.each do |user|
-		projects = user.projects
-		projects.each do |project|
-			5.times do |n|
-				name = "#{user.first_name} #{project.name} task #{n}"
-				status = "planned"
-				task = project.tasks.create!(:name => name, :status => status)
-				task.save
+		categories = user.categories
+		categories.each do |category|
+			projects = category.projects
+			projects.each do |project|
+				5.times do |n|
+					name = "#{user.first_name} #{project.name} task #{n}"
+					status = "planned"
+					task = project.tasks.create!(:name => name, :status => status)
+					task.save
+				end
 			end
 		end
 	end

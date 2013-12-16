@@ -1,8 +1,55 @@
-<div class="container cq-white">
-	
-	<div class="show-project-header">
-		<h3><%= @project.name %></h3>
-		<p><%= @project.description %><p>
+<%= render "shared/navbar" %>
+
+<div class="container-narrow">
+	<div class="row">
+		<div class="col-md-24">
+			<div id="project-name" class="project-section">
+				<h3><%= @project.name %></h3>
+				<p><%= @project.description %></p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-18">
+			<div id="project-body">
+				<div id="project-notes" class="project-section">
+					<h5>Project Notes</h5>
+					<p><%= @project.notes %></p>
+				</div>
+				<div id="project-tasks" class="project-section">
+					<h5>Project Tasks</h5>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Task</th>
+								<th>Assigned To</th>
+								<th>Due</th>
+							</tr>
+						</thead>
+						<tbody id="project-tasks-rows">
+							<% @project.tasks.each do |task| %>
+							<tr>
+								<td><%= task.name %></td>
+								<td></td>
+								<td><%= task.due_date %></td>
+							</tr>
+							<% end %>
+							<%= form_for([@project, @task], :remote => true) do |f| %>
+							<tr id="project-task-form-row">
+								<td><%= f.text_field :name, :class => "form-control" %></td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>	
+		</div>
+		<div class="col-md-6">
+			<div id="project-collaborators" class="project-section">
+				<h5>Project Collaborators</h5>
+				corey.quillen@gmail.com
+			</div>
+		</div>
 	</div>
 
 	
