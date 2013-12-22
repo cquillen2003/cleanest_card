@@ -14,7 +14,7 @@ CleanestCard::Application.routes.draw do
   resources :assignments
   
   resources :projects do
-  	resources :tasks do
+  	resources :tasks, :controller => 'project_tasks' do
   		collection do
   			put :mass_update
   		end
