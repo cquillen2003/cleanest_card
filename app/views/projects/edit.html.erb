@@ -1,0 +1,73 @@
+<%= render "shared/navbar" %>
+
+<div class="container-narrow">
+<%= nested_form_for(@project) do |f| %>
+	<div class="row">
+		<div class="col-md-24">
+		
+			<div id="project-name" class="project-section">
+				<h3><%= f.text_field :name, :class => "form-control" %></h3>
+				<p><%= f.text_field :description, :class => "form-control" %></p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-16">
+		
+			<div id="project-body">
+				<div id="project-notes" class="project-section">
+					<h5>Project Notes</h5>
+					<p><%= f.text_area :notes, :class => "form-control", :rows => 10 %></p>
+				</div>
+				<div id="project-tasks" class="project-section">
+					<h5>Project Tasks</h5>
+
+					<table class="table" id="tasks">
+						<thead>
+							<tr>
+								<th>Project</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<%= f.fields_for :tasks, :wrapper => false do |task| %>
+							<tr class="fields">
+								<td><%= task.text_field :name, :class => "form-control input-sm" %></td>
+								<td><%= task.select :user_id, @users.collect { |u| [u.email, u.id] }, { :include_blank => true }, { :class => "form-control input-sm" } %></td>
+								<td><%= task.link_to_remove "Del" %></td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+						
+					<%= f.link_to_add "Add a task", :tasks, :data => { :target => "#tasks" } %>
+								
+				</div>
+			</div>
+		
+		</div>
+
+		<div class="col-md-8">
+			<div id="project-collaborators" class="project-section">
+				<h5>Project Collaborators</h5>
+
+				<table class="table" id="assignments">
+					<tbody>
+						<%= f.fields_for :assignments, :wrapper => false do |ff| %>
+						<tr class="fields">
+							<td><%= ff.select :user_id, User.all.collect { |u| [u.email, u.id] }, { :include_blank => true }, { :class => "form-control input-sm" } %></td>
+							<td><%= ff.link_to_remove "Remove" %></td>
+						<% end %>
+						</tr>
+					</tbody>
+				</table>
+				
+				<%= f.link_to_add "Add", :assignments, :data => { :target => "#assignments" } %>
+
+			</div>
+		</div>
+	</div>
+<%= f.submit %>
+<% end %>
+</div>

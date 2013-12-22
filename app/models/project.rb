@@ -1,11 +1,12 @@
 class Project < ActiveRecord::Base
-  attr_accessible :category_id, :name, :description, :notes, :status, :order, :due_date, :priority, :tasks_attributes
+  attr_accessible :category_id, :name, :description, :notes, :status, :order, :due_date, :priority, :tasks_attributes, :assignments_attributes
   
   has_many :assignments, :as => :assignable
   has_many :users, :through => :assignments
   
   has_many :tasks, :as => :taskable
-  accepts_nested_attributes_for :tasks
+  accepts_nested_attributes_for :tasks, :allow_destroy => true
+  accepts_nested_attributes_for :assignments, :allow_destroy => true
   
   
   def self.plan_filter(user_id, category_id)

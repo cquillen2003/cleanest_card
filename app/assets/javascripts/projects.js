@@ -69,3 +69,11 @@ $(".hide-tasks").click(function() {
 	
 });
 
+//Using the nested model form delete technique from RailsCasts #196 Nested Model Form (revised)
+//This way the user can click cancel and cancel the task deletions
+$("form").on("click", ".delete-task", function(event) {
+	$(this).prev("input[type=hidden]").val('1');
+	$(this).closest("tr").hide();
+	event.preventDefault();
+});
+

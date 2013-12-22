@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :assignments
   has_many :categories, :through => :assignments, :source => :assignable, :source_type => "Category"
   has_many :projects, :through => :assignments, :source => :assignable, :source_type => "Project"
+  has_many :tasks
   
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token

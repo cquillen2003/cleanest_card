@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
 
-	respond_to :html, :json, :js
+	respond_to :html, :js, :json
 	
 	def index
 		@project = Project.find(params[:project_id])
@@ -44,6 +44,11 @@ class TasksController < ApplicationController
 		@task = Task.find(params[:id])
 		@task.update_attributes(params[:task])
 		render 'show'
+	end
+
+	def destroy
+		@task = Task.find(params[:id])
+		@task.destroy
 	end
 	
 end

@@ -14,7 +14,9 @@ class ProjectsController < ApplicationController
 	
 	def show
 		@project = Project.find(params[:id])
-		@task = @project.tasks.build
+		@tasks = @project.tasks
+		@task = Task.new
+		
 		#respond_with(@project)
 	end
 	
@@ -28,6 +30,17 @@ class ProjectsController < ApplicationController
 	def new
 		@project = Project.new
 		respond_with(@project)
+	end
+
+	def edit
+		@project = Project.find(params[:id])
+
+		if @project.category_id
+			category = Category.find(@project.category_id)
+			category_users = category.users
+		end
+		project_users = @project.users
+		@users = category_users + project_users
 	end
 	
 	def create

@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-18">
+		<div class="col-md-17">
 			<div id="project-body">
 				<div id="project-notes" class="project-section">
 					<h5>Project Notes</h5>
@@ -23,20 +23,15 @@
 							<tr>
 								<th>Task</th>
 								<th>Assigned To</th>
-								<th>Due</th>
+								<th></th>
 							</tr>
 						</thead>
-						<tbody id="project-tasks-rows">
-							<% @project.tasks.each do |task| %>
-							<tr>
+						<tbody>
+							<% @tasks.each do |task| %>
+							<tr class="project-task-row">
 								<td><%= task.name %></td>
 								<td></td>
-								<td><%= task.due_date %></td>
-							</tr>
-							<% end %>
-							<%= form_for([@project, @task], :remote => true) do |f| %>
-							<tr id="project-task-form-row">
-								<td><%= f.text_field :name, :class => "form-control" %></td>
+								<td></td>
 							</tr>
 							<% end %>
 						</tbody>
@@ -44,10 +39,16 @@
 				</div>
 			</div>	
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-7">
 			<div id="project-collaborators" class="project-section">
 				<h5>Project Collaborators</h5>
-				corey.quillen@gmail.com
+				
+				<ul class="list-unstyled">
+				<% @project.users.each do |user| %>
+					<li><%= user.email %></li>
+				<% end %>
+				</ul>
+
 			</div>
 		</div>
 	</div>

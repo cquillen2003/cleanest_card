@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20131208083041) do
   create_table "tasks", :force => true do |t|
     t.integer  "taskable_id"
     t.string   "taskable_type"
+    t.integer  "user_id"
     t.string   "name"
     t.string   "description"
     t.text     "notes"
