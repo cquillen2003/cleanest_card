@@ -5,8 +5,8 @@
 	    <a class="navbar-brand" href="#">Clean<strong>Card</strong></a>
 		</div>
 	  <ul class="nav navbar-nav">
-	    <li class="active"><a href="#">Plan</a></li>
-	    <li><a href="#">This Week</a></li>
+	    <li class="active"><%= link_to "Plan", :controller => "boards", :action => "plan" %></li>
+	    <li><%= link_to "This Week", :controller => "boards", :action => "current" %></li>
 	  </ul>   
 	  <ul class="nav navbar-nav navbar-right">
 	    <li class="dropdown">
