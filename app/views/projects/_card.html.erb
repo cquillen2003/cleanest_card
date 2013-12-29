@@ -1,6 +1,0 @@
-<li class="list-group-item card" id="proj-<%= @project.id %>">
-  <h5 class="list-group-item-heading"><%= @project.name %></h5>
-  <p class="list-group-item-text"><%= @project.description %></p>
-  <small class="card-controls invisible"><i class="fa fa-folder-open-o"></i>&nbsp;View&nbsp;&nbsp;&nbsp;</small>
-  <small class="card-controls invisible"><i class="fa fa-chevron-down"></i>&nbsp;<%= link_to "Insert", new_project_path(:proj_id => @project.id), :remote => true %></small>
-</li>

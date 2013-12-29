@@ -1,11 +1,11 @@
-$("#proj-<%= @project.id %> .show-tasks").addClass("hidden");
-$("#proj-<%= @project.id %> .hide-tasks").removeClass("hidden");
+$(".marked .show-tasks-link").addClass("hidden");
+$(".marked .hide-tasks").removeClass("hidden");
 	
 <% @tasks.each do |task| %>
-	$("#proj-<%= @project.id %>").after("<%= j(render :partial => "boards/project_task_card", :locals => { :project => @project, :task => task }) %>");
+	$(".marked").after("<%= j(render :partial => "project_task_card", :locals => { :project => @project, :task => task }) %>");
 <% end %>
 
-$("#proj-<%= @project.id %>").removeClass("sortable");
+$(".marked").removeClass("sortable");
 
 //Destroy and re-enable to prevent expanded project from being dragged away from its tasks
 $(".column").sortable("destroy");

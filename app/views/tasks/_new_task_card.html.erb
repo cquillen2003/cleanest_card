@@ -1,0 +1,13 @@
+<li class="list-group-item" id="new-card">
+	<%= form_for(@task, :remote => true) do |f| %>
+	<%= f.hidden_field :status, :value => "backlog" %>
+	<%= f.hidden_field :taskable_id, :value => params[:cat_id] %>
+	<%= f.hidden_field :taskable_type, :value => "Category" %>
+
+	<div class="form-group">
+		<%= f.text_area :name, :rows => 3, :class => "form-control input-sm" %>
+	</div>
+	<%= f.submit "Add Task", :class => "btn btn-primary btn-sm" %>
+	<button type="button" class="btn btn-default btn-sm">Cancel</button>
+	<% end %>
+</li>

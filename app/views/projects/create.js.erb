@@ -5,5 +5,5 @@
 
 //For board view
 
-$("#new-card").after("<%= j(render "card") %>");
+$("#new-card").after("<%= j(render :partial => "project_card", :locals => { :project => @project, :cat_id => params[:category_id] }) %>");
 $("#new-card").remove();

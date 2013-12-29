@@ -71,9 +71,21 @@ $(".hide-tasks").click(function() {
 
 //Using the nested model form delete technique from RailsCasts #196 Nested Model Form (revised)
 //This way the user can click cancel and cancel the task deletions
+
+//Think I can delete this now that I'm useing the nested form gem
+/*
 $("form").on("click", ".delete-task", function(event) {
 	$(this).prev("input[type=hidden]").val('1');
 	$(this).closest("tr").hide();
 	event.preventDefault();
 });
+*/
+
+//Trying to hook into ajax beforeSend
+$(".column").on("ajax:beforeSend", "a", function() {
+	console.log("beforeSend fired");
+	$(".marked").removeClass("marked");
+	$(this).closest("li").addClass("marked");
+});
+
 

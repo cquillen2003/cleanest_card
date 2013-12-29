@@ -1,0 +1,2 @@
+$("#new-card").after("<%= j(render :partial => "task_card", :locals => { :task => @task, :cat_id => params[:taskable_id] }) %>");
+$("#new-card").remove();

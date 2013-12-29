@@ -5,5 +5,6 @@ class Category < ActiveRecord::Base
   has_many :users, :through => :assignments
   
   has_many :projects
+  has_many :tasks, :as => :taskable
   
 end
