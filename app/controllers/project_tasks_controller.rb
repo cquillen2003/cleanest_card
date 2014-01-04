@@ -4,7 +4,7 @@ class ProjectTasksController < ApplicationController
 	
 	def index
 		@project = Project.find(params[:project_id])
-		@tasks = @project.tasks.filter_by_status("planned")
+		@tasks = @project.tasks
 		respond_with(@project, @tasks)
 	end
 

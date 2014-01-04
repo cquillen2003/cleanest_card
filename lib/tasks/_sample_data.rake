@@ -5,8 +5,11 @@ namespace :db do
 	task populate: :environment do
 		make_users
 		make_categories
-		make_projects
-		make_project_tasks
+		make_backlog_projects
+		make_split_projects
+		make_planned_projects
+		make_started_projects
+		make_done_projects
 		#make_independent_tasks
 	end
 end
@@ -45,15 +48,15 @@ def make_categories
 		category = user.categories.create!(:name => "Business")
 		category.save
 	end
-end		
+end
 
-def make_projects
+def make_backlog_projects
 	users = User.all
 	users.each do |user|
 		categories = user.categories
 		categories.each do |category|
 			5.times do |n|
-				name = "#{category.name} #{user.first_name} project number #{n}"
+				name = "#{category.name} #{user.first_name} backlog project no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
 				status = "backlog"
 				priority = "high"
@@ -64,21 +67,133 @@ def make_projects
 					:priority => priority
 				)
 				project.save
+				5.times do |n|
+					name = "#{user.first_name} #{project.name} task #{n}"
+					status = "backlog"
+					task = project.tasks.create!(:name => name, :status => status)
+					task.save
+				end
 			end
 		end
 	end
 end
 
-def make_project_tasks
-	users = User.all	
+def make_split_projects
+	users = User.all
 	users.each do |user|
 		categories = user.categories
 		categories.each do |category|
-			projects = category.projects
-			projects.each do |project|
+			5.times do |n|
+				name = "#{category.name} #{user.first_name} split project no. #{n}"
+				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
+				status = "backlog"
+				priority = "high"
+				#order = order + 1
+				project = category.projects.create!(:name => name,
+					:description => description,
+					:status => status,
+					:priority => priority
+				)
+				project.save
+				5.times do |n|
+					name = "#{user.first_name} #{project.name} task #{n}"
+					status = "backlog"
+					task = project.tasks.create!(:name => name, :status => status)
+					task.save
+				end
+				3.times do |n|
+					name = "#{user.first_name} #{project.name} task #{n}"
+					status = "planned"
+					task = project.tasks.create!(:name => name, :status => status)
+					task.save					
+				end				
+			end
+		end
+	end
+end
+
+def make_planned_projects
+	users = User.all
+	users.each do |user|
+		categories = user.categories
+		categories.each do |category|
+			5.times do |n|
+				name = "#{category.name} #{user.first_name} planned project no. #{n}"
+				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
+				status = "backlog"
+				priority = "high"
+				#order = order + 1
+				project = category.projects.create!(:name => name,
+					:description => description,
+					:status => status,
+					:priority => priority
+				)
+				project.save
 				5.times do |n|
 					name = "#{user.first_name} #{project.name} task #{n}"
 					status = "planned"
+					task = project.tasks.create!(:name => name, :status => status)
+					task.save
+				end
+			end
+		end
+	end
+end		
+
+def make_started_projects
+	users = User.all
+	users.each do |user|
+		categories = user.categories
+		categories.each do |category|
+			5.times do |n|
+				name = "#{category.name} #{user.first_name} started project no. #{n}"
+				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
+				status = "backlog"
+				priority = "high"
+				#order = order + 1
+				project = category.projects.create!(:name => name,
+					:description => description,
+					:status => status,
+					:priority => priority
+				)
+				project.save
+				5.times do |n|
+					name = "#{user.first_name} #{project.name} task #{n}"
+					status = "planned"
+					task = project.tasks.create!(:name => name, :status => status)
+					task.save
+				end
+				3.times do |n|
+					name = "#{user.first_name} #{project.name} task #{n}"
+					status = "started"
+					task = project.tasks.create!(:name => name, :status => status)
+					task.save					
+				end
+			end
+		end
+	end
+end
+
+def make_done_projects
+	users = User.all
+	users.each do |user|
+		categories = user.categories
+		categories.each do |category|
+			5.times do |n|
+				name = "#{category.name} #{user.first_name} done project no. #{n}"
+				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
+				status = "backlog"
+				priority = "high"
+				#order = order + 1
+				project = category.projects.create!(:name => name,
+					:description => description,
+					:status => status,
+					:priority => priority
+				)
+				project.save
+				5.times do |n|
+					name = "#{user.first_name} #{project.name} task #{n}"
+					status = "done"
 					task = project.tasks.create!(:name => name, :status => status)
 					task.save
 				end

@@ -89,14 +89,14 @@
 
 						<ul class="list-group column" id="column-planned">
 							<% @kcards.each do |card| %>
-                <% if card.status == "planned" %>
-                  <% if card.class == Project %>
-                      <%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @kcat } %>
-                  <% end %>
-                  <% if card.class == Task %>
-                      <%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @kcat } %>
-                  <% end %>
-                <% end %>
+				                <% if card.status == "planned" %>
+				                  <% if card.class == Project %>
+				                      <%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @kcat } %>
+				                  <% end %>
+				                  <% if card.class == Task %>
+				                      <%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @kcat } %>
+				                  <% end %>
+				                <% end %>
 						  <% end %>
 						</ul>
 
