@@ -83,7 +83,7 @@ def make_split_projects
 	users.each do |user|
 		categories = user.categories
 		categories.each do |category|
-			5.times do |n|
+			2.times do |n|
 				name = "#{category.name} #{user.first_name} split project no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
 				status = "backlog"
@@ -117,7 +117,7 @@ def make_planned_projects
 	users.each do |user|
 		categories = user.categories
 		categories.each do |category|
-			5.times do |n|
+			3.times do |n|
 				name = "#{category.name} #{user.first_name} planned project no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
 				status = "backlog"
@@ -129,7 +129,7 @@ def make_planned_projects
 					:priority => priority
 				)
 				project.save
-				5.times do |n|
+				3.times do |n|
 					name = "#{user.first_name} #{project.name} task #{n}"
 					status = "planned"
 					task = project.tasks.create!(:name => name, :status => status)
@@ -145,7 +145,7 @@ def make_started_projects
 	users.each do |user|
 		categories = user.categories
 		categories.each do |category|
-			5.times do |n|
+			2.times do |n|
 				name = "#{category.name} #{user.first_name} started project no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
 				status = "backlog"
@@ -157,13 +157,13 @@ def make_started_projects
 					:priority => priority
 				)
 				project.save
-				5.times do |n|
+				3.times do |n|
 					name = "#{user.first_name} #{project.name} task #{n}"
 					status = "planned"
 					task = project.tasks.create!(:name => name, :status => status)
 					task.save
 				end
-				3.times do |n|
+				2.times do |n|
 					name = "#{user.first_name} #{project.name} task #{n}"
 					status = "started"
 					task = project.tasks.create!(:name => name, :status => status)
@@ -179,7 +179,7 @@ def make_done_projects
 	users.each do |user|
 		categories = user.categories
 		categories.each do |category|
-			5.times do |n|
+			3.times do |n|
 				name = "#{category.name} #{user.first_name} done project no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
 				status = "backlog"

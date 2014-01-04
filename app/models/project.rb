@@ -86,7 +86,7 @@ class Project < ActiveRecord::Base
       and p.id not in (
         select p.id
         from projects p
-        inner join tasks t on p.id = t.taskable_id
+        inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
         where t.status in ('started', 'done')
       )
       and p.category_id = ?", user_id, category_id]
