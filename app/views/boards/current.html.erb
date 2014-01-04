@@ -49,19 +49,17 @@
 		<div class="col-md-8">
 			<div class="panel panel-default">
 			  <div class="panel-heading">
-			    <h3 class="panel-title">Not Started</h3>
+			    <h3 class="panel-title">Planned</h3>
 			  </div>
 
 				<ul class="list-group column" id="column-planned">
-					<% @cards.each do |card| %>
-				        <% if card.status == "planned" %>
-				          <% if card.class == Project %>
-				              <%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @cat } %>
-				          <% end %>
-				          <% if card.class == Task %>
-				              <%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @cat } %>
-				          <% end %>
-				        <% end %>
+					<% @planned_cards.each do |card| %>
+			          <% if card.class == Project %>
+			              <%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @cat } %>
+			          <% end %>
+			          <% if card.class == Task %>
+			              <%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @cat } %>
+			          <% end %>
 				  	<% end %>
 				</ul>
 			</div>		
@@ -72,15 +70,13 @@
 			    <h3 class="panel-title">Started</h3>
 			  </div>
 				<ul class="list-group column" id="column-started">
-					<% @cards.each do |card| %>
-						<% if card.status == "started" %>
-							<% if card.class == Project %>
-									<%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @cat } %>
-							<% end %>
-							<% if card.class == Task %>
-									<%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @cat } %>
-							<% end %>
-					  <% end %>
+					<% @started_cards.each do |card| %>
+						<% if card.class == Project %>
+								<%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @cat } %>
+						<% end %>
+						<% if card.class == Task %>
+								<%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @cat } %>
+						<% end %>
 				  <% end %>
 				</ul>
 			</div>		
@@ -91,15 +87,13 @@
 			    <h3 class="panel-title">Done</h3>
 			  </div>
 				<ul class="list-group column" id="column-done">
-					<% @cards.each do |card| %>
-						<% if card.status == "done" %>
-							<% if card.class == Project %>
-									<%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @cat } %>
-							<% end %>
-							<% if card.class == Task %>
-									<%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @cat } %>
-							<% end %>
-					  <% end %>
+					<% @done_cards.each do |card| %>
+						<% if card.class == Project %>
+								<%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @cat } %>
+						<% end %>
+						<% if card.class == Task %>
+								<%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @cat } %>
+						<% end %>
 				  <% end %>
 				</ul>
 			</div>		
