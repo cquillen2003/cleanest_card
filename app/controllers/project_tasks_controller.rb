@@ -20,7 +20,7 @@ class ProjectTasksController < ApplicationController
 	end
 	
 	def edit
-		@project = Project.find(params[:project_id])
+		#@project = Project.find(params[:project_id])
 		@task = Task.find(params[:id])
 	end
 

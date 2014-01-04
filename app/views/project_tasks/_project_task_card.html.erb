@@ -1,3 +1,8 @@
-<li class="list-group-item card project-task" style="background-color: #d9edf7;">
+<li class="list-group-item card project-task sortable" style="background-color: #d9edf7;">
 	<h5 class="list-group-item-heading"><%= task.name %></h5>
+	
+	<%= form_for task, :class => "hide", :remote => true do |f| %>
+		<%= f.hidden_field :status, :value => "", :class => "status_field" %>
+		<%= f.submit :class => "hide jquery_sub" %>
+	<% end %>
 </li>
