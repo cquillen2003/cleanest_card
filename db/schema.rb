@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(:version => 20131208083041) do
     t.string   "name"
     t.string   "description"
     t.text     "notes"
-    t.string   "status"
     t.string   "priority"
     t.integer  "order"
     t.date     "due_date"

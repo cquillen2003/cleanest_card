@@ -58,12 +58,10 @@ def make_backlog_projects
 			5.times do |n|
 				name = "#{category.name} #{user.first_name} backlog project no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
-				status = "backlog"
 				priority = "high"
 				#order = order + 1
 				project = category.projects.create!(:name => name,
 					:description => description,
-					:status => status,
 					:priority => priority
 				)
 				project.save
@@ -86,12 +84,10 @@ def make_split_projects
 			2.times do |n|
 				name = "#{category.name} #{user.first_name} split project no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
-				status = "backlog"
 				priority = "high"
 				#order = order + 1
 				project = category.projects.create!(:name => name,
 					:description => description,
-					:status => status,
 					:priority => priority
 				)
 				project.save
@@ -120,12 +116,10 @@ def make_planned_projects
 			3.times do |n|
 				name = "#{category.name} #{user.first_name} planned project no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
-				status = "backlog"
 				priority = "high"
 				#order = order + 1
 				project = category.projects.create!(:name => name,
 					:description => description,
-					:status => status,
 					:priority => priority
 				)
 				project.save
@@ -148,12 +142,10 @@ def make_started_projects
 			2.times do |n|
 				name = "#{category.name} #{user.first_name} started project no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
-				status = "backlog"
 				priority = "high"
 				#order = order + 1
 				project = category.projects.create!(:name => name,
 					:description => description,
-					:status => status,
 					:priority => priority
 				)
 				project.save
@@ -182,12 +174,10 @@ def make_done_projects
 			3.times do |n|
 				name = "#{category.name} #{user.first_name} done project no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
-				status = "backlog"
 				priority = "high"
 				#order = order + 1
 				project = category.projects.create!(:name => name,
 					:description => description,
-					:status => status,
 					:priority => priority
 				)
 				project.save

@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  attr_accessible :category_id, :name, :description, :notes, :status, :order, :due_date, :priority, :tasks_attributes, :assignments_attributes
+  attr_accessible :category_id, :name, :description, :notes, :order, :due_date, :priority, :tasks_attributes, :assignments_attributes
   
   has_many :assignments, :as => :assignable
   has_many :users, :through => :assignments
@@ -13,10 +13,6 @@ class Project < ActiveRecord::Base
   	joins(:categories => :users)
   	.where("user_id =?", user_id)
   	.where("categories.id = ?", category_id)
-  end
-  
-  def self.filter_by_status(status)
-  	where("status = ?", status)
   end  
 
   def self.backlog(user_id, category_id)
