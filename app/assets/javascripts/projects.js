@@ -1,9 +1,10 @@
 $(function() {
 	
 	
-	$(".column").sortable( 
+	$(".column").sortable(
 		{ connectWith: ".column" },
-		{ items: ".sortable" }
+		{ items: ".sortable" },
+		{ cancel: ".cancel-sortable" }
 	);
 	
 	$(".column").disableSelection();	

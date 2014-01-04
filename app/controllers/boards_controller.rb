@@ -24,6 +24,14 @@ class BoardsController < ApplicationController
     @categories = current_user.categories
     
     #bcards
+    backlog_cards = Project.backlog(current_user.id, @bcat)
+    backlog_cards_split = Project.backlog_split(current_user.id, @bcat)
+    @backlog_cards = backlog_cards + backlog_cards_split
+
+    @planned_cards = Project.planned(current_user.id, @kcat)
+    @started_cards = Project.started(current_user.id, @kcat)
+    @done_cards = Project.done(current_user.id, @kcat)
+
     category_bcards = Category.find(@bcat).projects
     assigned_bcards = current_user.projects
     task_bcards = Category.find(@bcat).tasks

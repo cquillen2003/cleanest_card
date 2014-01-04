@@ -18,5 +18,90 @@ class Project < ActiveRecord::Base
   def self.filter_by_status(status)
   	where("status = ?", status)
   end  
+
+  def self.backlog(user_id, category_id)
+    Project.find_by_sql(
+      ["select distinct p.id, p.name
+      from projects p
+      inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
+      left join assignments a on p.id = a.assignable_id and a.assignable_type = 'Project' and a.user_id = ?
+      where t.status = 'backlog'
+      and p.id not in (
+        select p.id
+        from projects p
+        inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
+        where t.status in ('planned', 'started', 'done')
+      )
+      and p.category_id = ?", user_id, category_id]
+    )
+  end
+
+  def self.backlog_split(user_id, category_id)
+    Project.find_by_sql(
+      ["select distinct p.id, p.name || ' (Split)' as name
+      from projects p
+      inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
+      left join assignments a on p.id = a.assignable_id and a.assignable_type = 'Project' and a.user_id = ?
+      where t.status = 'backlog'
+      and p.id in (
+        select p.id
+        from projects p
+        inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
+        where t.status in ('planned', 'started', 'done')
+      )
+      and p.category_id = ?", user_id, category_id]
+    )
+  end
+
+  def self.planned(user_id, category_id)
+    Project.find_by_sql(
+      ["select distinct p.id, p.name
+      from projects p
+      inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
+      left join assignments a on p.id = a.assignable_id and a.assignable_type = 'Project' and a.user_id = ?
+      where t.status = 'planned'
+      and p.id not in (
+        select p.id
+        from projects p
+        inner join tasks t on p.id = t.taskable_id
+        where t.status in ('backlog', 'started', 'done')
+      )
+      and p.category_id = ?", user_id, category_id]
+    )
+  end
   
+  def self.started(user_id, category_id)
+    Project.find_by_sql(
+      ["select distinct p.id, p.name
+      from projects p
+      inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
+      left join assignments a on p.id = a.assignable_id and a.assignable_type = 'Project' and a.user_id = ?
+      where t.status in ('started', 'done') 
+      and p.id not in (
+        select p.id
+        from projects p
+        inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
+        where t.status not in ('backlog', 'planned', 'started')
+      )
+      and p.category_id = ?", user_id, category_id]
+    )
+  end
+
+  def self.done(user_id, category_id)
+    Project.find_by_sql(
+      ["select distinct p.id, p.name
+      from projects p
+      inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
+      left join assignments a on p.id = a.assignable_id and a.assignable_type = 'Project' and a.user_id = ?
+      where t.status = 'done'
+      and p.id not in (
+        select p.id
+        from projects p
+        inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
+        where t.status in ('backlog', 'planned', 'started')
+      )
+      and p.category_id = ?", user_id, category_id]
+    )
+  end
+
 end
