@@ -43,12 +43,12 @@ class ProjectTasksController < ApplicationController
 		#@project = Project.find(params[:project_id])
 		@task = Task.find(params[:id])
 		@task.update_attributes(params[:task])
-		render 'show'
+		respond_with(@project, @task)
 	end
 
 	def destroy
 		@task = Task.find(params[:id])
 		@task.destroy
-	end	
+	end
 
 end

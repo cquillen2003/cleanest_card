@@ -70,6 +70,15 @@ $(".hide-tasks").click(function() {
 	
 });
 
+//Plan a project task (ie - split a project)
+/*
+$(".column").on("ajax:beforeSend", "form", function() {
+	console.log("project task beforeSend fired");
+	$(".pt-marked").removeClass("pt-marked");
+	$(this).closest("li").addClass("pt-marked");
+});
+*/
+
 //Using the nested model form delete technique from RailsCasts #196 Nested Model Form (revised)
 //This way the user can click cancel and cancel the task deletions
 
@@ -82,7 +91,7 @@ $("form").on("click", ".delete-task", function(event) {
 });
 */
 
-//Trying to hook into ajax beforeSend
+//Hook into ajax beforeSend to mark card for subsequent DOM insertion
 $(".column").on("ajax:beforeSend", "a", function() {
 	console.log("beforeSend fired");
 	$(".marked").removeClass("marked");

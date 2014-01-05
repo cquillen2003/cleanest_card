@@ -1,0 +1,3 @@
+$("#column-planned").append("<%= j(render :partial => "project_card", :locals => { :project => @new_project, :cat_id => @new_project.category_id }) %>");
+
+$(".marked").remove();

@@ -1,7 +1,8 @@
 <li class="list-group-item card project-task sortable" style="background-color: #d9edf7;">
+	<small class="pull-right"><%= link_to "Plan Task", split_project_path(project.id, :task => task.id), :method => :post, :remote => true, :class => "plan-task" %></small>
 	<h5 class="list-group-item-heading"><%= task.name %></h5>
 	
-	<%= form_for task, :class => "hide", :remote => true do |f| %>
+	<%= form_for [project, task], :class => "project-task-form hide", :remote => true do |f| %>
 		<%= f.hidden_field :status, :value => "", :class => "status_field" %>
 		<%= f.submit :class => "hide jquery_sub" %>
 	<% end %>

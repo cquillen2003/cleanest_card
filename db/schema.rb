@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131208083041) do
+ActiveRecord::Schema.define(:version => 20140105204126) do
 
   create_table "assignments", :force => true do |t|
     t.integer  "assignable_id"
@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(:version => 20131208083041) do
     t.date     "due_date"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "splits", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "new_project_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "tasks", :force => true do |t|

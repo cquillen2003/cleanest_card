@@ -5,6 +5,8 @@ class Project < ActiveRecord::Base
   has_many :users, :through => :assignments
   
   has_many :tasks, :as => :taskable
+  has_many :splits
+
   accepts_nested_attributes_for :tasks, :allow_destroy => true
   accepts_nested_attributes_for :assignments, :allow_destroy => true
   
@@ -161,7 +163,18 @@ class Project < ActiveRecord::Base
       )
       and p.category_id = ?", user_id, category_id]
     )
-  end  
+  end
 
+  def self.split_project(project_id)
+    Project.find_by_sql(
+      ["select sp.id
+      from projects p
+      inner join splits s on p.id = s.project_id
+      inner join projects sp on s.new_project_id = sp.id
+      inner join tasks t on sp.id = t.taskable_id and t.taskable_type = 'Project'
+      where t.status in ('planned', 'started')
+      and p.id = ?", project_id]
+    )
+  end
 
 end
