@@ -23,6 +23,8 @@ CleanestCard::Application.routes.draw do
 
   post "projects/:id/split", :to => "projects#split", :as => :split_project
 
+  put "projects/:id/plan", :to => "projects#plan"
+
   resources :tasks #Needed for stand-alone tasks (not tied to project)
 
   # The priority is based upon order of creation:

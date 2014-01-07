@@ -8,9 +8,9 @@ $(".marked .hide-tasks").removeClass("hidden");
 $(".marked").removeClass("sortable");
 
 //Destroy and re-enable to prevent expanded project from being dragged away from its tasks
-$(".column").sortable("destroy");
+$(".plannable").sortable("destroy");
 
-$(".column").sortable( 
-	{ connectWith: ".column" },
-	{ items: ".sortable" }
+$(".plannable").sortable( 
+	{ connectWith: ".plannable" },
+	{ items: ".project, .task" }
 );

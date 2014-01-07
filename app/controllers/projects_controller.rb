@@ -60,6 +60,20 @@ class ProjectsController < ApplicationController
     	respond_with(@project)
   	end
 
+  	def plan
+  		project = Project.find(params[:id])
+
+  		if params[:to] == "backlog"
+  			project.tasks.each do |task|
+  				task.update_attribute(:status, "backlog")
+  			end
+  		else
+  			project.tasks.each do |task|
+  				task.update_attribute(:status, "planned")
+  			end
+  		end
+  	end
+
   	def split
   		project = Project.find(params[:id])
   		task = Task.find(params[:task])
@@ -68,7 +82,7 @@ class ProjectsController < ApplicationController
   			#create a split and a new project first
   			@new_project = Project.create!(:category_id => project.category_id, :name => project.name + " (Split Testing)")
   			Split.create!(:project_id => project.id, :new_project_id => @new_project.id)
-  			task.update_attribute(:taskable_id, @new_project.id)  				
+  			task.update_attributes({ :taskable_id => @new_project.id, :status => 'planned' })				
   		else
   			#add task to existing
   		end
