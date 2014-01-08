@@ -1,6 +1,5 @@
 <li class="list-group-item" id="new-card">
 	<%= form_for(@project, :remote => true) do |f| %>
-	<%= f.hidden_field :status, :value => "backlog" %>
 	<%= f.hidden_field :category_id, :value => params[:cat_id] %>
 	<div class="form-group">
 		<%= f.text_area :name, :rows => 3, :class => "form-control input-sm" %>

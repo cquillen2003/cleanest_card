@@ -63,24 +63,20 @@ class BoardsController < ApplicationController
 
     #cards
     planned_projects = Project.planned(current_user.id, @cat)
-    planned_split_projects = Project.planned_split(current_user.id, @cat)
 
     started_projects = Project.started(current_user.id, @cat)
-    started_split_projects = Project.started_split(current_user.id, @cat)
 
     done_projects = Project.done(current_user.id, @cat)
-    done_split_projects = Project.done_split(current_user.id, @cat)
-
 
     if @view == "projects"
-      @planned_cards = planned_projects + planned_split_projects
-      @started_cards = started_projects + started_split_projects
-      @done_cards = done_projects + done_split_projects
+      @planned_cards = planned_projects
+      @started_cards = started_projects
+      @done_cards = done_projects
     end
     if @view == "tasks"
       #planned tasks
       planned_project_tasks = []
-      planned_projects = planned_projects + planned_split_projects
+      planned_projects = planned_projects
       planned_projects.each do |project|
         planned_project_tasks = planned_project_tasks + project.tasks.where({ :status => "planned" })
       end
@@ -92,7 +88,6 @@ class BoardsController < ApplicationController
 
       #started tasks
       started_project_tasks = []
-      started_projects = started_projects + started_split_projects
       started_projects.each do |project|
         started_project_tasks = started_project_tasks + project.tasks.where({ :status => "started" })
       end
@@ -104,7 +99,6 @@ class BoardsController < ApplicationController
 
       #done tasks      
       done_project_tasks = []
-      done_projects = done_projects + done_split_projects
       done_projects.each do |project|
         done_project_tasks = done_project_tasks + project.tasks.where({ :status => "done" })
       end
