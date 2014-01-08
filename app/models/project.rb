@@ -34,23 +34,6 @@ class Project < ActiveRecord::Base
     )
   end
 
-  def self.backlog_split(user_id, category_id)
-    Project.find_by_sql(
-      ["select distinct p.id, p.name || ' (Split)' as name
-      from projects p
-      inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
-      left join assignments a on p.id = a.assignable_id and a.assignable_type = 'Project' and a.user_id = ?
-      where t.status = 'backlog'
-      and p.id in (
-        select p.id
-        from projects p
-        inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
-        where t.status in ('planned', 'started', 'done')
-      )
-      and p.category_id = ?", user_id, category_id]
-    )
-  end
-
   def self.planned(user_id, category_id)
     Project.find_by_sql(
       ["select distinct p.id, p.name
@@ -67,29 +50,6 @@ class Project < ActiveRecord::Base
       and p.category_id = ?", user_id, category_id]
     )
   end
-
-   def self.planned_split(user_id, category_id)
-    Project.find_by_sql(
-      ["select distinct p.id, p.name || ' (Split)' as name
-      from projects p
-      inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
-      left join assignments a on p.id = a.assignable_id and a.assignable_type = 'Project' and a.user_id = ?
-      where t.status = 'planned'
-      and p.id in (
-        select p.id
-        from projects p
-        inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
-        where t.status = 'backlog'
-      )
-      and p.id not in (
-        select p.id
-        from projects p
-        inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
-        where t.status in ('started', 'done')
-      )
-      and p.category_id = ?", user_id, category_id]
-    )
-  end 
   
   def self.started(user_id, category_id)
     Project.find_by_sql(
@@ -103,23 +63,6 @@ class Project < ActiveRecord::Base
         from projects p
         inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
         where t.status not in ('backlog', 'planned', 'started')
-      )
-      and p.category_id = ?", user_id, category_id]
-    )
-  end
-
-  def self.started_split(user_id, category_id)
-    Project.find_by_sql(
-      ["select distinct p.id, p.name || ' (Split)' as name
-      from projects p
-      inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
-      left join assignments a on p.id = a.assignable_id and a.assignable_type = 'Project' and a.user_id = ?
-      where t.status = 'backlog'
-      and p.id in (
-        select p.id
-        from projects p
-        inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
-        where t.status in ('started', 'done')
       )
       and p.category_id = ?", user_id, category_id]
     )
@@ -142,30 +85,7 @@ class Project < ActiveRecord::Base
     )
   end
 
-  def self.done_split(user_id, category_id)
-    Project.find_by_sql(
-      ["select distinct p.id, p.name || ' (Split)' as name
-      from projects p
-      inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
-      left join assignments a on p.id = a.assignable_id and a.assignable_type = 'Project' and a.user_id = ?
-      where t.status = 'backlog'
-      and p.id in (
-        select p.id
-        from projects p
-        inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
-        where t.status = 'done'
-      )
-      and p.id not in (
-        select p.id
-        from projects p
-        inner join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
-        where t.status in ('planned', 'started')
-      )
-      and p.category_id = ?", user_id, category_id]
-    )
-  end
-
-  def self.split_project(project_id)
+  def self.split_projects(project_id)
     Project.find_by_sql(
       ["select sp.id
       from projects p

@@ -77,8 +77,8 @@ class ProjectsController < ApplicationController
   	def split
   		project = Project.find(params[:id])
   		task = Task.find(params[:task])
-  		existing_split_project = Project.split_project(project.id)
-  		if existing_split_project.length == 0
+  		existing_split_projects = Project.split_projects(project.id)
+  		if existing_split_projects.length == 0
   			#create a split and a new project first
   			@new_project = Project.create!(:category_id => project.category_id, :name => project.name + " (Split Testing)")
   			Split.create!(:project_id => project.id, :new_project_id => @new_project.id)
