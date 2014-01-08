@@ -10,22 +10,41 @@ $(function() {
 
 	$(".plannable").on("sortstop", function(event, ui) {
 
-		var project_id = ui.item.attr("id")
+		//Projects
+		if(ui.item.hasClass("project"))	{
 
-		if(ui.item.closest(".plannable").attr("id") == "column-backlog") {
-			var dropped_in = "backlog"
-		}
-		else {
-			var dropped_in = "planned"
+			var project_id = ui.item.attr("id")
+
+			if(ui.item.closest(".plannable").attr("id") == "column-backlog") {
+				var dropped_in = "backlog"
+			}
+			else {
+				var dropped_in = "planned"
+			}
+
+			$.ajax({
+				type: "PUT",
+				url: "/projects/" + project_id + "/plan",
+				data: { to: dropped_in },
+				cache: true,
+				dataType: "script"
+			});
 		}
 
-		$.ajax({
-			type: "PUT",
-			url: "/projects/" + project_id + "/plan",
-			data: { to: dropped_in },
-			cache: true,
-			dataType: "script"
-		});
+		//Tasks	
+		if(ui.item.hasClass("task")) {
+
+			if (ui.item.closest(".plannable").attr("id") == "column-backlog") {
+				var status = "backlog"
+			}
+			if (ui.item.closest(".plannable").attr("id") == "column-planned") {
+				var status = "planned"
+			}
+			console.log(status);
+
+			$(ui.item).find(".status_field").val(status);
+		  	$(ui.item).find(".jquery_sub").trigger('click');
+		}
 
 	});
 	
@@ -34,7 +53,7 @@ $(function() {
 
 	$(".column").sortable(
 		{ connectWith: ".column" },
-		{ items: ".sortable" }
+		{ items: ".task" }
 	);
 	
 	$(".column").disableSelection();	
@@ -49,7 +68,6 @@ $(function() {
 			//}
 		//});
 
-		/*	
 		//Set status of dropped item
 		if (ui.item.closest(".column").attr("id") == "column-backlog") {
 			var status = "backlog"
@@ -63,10 +81,9 @@ $(function() {
 		if (ui.item.closest(".column").attr("id") == "column-done") {
 			var status = "done"
 		}
-		//console.log(status)
+		
 		$(ui.item).find(".status_field").val(status);
 	  	$(ui.item).find(".jquery_sub").trigger('click');
-	  	*/
 		 
 	});
 	
