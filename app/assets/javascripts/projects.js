@@ -1,5 +1,18 @@
 $(function() {
 
+	//Highlight current nav selection
+	$("#plan-board, #current-board").removeClass("active");
+
+	var pathname = window.location.pathname;
+
+	if(pathname == "/boards/plan") {
+		$("#plan-board").addClass("active");
+	}
+	if(pathname == "/boards/current") {
+		$("#current-board").addClass("active");
+	}
+
+
 	//Plan view, projects and tasks sortable, project_tasks not sortable
 	$(".plannable").sortable(
 		{ connectWith: ".plannable" },
@@ -141,10 +154,13 @@ $("form").on("click", ".delete-task", function(event) {
 */
 
 //Hook into ajax beforeSend to mark card for subsequent DOM insertion
-$(".plannable").on("ajax:beforeSend", "a", function() {
+$(".plannable, .column").on("ajax:beforeSend", "a", function() {
 	console.log("beforeSend fired");
 	$(".marked").removeClass("marked");
 	$(this).closest("li").addClass("marked");
 });
 
 
+$(".plannable, .column").on("click", ".cancel", function() {
+	$(this).closest("li").remove();
+});
