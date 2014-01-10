@@ -32,11 +32,12 @@ ActiveRecord::Schema.define(:version => 20140105204126) do
     t.string   "name"
     t.string   "description"
     t.text     "notes"
+    t.string   "initial_status"
     t.string   "priority"
     t.integer  "order"
     t.date     "due_date"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "splits", :force => true do |t|

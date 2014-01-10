@@ -5,6 +5,7 @@ class CreateProjects < ActiveRecord::Migration
     	t.string :name
     	t.string :description
     	t.text :notes
+      t.string :initial_status
     	t.string :priority
     	t.integer :order
     	t.date :due_date

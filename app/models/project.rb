@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  attr_accessible :category_id, :name, :description, :notes, :order, :due_date, :priority, :tasks_attributes, :assignments_attributes
+  attr_accessible :category_id, :name, :description, :notes, :initial_status, :order, :due_date, :priority, :tasks_attributes, :assignments_attributes
   
   has_many :assignments, :as => :assignable
   has_many :users, :through => :assignments
@@ -15,7 +15,19 @@ class Project < ActiveRecord::Base
   	joins(:categories => :users)
   	.where("user_id =?", user_id)
   	.where("categories.id = ?", category_id)
-  end  
+  end
+
+  def self.without_tasks(user_id, category_id, status)
+    Project.find_by_sql(
+      ["select distinct p.id, p.name
+      from projects p
+      left join tasks t on p.id = t.taskable_id and t.taskable_type = 'Project'
+      left join assignments a on p.id = a.assignable_id and a.assignable_type = 'Project' and a.user_id = ?
+      where t.id is null
+      and p.initial_status = ?
+      and p.category_id = ?", user_id, status, category_id]
+    )
+  end    
 
   def self.backlog(user_id, category_id)
     Project.find_by_sql(
@@ -32,7 +44,7 @@ class Project < ActiveRecord::Base
       )
       and p.category_id = ?", user_id, category_id]
     )
-  end
+  end  
 
   def self.planned(user_id, category_id)
     Project.find_by_sql(
@@ -49,7 +61,7 @@ class Project < ActiveRecord::Base
       )
       and p.category_id = ?", user_id, category_id]
     )
-  end
+  end  
   
   def self.started(user_id, category_id)
     Project.find_by_sql(

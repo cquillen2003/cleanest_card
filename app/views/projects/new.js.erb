@@ -8,3 +8,13 @@
 
 //For board view
 $(".marked").after("<%= j(render "new_project_card") %>");
+
+var column = $(".marked").closest("ul").attr("id");
+console.log(column);
+if(column == "column-planned") {
+	var status = "planned"
+}
+else {
+	var status = "backlog"
+}
+$(".marked").next("li").find(".initial-status_field").val(status);

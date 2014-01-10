@@ -64,13 +64,23 @@ class ProjectsController < ApplicationController
   		project = Project.find(params[:id])
 
   		if params[:to] == "backlog"
-  			project.tasks.each do |task|
-  				task.update_attribute(:status, "backlog")
-  			end
+  			tasks = project.tasks
+  			if tasks.count == 0
+  				project.update_attribute(:initial_status, "backlog")
+	  		else
+	  			tasks.each do |task|
+	  				task.update_attribute(:status, "backlog")
+	  			end	  			
+	  		end
   		else
-  			project.tasks.each do |task|
-  				task.update_attribute(:status, "planned")
-  			end
+  			tasks = project.tasks
+  			if tasks.count == 0
+  				project.update_attribute(:initial_status, "planned")
+	  		else
+  				tasks.each do |task|
+	  				task.update_attribute(:status, "planned")
+	  			end	  			
+	  		end
   		end
   	end
 
