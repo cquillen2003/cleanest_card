@@ -5,11 +5,12 @@ namespace :db do
 	task populate: :environment do
 		make_users
 		make_categories
-		make_backlog_projects
+		#make_backlog_projects
+		make_backlog_items
 		#make_split_projects
-		make_planned_projects
-		make_started_projects
-		make_done_projects
+		#make_planned_projects
+		#make_started_projects
+		#make_done_projects
 		#make_independent_tasks
 	end
 end
@@ -70,6 +71,32 @@ def make_backlog_projects
 					status = "backlog"
 					task = project.tasks.create!(:name => name, :status => status)
 					task.save
+				end
+			end
+		end
+	end
+end
+
+def make_backlog_items
+	users = User.all
+	users.each do |user|
+		categories = user.categories
+		categories.each do |category|
+			5.times do |n|
+				name = "#{category.name} #{user.first_name} backlog project no. #{n}"
+				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
+				priority = "high"
+				#order = order + 1
+				item = category.items.create!(:name => name,
+					:description => description,
+					:priority => priority
+				)
+				item.save
+				5.times do |n|
+					name = "#{user.first_name} #{item.name} task #{n}"
+					status = "backlog"
+					step = item.steps.create!(:name => name, :status => status)
+					step.save
 				end
 			end
 		end

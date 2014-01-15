@@ -1,0 +1,25 @@
+<li class="list-group-item card item">
+	<span class="pull-right">Item</span>
+	<h5 class="list-group-item-heading"><%= link_to item.name, edit_item_path(item.id) %></h5>
+	<% if item.steps.size > 0 %>
+		<small class="card-controls invisible">
+			<i class="fa fa-plus-square-o"></i>&nbsp;
+			<%= link_to "Tasks", item_steps_url(item), :remote => true , :class => "show-tasks-link" %>
+			<a href="#" class="hide-tasks hidden">Hide Tasks</a>
+			&nbsp;&nbsp;&nbsp;
+		</small>	
+	<% end %>
+	<small class="card-controls invisible">
+		<i class="fa fa-chevron-down"></i>&nbsp;
+		<%= link_to "Insert Item", new_item_path(:cat_id => cat_id), :remote => true %>&nbsp;&nbsp;&nbsp;
+	</small>	
+	<small class="card-controls invisible">
+		<i class="fa fa-times"></i>&nbsp;
+		<%= link_to 'Delete', item, method: :delete, :remote => true, data: { confirm: 'Are you sure?' }, :class => "delete-item-link" %>
+	</small>
+	
+	<%= form_for item, :class => "hide", :remote => true do |f| %>
+		<%= f.hidden_field :status, :value => "", :class => "status_field" %>
+		<%= f.submit :class => "hide jquery_sub" %>
+	<% end %>	
+</li>

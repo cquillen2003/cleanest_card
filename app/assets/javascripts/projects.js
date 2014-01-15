@@ -16,7 +16,7 @@ $(function() {
 	//Plan view, projects and tasks sortable, project_tasks not sortable
 	$(".plannable").sortable(
 		{ connectWith: ".plannable" },
-		{ items: ".project, .task"}
+		{ items: ".item, .project, .task"}
 	);
 
 	$(".plannable").disableSelection();

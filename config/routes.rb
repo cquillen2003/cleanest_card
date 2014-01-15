@@ -27,6 +27,10 @@ CleanestCard::Application.routes.draw do
 
   resources :tasks #Needed for stand-alone tasks (not tied to project)
 
+  resources :items do
+    resources :items, :as => 'steps', :controller => 'steps'
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

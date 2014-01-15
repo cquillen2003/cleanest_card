@@ -18,11 +18,15 @@ class BoardsController < ApplicationController
     @categories = current_user.categories
     
     #backlog cards
-    backlog_projects = Project.backlog(current_user.id, @bcat)
-    backlog_empty_projects = Project.without_tasks(current_user, @bcat, "backlog")
-    backlog_category_tasks = Category.find(@bcat).tasks.where({ :status => "backlog" })
-    backlog_assigned_tasks = current_user.tasks.where({ :status => "backlog" })
-    @backlog_cards = backlog_projects + backlog_empty_projects + backlog_category_tasks + backlog_assigned_tasks
+    #backlog_projects = Project.backlog(current_user.id, @bcat)
+    #backlog_empty_projects = Project.without_tasks(current_user, @bcat, "backlog")
+    #backlog_category_tasks = Category.find(@bcat).tasks.where({ :status => "backlog" })
+    #backlog_assigned_tasks = current_user.tasks.where({ :status => "backlog" })
+    #@backlog_cards = backlog_projects + backlog_empty_projects + backlog_category_tasks + backlog_assigned_tasks
+
+    backlog_items = Item.backlog(current_user.id, @bcat)
+    backlog_empty_items = Category.find(@bcat).items.where({ :status => "backlog" })
+    @backlog_cards = backlog_items + backlog_empty_items    
     
     #planned cards
     planned_projects = Project.planned(current_user.id, @kcat)
