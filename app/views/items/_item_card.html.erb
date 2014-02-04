@@ -1,4 +1,4 @@
-<li class="list-group-item card item">
+<li class="list-group-item card item" id="<%= item.id %>">
 	<span class="pull-right">Item</span>
 	<h5 class="list-group-item-heading"><%= link_to item.name, edit_item_path(item.id) %></h5>
 	<% if item.steps.size > 0 %>

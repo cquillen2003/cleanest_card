@@ -23,16 +23,39 @@ $(function() {
 
 	$(".plannable").on("sortstop", function(event, ui) {
 
+		//Items
+		//TODO: Only make ajax call if status is new
+		if(ui.item.hasClass("item")) {
+
+			var item_id = ui.item.attr("id");
+
+			if(ui.item.closest(".plannable").attr("id") == "column-backlog") {
+				var dropped_in = "backlog";
+			}
+			else {
+				var dropped_in = "planned";
+			}
+
+			$.ajax({
+				type: "PUT",
+				url: "/items/" + item_id + "/plan",
+				data: { to: dropped_in },
+				cache: true,
+				dataType: "script"
+			});
+
+		}
+
 		//Projects
 		if(ui.item.hasClass("project"))	{
 
-			var project_id = ui.item.attr("id")
+			var project_id = ui.item.attr("id");
 
 			if(ui.item.closest(".plannable").attr("id") == "column-backlog") {
-				var dropped_in = "backlog"
+				var dropped_in = "backlog";
 			}
 			else {
-				var dropped_in = "planned"
+				var dropped_in = "planned";
 			}
 
 			$.ajax({
@@ -48,10 +71,10 @@ $(function() {
 		if(ui.item.hasClass("task")) {
 
 			if (ui.item.closest(".plannable").attr("id") == "column-backlog") {
-				var status = "backlog"
+				var status = "backlog";
 			}
 			if (ui.item.closest(".plannable").attr("id") == "column-planned") {
-				var status = "planned"
+				var status = "planned";
 			}
 			console.log(status);
 

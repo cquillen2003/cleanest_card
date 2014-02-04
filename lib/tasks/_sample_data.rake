@@ -83,7 +83,7 @@ def make_backlog_items
 		categories = user.categories
 		categories.each do |category|
 			5.times do |n|
-				name = "#{category.name} #{user.first_name} backlog project no. #{n}"
+				name = "#{category.name} #{user.first_name} backlog item no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
 				priority = "high"
 				#order = order + 1
@@ -93,7 +93,7 @@ def make_backlog_items
 				)
 				item.save
 				5.times do |n|
-					name = "#{user.first_name} #{item.name} task #{n}"
+					name = "#{user.first_name} #{item.name} step #{n}"
 					status = "backlog"
 					step = item.steps.create!(:name => name, :status => status)
 					step.save

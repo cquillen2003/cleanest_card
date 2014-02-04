@@ -24,7 +24,7 @@ class BoardsController < ApplicationController
     #backlog_assigned_tasks = current_user.tasks.where({ :status => "backlog" })
     #@backlog_cards = backlog_projects + backlog_empty_projects + backlog_category_tasks + backlog_assigned_tasks
 
-    backlog_items = Item.backlog(current_user.id, @bcat)
+    backlog_items = Item.backlog(current_user.id, [1,2])
     backlog_empty_items = Category.find(@bcat).items.where({ :status => "backlog" })
     @backlog_cards = backlog_items + backlog_empty_items    
     

@@ -21,7 +21,7 @@ class Item < ActiveRecord::Base
         inner join items i2 on i1.id = i2.linkable_id and i2.linkable_type = 'Item'
         where i2.status in ('planned', 'started', 'done')
       )
-      and i1.linkable_id = ?
+      and i1.linkable_id in (?)
       and i1.linkable_type = 'Category'", user_id, category_id]
     )
 	end  

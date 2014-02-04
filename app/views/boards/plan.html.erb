@@ -76,7 +76,7 @@
 					    <h3 class="panel-title">Planned</h3>
 					  </div>
 
-						<ul class="list-group plannable" id="column-planned">
+						<ul class="list-group plannable" style="height: 250px" id="column-planned">
 							<% @planned_cards.each do |card| %>			  
 			                  <% if card.class == Project %>
 			                      <%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @kcat } %>
@@ -95,7 +95,7 @@
 					  <div class="panel-heading">
 					    <h3 class="panel-title">Started</h3>
 					  </div>
-						<ul class="list-group" id="column-started">
+						<ul class="list-group" style="height: 250px" id="column-started">
 							<% @started_cards.each do |card| %>
 								<% if card.class == Project %>
 										<%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @kcat } %>
@@ -112,7 +112,7 @@
 					  <div class="panel-heading">
 					    <h3 class="panel-title">Done</h3>
 					  </div>
-						<ul class="list-group" id="column-done">
+						<ul class="list-group" style="height: 250px" id="column-done">
 							<% @done_cards.each do |card| %>
 								<% if card.class == Project %>
 										<%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @kcat } %>
