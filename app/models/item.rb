@@ -7,6 +7,8 @@ class Item < ActiveRecord::Base
 
 	accepts_nested_attributes_for :steps, :allow_destroy => true
 
+  after_save :update_parent
+
 
 	def self.backlog(user_id, category_id)
   	Item.find_by_sql(
@@ -24,6 +26,33 @@ class Item < ActiveRecord::Base
       and i1.linkable_id in (?)
       and i1.linkable_type = 'Category'", user_id, category_id]
     )
-	end  
+	end
+
+  private
+
+    def update_parent
+      if self.linkable_type == "Item"
+        #self.status = "cq"
+        parent_item = Item.find(self.linkable_id)
+
+        backlog_steps = parent_item.steps.where({ :status => "backlog" }).count
+        planned_steps = parent_item.steps.where({ :status => "planned" }).count
+        started_steps = parent_item.steps.where({ :status => "started" }).count
+        done_steps = parent_item.steps.where({ :status => "done" }).count
+
+        if (planned_steps + started_steps + done_steps) == 0 && backlog_steps > 0
+          parent_item.update_attribute(:status, "backlog")
+        elsif (backlog_steps + started_steps + done_steps) == 0 && planned_steps > 0
+          parent_item.update_attribute(:status, "planned")
+        elsif (started_steps + done_steps) > 0 && (planned_steps + started_steps) > 0
+          parent_item.update_attribute(:status, "started")
+        elsif (backlog_steps + planned_steps + started_steps) == 0 && done_steps > 0
+          parent_item.update_attribute(:status, "done")
+        else
+          #TODO: log error
+        end
+
+      end
+    end
 
 end
