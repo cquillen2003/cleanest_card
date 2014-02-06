@@ -1,4 +1,6 @@
 class BoardsController < ApplicationController
+
+  respond_to :html, :js
 	
   def plan 	
     #input bcat, kcat, view
@@ -43,6 +45,8 @@ class BoardsController < ApplicationController
     done_category_tasks = Category.find(@kcat).tasks.where({ :status => "done" })
     done_assigned_tasks = current_user.tasks.where({ :status => "done" })
    	@done_cards = done_projects + done_category_tasks + done_assigned_tasks
+
+    respond_with(@backlog_cards)
 
   end
 

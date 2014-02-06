@@ -6,27 +6,31 @@
 		<div class="col-md-7">
 			<div class="menu">
 				<span>Category:</span>
-
 				<div class="dropdown" style="display: inline;">
 					<a href="#" data-toggle="dropdown" class="menu-link"><%= Category.find(@bcat).name %></a>
-					<ul class="dropdown-menu" role="menu">
-						<% @categories.each do |category| %>
-							<li><%= link_to category.name, :controller => "boards", :action => "plan", :bcat => category.id, :kcat => @kcat %></li>
+					<ul class="dropdown-menu dropdown-menu-form" role="menu">
+					<%= form_tag plan_url, :method => 'get', :remote => true do %>
+						<% @categories.each_with_index do |category, index| %>
+							<li>
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											<%= check_box_tag "bcat", category.id %><%= category.name %>
+										</label>
+									</div>
+								</div>
+							</li>
 						<% end %>
+						<li><%= submit_tag "Apply" %>
+					<% end %>
 					</ul>
 				</div>
-
 			</div>			
 			<div class="panel panel-default">
-			  <div class="panel-heading">
+			  <div class="panel-heading" id="backlog-panel-heading">
 			    <h3 class="panel-title">Backlog</h3>
 			  </div>
-			  
-				<ul class="list-group plannable" style="height: 750px" id="column-backlog">
-					<% @backlog_cards.each do |card| %>
-						<%= render :partial => "items/item_card", :locals => { :item => card, :cat_id => @bcat } %>
-				  	<% end %>
-				</ul>
+			  <%= render 'cards' %>
 			</div>			
 		</div>
 		<div class="col-md-17">

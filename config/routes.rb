@@ -2,7 +2,7 @@ CleanestCard::Application.routes.draw do
 	
 	root :to => 'sessions#new'
 	
-  get "boards/plan"
+  get "boards/plan", :as => :plan
 
   get "boards/current"
 

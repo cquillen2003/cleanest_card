@@ -1,0 +1,5 @@
+<ul class="list-group plannable" style="height: 750px" id="column-backlog">
+	<% @backlog_cards.each do |card| %>
+		<%= render :partial => "items/item_card", :locals => { :item => card, :cat_id => @bcat } %>
+  	<% end %>
+</ul>
