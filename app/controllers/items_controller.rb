@@ -28,7 +28,10 @@ class ItemsController < ApplicationController
 
   	def plan
   		item = Item.find(params[:id])
-  		if item.items_count == 0
+  		items_count = item.items_count
+  		if items_count == nil
+  			item.update_attribute(:status, params[:to])
+  		elsif items_count == 0
   			item.update_attribute(:status, params[:to])
   		else
   			item.steps.each do |step|

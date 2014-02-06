@@ -24,13 +24,8 @@
 			  
 				<ul class="list-group plannable" style="height: 750px" id="column-backlog">
 					<% @backlog_cards.each do |card| %>
-							<% if card.class == Item %>
-									<%= render :partial => "items/item_card", :locals => { :item => card, :cat_id => @bcat } %>
-							<% end %>
-							<% if card.class == Task %>
-									<%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @bcat } %>
-							<% end %>
-				  <% end %>
+						<%= render :partial => "items/item_card", :locals => { :item => card, :cat_id => @bcat } %>
+				  	<% end %>
 				</ul>
 			</div>			
 		</div>
@@ -38,7 +33,6 @@
 			<div class="row">
 				<div class="col-md-24">
 					<div class="menu">
-
 
 						<span>Plan for</span>
 						<a href="#" class="menu-link">Week</a>
@@ -78,16 +72,9 @@
 
 						<ul class="list-group plannable" style="height: 250px" id="column-planned">
 							<% @planned_cards.each do |card| %>			  
-			                  <% if card.class == Project %>
-			                      <%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @kcat } %>
-			                  <% end %>
-			                  <% if card.class == Task %>
-			                      <%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @kcat } %>
-			                  <% end %>				       
-						  <% end %>
+			        			<%= render :partial => "items/item_card", :locals => { :item => card, :cat_id => @kcat } %>				       
+						  	<% end %>
 						</ul>
-
-
 					</div>		
 				</div>
 				<div class="col-md-8">

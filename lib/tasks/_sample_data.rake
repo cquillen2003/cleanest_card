@@ -7,6 +7,7 @@ namespace :db do
 		make_categories
 		#make_backlog_projects
 		make_backlog_items
+		make_empty_backlog_items
 		#make_split_projects
 		#make_planned_projects
 		#make_started_projects
@@ -85,10 +86,12 @@ def make_backlog_items
 			5.times do |n|
 				name = "#{category.name} #{user.first_name} backlog item no. #{n}"
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
+				status = "backlog"
 				priority = "high"
 				#order = order + 1
 				item = category.items.create!(:name => name,
 					:description => description,
+					:status => status,
 					:priority => priority
 				)
 				item.save
@@ -98,6 +101,28 @@ def make_backlog_items
 					step = item.steps.create!(:name => name, :status => status)
 					step.save
 				end
+			end
+		end
+	end
+end
+
+def make_empty_backlog_items
+	users = User.all
+	users.each do |user|
+		categories = user.categories
+		categories.each do |category|
+			5.times do |n|
+				name = "#{category.name} #{user.first_name} empty backlog item no. #{n}"
+				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
+				status = "backlog"
+				priority = "high"
+				#order = order + 1
+				item = category.items.create!(:name => name,
+					:description => description,
+					:status => status,
+					:priority => priority
+				)
+				item.save
 			end
 		end
 	end
