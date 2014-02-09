@@ -12,78 +12,81 @@ $(function() {
 		$("#current-board").addClass("active");
 	}
 
+	function bindSortable() {
 
-	//Plan view, projects and tasks sortable, project_tasks not sortable
-	$(".plannable").sortable(
-		{ connectWith: ".plannable" },
-		{ items: ".item, .project, .task"}
-	);
+		//Plan view, projects and tasks sortable, project_tasks not sortable
+		$(".plannable").sortable(
+			{ connectWith: ".plannable" },
+			{ items: ".item, .project, .task"}
+		);
 
-	$(".plannable").disableSelection();
+		$(".plannable").disableSelection();
 
-	$(".plannable").on("sortstop", function(event, ui) {
+		$(".plannable").on("sortstop", function(event, ui) {
 
-		//Items
-		//TODO: Only make ajax call if status is new
-		if(ui.item.hasClass("item")) {
+			//Items
+			//TODO: Only make ajax call if status is new
+			if(ui.item.hasClass("item")) {
 
-			var item_id = ui.item.attr("id");
+				var item_id = ui.item.attr("id");
 
-			if(ui.item.closest(".plannable").attr("id") == "column-backlog") {
-				var dropped_in = "backlog";
-			}
-			else {
-				var dropped_in = "planned";
-			}
+				if(ui.item.closest(".plannable").attr("id") == "column-backlog") {
+					var dropped_in = "backlog";
+				}
+				else {
+					var dropped_in = "planned";
+				}
 
-			$.ajax({
-				type: "PUT",
-				url: "/items/" + item_id + "/plan",
-				data: { to: dropped_in },
-				cache: true,
-				dataType: "script"
-			});
+				$.ajax({
+					type: "PUT",
+					url: "/items/" + item_id + "/plan",
+					data: { to: dropped_in },
+					cache: true,
+					dataType: "script"
+				});
 
-		}
-
-		//Projects
-		if(ui.item.hasClass("project"))	{
-
-			var project_id = ui.item.attr("id");
-
-			if(ui.item.closest(".plannable").attr("id") == "column-backlog") {
-				var dropped_in = "backlog";
-			}
-			else {
-				var dropped_in = "planned";
 			}
 
-			$.ajax({
-				type: "PUT",
-				url: "/projects/" + project_id + "/plan",
-				data: { to: dropped_in },
-				cache: true,
-				dataType: "script"
-			});
-		}
+			//Projects
+			if(ui.item.hasClass("project"))	{
 
-		//Tasks	
-		if(ui.item.hasClass("task")) {
+				var project_id = ui.item.attr("id");
 
-			if (ui.item.closest(".plannable").attr("id") == "column-backlog") {
-				var status = "backlog";
+				if(ui.item.closest(".plannable").attr("id") == "column-backlog") {
+					var dropped_in = "backlog";
+				}
+				else {
+					var dropped_in = "planned";
+				}
+
+				$.ajax({
+					type: "PUT",
+					url: "/projects/" + project_id + "/plan",
+					data: { to: dropped_in },
+					cache: true,
+					dataType: "script"
+				});
 			}
-			if (ui.item.closest(".plannable").attr("id") == "column-planned") {
-				var status = "planned";
+
+			//Tasks	
+			if(ui.item.hasClass("task")) {
+
+				if (ui.item.closest(".plannable").attr("id") == "column-backlog") {
+					var status = "backlog";
+				}
+				if (ui.item.closest(".plannable").attr("id") == "column-planned") {
+					var status = "planned";
+				}
+				console.log(status);
+
+				$(ui.item).find(".status_field").val(status);
+			  	$(ui.item).find(".jquery_sub").trigger('click');
 			}
-			console.log(status);
 
-			$(ui.item).find(".status_field").val(status);
-		  	$(ui.item).find(".jquery_sub").trigger('click');
-		}
+		});
+	}
 
-	});
-	
+	bindSortable();
 	
 	//Current view, project_tasks and tasks sortable, projects not sortable
 
@@ -128,6 +131,11 @@ $(function() {
 			//height: 'auto',
 			//distance: '3px'
 	//});
+
+	$(document).on("ajax:success", "#filter-form", function() {
+		console.log("filter applied");
+		bindSortable();
+	});
 	
 });
 

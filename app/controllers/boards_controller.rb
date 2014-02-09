@@ -18,6 +18,13 @@ class BoardsController < ApplicationController
 
     #output @bcat, @kcat, @view, @bcards, @kcards, @categories
     @categories = current_user.categories
+
+    if params[:bcats]
+      bcat_array = params[:bcats]
+    else    
+      bcat_array = current_user.categories.pluck("categories.id")
+    end
+  
     
     #backlog cards
     #backlog_projects = Project.backlog(current_user.id, @bcat)
@@ -26,7 +33,7 @@ class BoardsController < ApplicationController
     #backlog_assigned_tasks = current_user.tasks.where({ :status => "backlog" })
     #@backlog_cards = backlog_projects + backlog_empty_projects + backlog_category_tasks + backlog_assigned_tasks
 
-    backlog_items = Category.find(@bcat).items.where({ :status => "backlog"})
+    backlog_items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array, :status => "backlog" })
     @backlog_cards = backlog_items
 
 
