@@ -1,4 +1,5 @@
 <li class="list-group-item card item" id="<%= item.id %>">
+	<span class="pull-right"><%= check_box_tag "item_ids[]", item.id, false, :class => "select-card-checkbox" %></span>
 	<span class="pull-right">Item</span>
 	<h5 class="list-group-item-heading"><%= link_to item.name, edit_item_path(item.id) %></h5>
 	<% if item.steps.size > 0 %>
@@ -17,7 +18,11 @@
 		<i class="fa fa-times"></i>&nbsp;
 		<%= link_to 'Delete', item, method: :delete, :remote => true, data: { confirm: 'Are you sure?' }, :class => "delete-item-link" %>
 	</small>
-	
+	<small class=" card-controls-link-tasks invisible">
+		<i class="fa fa-times"></i>&nbsp;
+		<%= link_to "Link Items", "javascript:void(0)", :class => "link-items" %>
+	</small>
+
 	<%= form_for item, :class => "hide", :remote => true do |f| %>
 		<%= f.hidden_field :status, :value => "", :class => "status_field" %>
 		<%= f.submit :class => "hide jquery_sub" %>

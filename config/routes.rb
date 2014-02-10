@@ -28,6 +28,9 @@ CleanestCard::Application.routes.draw do
   resources :tasks #Needed for stand-alone tasks (not tied to project)
 
   resources :items do
+    collection do
+      put :link_items #Add tasks from items
+    end
     resources :items, :as => 'steps', :controller => 'steps'
   end
 

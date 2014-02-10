@@ -3,9 +3,9 @@
 <div class="container-full">
 
 	<div class="row">
-		<div class="col-md-7">
+		<div class="col-md-7" id="backlog">
 			<div class="menu">
-				<div class="dropdown">
+				<div class="dropdown" style="display:inline">
 					<a href="#" data-toggle="dropdown" class="menu-link">Filter</a>
 					<ul class="dropdown-menu dropdown-menu-form" role="menu">
 					<%= form_tag plan_url, :method => 'get', :remote => true, :id => "filter-form" do %>
@@ -24,13 +24,21 @@
 					<% end %>
 					</ul>
 				</div>
-			</div>			
-			<div class="panel panel-default">
-			  <div class="panel-heading" id="backlog-panel-heading">
-			    <h3 class="panel-title">Backlog</h3>
-			  </div>
-			  <%= render 'cards' %>
-			</div>			
+				<div id="update-multiple-menu" class="invisible" style="display:inline">
+					<button type="button" class="btn btn-primary btn-xs pull-right" style="margin-right: 10px">Del</button>
+					<button type="button" class="btn btn-primary btn-xs pull-right" style="margin-right: 10px">Plan</button>
+					<span class="pull-right">0 Selected &nbsp;</span>
+				</div>
+			</div>
+			<%= form_tag link_items_items_path, :method => :put, :remote => true, :id => "link-items-form" do %>
+				<%= hidden_field_tag "parent_id", "" %>		
+				<div class="panel panel-default">
+				  <div class="panel-heading" id="backlog-panel-heading">
+				    <h3 class="panel-title">Backlog</h3>
+				  </div>
+				  <%= render 'cards' %>
+				</div>
+			<% end %>			
 		</div>
 		<div class="col-md-17">
 			<div class="row">

@@ -39,5 +39,12 @@ class ItemsController < ApplicationController
   			end
   		end
   	end
+
+  	def link_items
+  		Item.update_all(
+  			{ :linkable_id => params[:parent_id], :linkable_type => "Item" },
+  			{ :id => params[:item_ids] }
+  		)
+  	end
 	
 end

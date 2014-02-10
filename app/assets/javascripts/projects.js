@@ -84,6 +84,7 @@ $(function() {
 			}
 
 		});
+
 	}
 
 	bindSortable();
@@ -140,16 +141,6 @@ $(function() {
 });
 
 
-//Using .on and delegated event binding approach so that projects added via ajax work
-$(".plannable, .column").on( "mouseenter", "li", function() {
-	$(this).children(".card-controls").removeClass("invisible");
-});
-
-$(".plannable, .column").on( "mouseleave", "li", function() {
-	$(this).children(".card-controls").addClass("invisible");
-});
-
-
 $(".hide-tasks").click(function() {
 	$(this).closest("li")
 	.nextUntil(".project, .task")
@@ -194,4 +185,38 @@ $(".plannable, .column").on("ajax:beforeSend", "a", function() {
 
 $(".plannable, .column").on("click", ".cancel", function() {
 	$(this).closest("li").remove();
+});
+
+
+$("#backlog").on("change", ".select-card-checkbox", function() {
+	console.log("card selected");
+	//TODO: This event is being fired twice for some reason, so this needs to be fixed
+	//(Not since moving this function from boards.js to here I think)
+	$(this).closest("li").children(".card-controls").addClass("invisible");
+	$(this).closest("li").children(".card-controls-link-tasks").addClass("invisible");
+
+	if ($(".select-card-checkbox:checked").length > 0) {
+		$("#update-multiple-menu").removeClass("invisible");
+	}
+	else {
+		$("#update-multiple-menu").addClass("invisible");
+	}
+});
+
+
+//Using .on and delegated event binding approach so that projects added via ajax work
+$(document).on( "mouseenter", "li", function() {
+	console.log($(".select-card-checkbox:checked").length);
+	if ($(".select-card-checkbox:checked").length === 0) {
+		$(this).children(".card-controls").removeClass("invisible");
+	}
+
+	if ($(".select-card-checkbox:checked").length > 0 && !$(this).find(".select-card-checkbox").prop("checked")) {
+		$(this).children(".card-controls-link-tasks").removeClass("invisible");
+	}
+});
+
+$(document).on( "mouseleave", "li", function() {
+	$(this).children(".card-controls").addClass("invisible");
+	$(this).children(".card-controls-link-tasks").addClass("invisible");
 });
