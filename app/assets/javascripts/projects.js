@@ -206,17 +206,19 @@ $("#backlog").on("change", ".select-card-checkbox", function() {
 
 //Using .on and delegated event binding approach so that projects added via ajax work
 $(document).on( "mouseenter", "li", function() {
-	console.log($(".select-card-checkbox:checked").length);
 	if ($(".select-card-checkbox:checked").length === 0) {
 		$(this).children(".card-controls").removeClass("invisible");
 	}
 
-	if ($(".select-card-checkbox:checked").length > 0 && !$(this).find(".select-card-checkbox").prop("checked")) {
-		$(this).children(".card-controls-link-tasks").removeClass("invisible");
+	if ($(".select-card-checkbox:checked").length > 0
+		&& !$(this).find(".select-card-checkbox").prop("checked")
+		&& $(".has-steps .select-card-checkbox:checked").length === 0) {
+			$(this).children(".card-controls").addClass("hidden");
+			$(this).children(".add-items").removeClass("hidden");
 	}
 });
 
 $(document).on( "mouseleave", "li", function() {
-	$(this).children(".card-controls").addClass("invisible");
-	$(this).children(".card-controls-link-tasks").addClass("invisible");
+	$(this).children(".card-controls").addClass("invisible").removeClass("hidden");
+	$(this).children(".add-items").addClass("hidden");
 });
