@@ -1,4 +1,4 @@
-<li class="list-group-item card item <%= "has-steps" if item.steps.size > 0 %>" id="<%= item.id %>">
+<li class="list-group-item card item sortable <%= "has-steps" if item.steps.size > 0 %>" id="<%= item.id %>">
 	<span class="pull-right"><%= check_box_tag "item_ids[]", item.id, false, :class => "select-card-checkbox" %></span>
 	<h5 class="list-group-item-heading"><%= link_to item.name, edit_item_path(item.id) %></h5>
 

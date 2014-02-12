@@ -58,10 +58,10 @@ ActiveRecord::Schema.define(:version => 20140113043242) do
   end
 
   create_table "splits", :force => true do |t|
-    t.integer  "project_id"
-    t.integer  "new_project_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.integer  "item_id"
+    t.integer  "new_item_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "tasks", :force => true do |t|

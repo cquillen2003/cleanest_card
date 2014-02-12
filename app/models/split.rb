@@ -1,5 +1,5 @@
 class Split < ActiveRecord::Base
-  attr_accessible :project_id, :new_project_id
+  attr_accessible :item_id, :new_item_id
 
-  belongs_to :project
+  belongs_to :item
 end

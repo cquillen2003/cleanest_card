@@ -4,6 +4,7 @@ class Item < ActiveRecord::Base
 	belongs_to :linkable, :polymorphic => true, :counter_cache => true
 
 	has_many :steps, :as => :linkable, :class_name => "Item", :foreign_key => "linkable_id"
+  has_many :splits
 
 	accepts_nested_attributes_for :steps, :allow_destroy => true
 

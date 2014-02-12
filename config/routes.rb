@@ -34,7 +34,10 @@ CleanestCard::Application.routes.draw do
     resources :items, :as => 'steps', :controller => 'steps'
   end
 
+  post "items/:id/split", :to => "items#split", :as => :split_item
+
   put "items/:id/plan", :to => "items#plan"
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

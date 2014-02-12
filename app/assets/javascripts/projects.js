@@ -17,7 +17,7 @@ $(function() {
 		//Plan view, projects and tasks sortable, project_tasks not sortable
 		$(".plannable").sortable(
 			{ connectWith: ".plannable" },
-			{ items: ".item, .project, .task"}
+			{ items: ".sortable"}
 		);
 
 		$(".plannable").disableSelection();
@@ -140,16 +140,15 @@ $(function() {
 });
 
 
-$(".hide-tasks").click(function() {
+$(document).on("click", ".hide-tasks", function() {
 	$(this).closest("li")
 	.nextUntil(".item")
 	.remove();
 	
-	$(this).siblings(".show-tasks").removeClass("hidden");
+	$(this).siblings(".show-tasks-link").removeClass("hidden");
 	$(this).addClass("hidden");
 	
 	$(this).closest(".item").addClass("sortable");
-	
 });
 
 //Plan a project task (ie - split a project)

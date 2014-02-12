@@ -1,3 +1,4 @@
 <li class="list-group-item card step" style="background-color: #d9edf7;">
+	<small class="pull-right"><%= link_to "Plan Task", split_item_path(item.id, :step => step.id), :method => :post, :remote => true, :class => "plan-task" %></small>
 	<h5 class="list-group-item-heading"><%= step.name %></h5>
 </li>

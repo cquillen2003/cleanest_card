@@ -1,0 +1,3 @@
+$("#column-planned").append("<%= j(render :partial => "item_card", :locals => { :item => @new_item, :cat_id => @new_item.linkable_id }) %>");
+
+$(".marked").remove();
