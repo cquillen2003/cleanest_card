@@ -26,6 +26,13 @@ class ItemsController < ApplicationController
 		respond_with(@item)
 	end
 
+	def destroy
+		@item = Item.find(params[:id])
+    	@item.destroy
+    	
+    	respond_with(@item)
+  	end	
+
   	def plan
   		item = Item.find(params[:id])
   		items_count = item.items_count

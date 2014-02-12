@@ -134,7 +134,6 @@ $(function() {
 	//});
 
 	$(document).on("ajax:success", "#filter-form", function() {
-		console.log("filter applied");
 		bindSortable();
 	});
 	
@@ -143,14 +142,13 @@ $(function() {
 
 $(".hide-tasks").click(function() {
 	$(this).closest("li")
-	.nextUntil(".project, .task")
+	.nextUntil(".item")
 	.remove();
-	
 	
 	$(this).siblings(".show-tasks").removeClass("hidden");
 	$(this).addClass("hidden");
 	
-	$(this).closest(".project").addClass("sortable");
+	$(this).closest(".item").addClass("sortable");
 	
 });
 
@@ -177,9 +175,12 @@ $("form").on("click", ".delete-task", function(event) {
 
 //Hook into ajax beforeSend to mark card for subsequent DOM insertion
 $(".plannable, .column").on("ajax:beforeSend", "a", function() {
-	console.log("beforeSend fired");
 	$(".marked").removeClass("marked");
 	$(this).closest("li").addClass("marked");
+});
+
+$(document).on("ajax:success", "#link-items-form", function() {
+	$(".select-card-checkbox:checked").closest("li").remove();
 });
 
 
@@ -189,7 +190,6 @@ $(".plannable, .column").on("click", ".cancel", function() {
 
 
 $("#backlog").on("change", ".select-card-checkbox", function() {
-	console.log("card selected");
 	//TODO: This event is being fired twice for some reason, so this needs to be fixed
 	//(Not since moving this function from boards.js to here I think)
 	$(this).closest("li").children(".card-controls").addClass("invisible");

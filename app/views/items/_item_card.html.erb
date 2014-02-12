@@ -20,12 +20,12 @@
 		</small>
 
 		<small class="pull-right">
-			<a href="#">Insert Items</a>
+			<%= link_to "Insert Items", new_item_path(:cat_id => cat_id), :remote => true %>
 			&nbsp;&nbsp;
 		</small>
 	</div>
 	<div class="add-items hidden">
-		<button type="button" class="btn btn-primary btn-xs">Add Items (As tasks)</button>
+		<button type="button" class="btn btn-primary btn-xs link-items">Add Items (As tasks)</button>
 	</div>
 </li>
 
