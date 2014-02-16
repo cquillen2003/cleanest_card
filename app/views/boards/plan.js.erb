@@ -1,2 +1,4 @@
-$("#column-backlog").remove();
-$("#backlog-panel-heading").after("<%= j(render 'cards') %>");
+$("#column-backlog, #column-planned, #column-started").remove();
+$("#backlog-panel-heading").after("<%= j(render 'backlog_cards') %>");
+$("#planned-panel-heading").after("<%= j(render 'planned_cards') %>");
+$("#started-panel-heading").after("<%= j(render 'started_cards') %>");

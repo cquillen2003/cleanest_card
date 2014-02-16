@@ -29,6 +29,19 @@ class Item < ActiveRecord::Base
     )
 	end
 
+  def self.latest_split(item_id)
+    Item.find_by_sql(
+      ["select i.*
+      from splits s
+      inner join items i on s.new_item_id = i.id
+      where s.item_id = ?
+      and i.status in ('planned', 'started')
+      order by s.created_at DESC
+      limit 1", item_id]
+    )
+  end
+
+
   private
 
     def update_parent

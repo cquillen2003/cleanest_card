@@ -1,3 +1,11 @@
-$("#column-planned").append("<%= j(render :partial => "item_card", :locals => { :item => @new_item, :cat_id => @new_item.linkable_id }) %>");
+<% if @new_item %>
+
+	$("#column-planned").append("<%= j(render :partial => "item_card", :locals => { :item => @new_item, :cat_id => @new_item.linkable_id }) %>");
+
+<% else %>
+	//TODO: Update number of tasks on card
+	console.log("new item already there")
+
+<% end %>
 
 $(".marked").remove();

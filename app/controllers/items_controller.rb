@@ -50,15 +50,22 @@ class ItemsController < ApplicationController
     def split
       item = Item.find(params[:id])
       step = Item.find(params[:step])
-      if item.splits.length == 0
+
+      latest_split_item = Item.latest_split(item.id).first
+
+      if !latest_split_item
         #create a split and a new project first
-        @new_item = Item.create!(:linkable_id => item.linkable_id, :name => item.name + " (Split Testing)")
+        @new_item = Item.create!(:linkable_id => item.linkable_id,
+            :linkable_type => item.linkable_type,
+            :name => item.name + " (Split Testing)"
+        )
         Split.create!(:item_id => item.id, :new_item_id => @new_item.id)
-        step.update_attributes({ :linkable_id => @new_item.id, :status => 'planned' })       
+        step.update_attributes({ :linkable_id => @new_item.id, :status => 'planned' })
+        respond_with(@new_item)       
       else
         #add task to existing
+        step.update_attributes({ :linkable_id => latest_split_item.id, :status => 'planned' })
       end
-      respond_with(@new_item)
     end    
 
   	def link_items

@@ -36,26 +36,14 @@
 				  <div class="panel-heading" id="backlog-panel-heading">
 				    <h3 class="panel-title">Backlog</h3>
 				  </div>
-				  <%= render 'cards' %>
+				  <%= render 'backlog_cards' %>
 				</div>
 			<% end %>			
 		</div>
 		<div class="col-md-17">
 			<div class="row">
 				<div class="col-md-24">
-					<div class="menu">
-
-						<span>Plan for</span>
-						<a href="#" class="menu-link">Week</a>
-						<span>in category</span>
-						<div class="dropdown" style="display: inline;">
-							<a href="#" data-toggle="dropdown" class="menu-link"><%= Category.find(@kcat).name %></a>
-							<ul class="dropdown-menu" role="menu">
-								<% @categories.each do |category| %>
-									<li><%= link_to category.name, :controller => "boards", :action => "plan", :bcat => @bcat, :kcat => category.id %></li>
-								<% end %>
-							</ul>
-						</div>						
+					<div class="menu">						
 						<div class="dropdown pull-right" style="width: 500px">
 							<a href="#" data-toggle="dropdown" class="pull-right menu-link">Collaborators</a>
 							<ul class="dropdown-menu" role="menu" id="category-users">
@@ -77,49 +65,26 @@
 			<div class="row">
 				<div class="col-md-8">
 					<div class="panel panel-default">
-					  <div class="panel-heading">
+					  <div class="panel-heading" id="planned-panel-heading">
 					    <h3 class="panel-title">Planned</h3>
 					  </div>
-
-						<ul class="list-group plannable" style="height: 250px" id="column-planned">
-							<% @planned_cards.each do |card| %>			  
-			        			<%= render :partial => "items/item_card", :locals => { :item => card, :cat_id => @kcat } %>				       
-						  	<% end %>
-						</ul>
+					  <%= render 'planned_cards' %>
 					</div>		
 				</div>
 				<div class="col-md-8">
 					<div class="panel panel-default">
-					  <div class="panel-heading">
+					  <div class="panel-heading" id="started-panel-heading">
 					    <h3 class="panel-title">Started</h3>
 					  </div>
-						<ul class="list-group" style="height: 250px" id="column-started">
-							<% @started_cards.each do |card| %>
-								<% if card.class == Project %>
-										<%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @kcat } %>
-								<% end %>
-								<% if card.class == Task %>
-										<%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @kcat } %>
-								<% end %>
-						  <% end %>
-						</ul>
+					  <%= render 'started_cards' %>
 					</div>		
 				</div>		
 				<div class="col-md-8">
 					<div class="panel panel-default">
-					  <div class="panel-heading">
+					  <div class="panel-heading" id="done-panel-heading">
 					    <h3 class="panel-title">Done</h3>
 					  </div>
-						<ul class="list-group" style="height: 250px" id="column-done">
-							<% @done_cards.each do |card| %>
-								<% if card.class == Project %>
-										<%= render :partial => "projects/project_card", :locals => { :project => card, :cat_id => @kcat } %>
-								<% end %>
-								<% if card.class == Task %>
-										<%= render :partial => "tasks/task_card", :locals => { :task => card, :cat_id => @kcat } %>
-								<% end %>
-						  <% end %>
-						</ul>
+					  <%= render 'done_cards' %>
 					</div>		
 				</div>
 			</div>

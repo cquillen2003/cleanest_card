@@ -38,22 +38,31 @@ class BoardsController < ApplicationController
 
 
     #planned cards
-    planned_items = Category.find(@bcat).items.where({ :status => "planned"})
+    #planned_items = Category.find(@bcat).items.where({ :status => "planned"})
+    #@planned_cards = planned_items
+
+    planned_items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array, :status => "planned" })
     @planned_cards = planned_items
 
     #started tasks
-    started_projects = Project.started(current_user.id, @kcat)
-    started_category_tasks = Category.find(@kcat).tasks.where({ :status => "started" })
-    started_assigned_tasks = current_user.tasks.where({ :status => "started" })
-    @started_cards = started_projects + started_category_tasks + started_assigned_tasks
+    #started_projects = Project.started(current_user.id, @kcat)
+    #started_category_tasks = Category.find(@kcat).tasks.where({ :status => "started" })
+    #started_assigned_tasks = current_user.tasks.where({ :status => "started" })
+    #@started_cards = started_projects + started_category_tasks + started_assigned_tasks
+
+    started_items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array, :status => "started" })
+    @started_cards = started_items
 
     #done tasks
-    done_projects = Project.done(current_user.id, @kcat)      
-    done_category_tasks = Category.find(@kcat).tasks.where({ :status => "done" })
-    done_assigned_tasks = current_user.tasks.where({ :status => "done" })
-   	@done_cards = done_projects + done_category_tasks + done_assigned_tasks
+    #done_projects = Project.done(current_user.id, @kcat)      
+    #done_category_tasks = Category.find(@kcat).tasks.where({ :status => "done" })
+    #done_assigned_tasks = current_user.tasks.where({ :status => "done" })
+   	#@done_cards = done_projects + done_category_tasks + done_assigned_tasks
 
-    respond_with(@backlog_cards)
+    done_items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array, :status => "started" })
+    @done_cards = done_items
+
+    #respond_with() #TODO: Why is this not needed to call this action w/ ajax?
 
   end
 
