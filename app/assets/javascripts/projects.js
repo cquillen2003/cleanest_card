@@ -7,22 +7,24 @@ $(function() {
 
 	if(pathname == "/boards/plan") {
 		$("#plan-board").addClass("active");
+		$("#column-backlog, #column-planned").addClass("actionable");
 	}
 	if(pathname == "/boards/current") {
 		$("#current-board").addClass("active");
+		$("#column-planned, #column-started, #column-done").addClass("actionable");
 	}
 
 	function bindSortable() {
 
 		//Plan view, projects and tasks sortable, project_tasks not sortable
-		$(".plannable").sortable(
-			{ connectWith: ".plannable" },
+		$(".actionable").sortable(
+			{ connectWith: ".actionable" },
 			{ items: ".sortable"}
 		);
 
-		$(".plannable").disableSelection();
+		$(".actionable").disableSelection();
 
-		$(".plannable").on("sortstop", function(event, ui) {
+		$(".actionable").on("sortstop", function(event, ui) {
 
 			//Items
 			//TODO: Only make ajax call if status is new
@@ -30,10 +32,21 @@ $(function() {
 
 				var item_id = ui.item.attr("id");
 
-				if(ui.item.closest(".plannable").attr("id") == "column-backlog") {
+				if(ui.item.closest(".actionable").attr("id") == "column-backlog") {
 					var dropped_in = "backlog";
 				}
+				else if(ui.item.closest(".actionable").attr("id") == "column-planned") {
+					var dropped_in = "planned";
+				}
+				else if(ui.item.closest(".actionable").attr("id") == "column-started") {
+					var dropped_in = "started";
+				}
+				else if(ui.item.closest(".actionable").attr("id") == "column-done") {
+					var dropped_in = "done";
+				}				
 				else {
+					//Default to planned and throw error
+					//TODO: Throw error					
 					var dropped_in = "planned";
 				}
 
@@ -52,9 +65,9 @@ $(function() {
 
 				var project_id = ui.item.attr("id");
 
-				if(ui.item.closest(".plannable").attr("id") == "column-backlog") {
+				if(ui.item.closest(".actionable").attr("id") == "column-backlog") {
 					var dropped_in = "backlog";
-				}
+				}												
 				else {
 					var dropped_in = "planned";
 				}
@@ -71,10 +84,10 @@ $(function() {
 			//Tasks	
 			if(ui.item.hasClass("task")) {
 
-				if (ui.item.closest(".plannable").attr("id") == "column-backlog") {
+				if (ui.item.closest(".actionable").attr("id") == "column-backlog") {
 					var status = "backlog";
 				}
-				if (ui.item.closest(".plannable").attr("id") == "column-planned") {
+				if (ui.item.closest(".actionable").attr("id") == "column-planned") {
 					var status = "planned";
 				}
 				console.log(status);
@@ -90,7 +103,7 @@ $(function() {
 	bindSortable();
 	
 	//Current view, project_tasks and tasks sortable, projects not sortable
-
+	/*
 	$(".column").sortable(
 		{ connectWith: ".column" },
 		{ items: ".task" }
@@ -126,6 +139,7 @@ $(function() {
 	  	$(ui.item).find(".jquery_sub").trigger('click');
 		 
 	});
+	*/
 	
 	//Had to disable for now because it required a div wrapper #backlog around li's
 	//$("#backlog").slimScroll({
@@ -173,7 +187,7 @@ $("form").on("click", ".delete-task", function(event) {
 */
 
 //Hook into ajax beforeSend to mark card for subsequent DOM insertion
-$(".plannable, .column").on("ajax:beforeSend", "a", function() {
+$(".actionable, .column").on("ajax:beforeSend", "a", function() {
 	$(".marked").removeClass("marked");
 	$(this).closest("li").addClass("marked");
 });
@@ -183,7 +197,7 @@ $(document).on("ajax:success", "#link-items-form", function() {
 });
 
 
-$(".plannable, .column").on("click", ".cancel", function() {
+$(".actionable, .column").on("click", ".cancel", function() {
 	$(this).closest("li").remove();
 });
 

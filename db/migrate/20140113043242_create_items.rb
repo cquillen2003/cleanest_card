@@ -11,7 +11,7 @@ class CreateItems < ActiveRecord::Migration
       t.string :priority
       t.integer :order
       t.date :due_date
-      t.integer :items_count
+      t.integer :items_count, :null => false, :default => 0
 
       t.timestamps
     end

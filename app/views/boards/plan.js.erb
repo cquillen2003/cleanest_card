@@ -1,4 +1,8 @@
-$("#column-backlog, #column-planned, #column-started").remove();
+$("#column-backlog, #column-planned, #column-started, #column-done").remove();
+
 $("#backlog-panel-heading").after("<%= j(render 'backlog_cards') %>");
 $("#planned-panel-heading").after("<%= j(render 'planned_cards') %>");
 $("#started-panel-heading").after("<%= j(render 'started_cards') %>");
+$("#done-panel-heading").after("<%= j(render 'done_cards') %>");
+
+$("#column-backlog, #column-planned").addClass("actionable"); //Restores sortable functionality

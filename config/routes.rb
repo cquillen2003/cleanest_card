@@ -4,7 +4,7 @@ CleanestCard::Application.routes.draw do
 	
   get "boards/plan", :as => :plan
 
-  get "boards/current"
+  get "boards/current", :as => :current
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
