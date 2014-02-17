@@ -187,9 +187,10 @@ $("form").on("click", ".delete-task", function(event) {
 */
 
 //Hook into ajax beforeSend to mark card for subsequent DOM insertion
-$(".actionable, .column").on("ajax:beforeSend", "a", function() {
+$(document).on("ajax:beforeSend", "a", function() {
 	$(".marked").removeClass("marked");
 	$(this).closest("li").addClass("marked");
+	console.log("marked called");
 });
 
 $(document).on("ajax:success", "#link-items-form", function() {
@@ -197,7 +198,7 @@ $(document).on("ajax:success", "#link-items-form", function() {
 });
 
 
-$(".actionable, .column").on("click", ".cancel", function() {
+$(document).on("click", ".cancel", function() {
 	$(this).closest("li").remove();
 });
 
@@ -218,9 +219,18 @@ $("#backlog").on("change", ".select-card-checkbox", function() {
 
 
 //Using .on and delegated event binding approach so that projects added via ajax work
+//TODO: Refactor this to simplify logic
 $(document).on( "mouseenter", "li", function() {
 	if ($(".select-card-checkbox:checked").length === 0) {
-		$(this).children(".card-controls").removeClass("invisible");
+		if ($(this).hasClass("has-steps")
+			&& $(this).closest(".actionable").attr("id") == "column-backlog") {
+			$(this).find(".show-tasks-link").removeClass("invisible");
+		}
+		if ($(this).closest(".actionable").attr("id") == "column-backlog"
+			|| $(this).closest(".actionable").attr("id") == "column-planned") {
+			$(this).find(".insert-items-link").removeClass("invisible");
+		}
+		$(this).find(".delete-item-link").removeClass("invisible");
 	}
 
 	if ($(".select-card-checkbox:checked").length > 0
@@ -232,6 +242,8 @@ $(document).on( "mouseenter", "li", function() {
 });
 
 $(document).on( "mouseleave", "li", function() {
-	$(this).children(".card-controls").addClass("invisible").removeClass("hidden");
+	//$(this).children(".card-controls").addClass("invisible").removeClass("hidden");
+	$(this).find(".show-tasks-link, .delete-item-link, .insert-items-link")
+		.addClass("invisible").removeClass("hidden");
 	$(this).children(".add-items").addClass("hidden");
 });

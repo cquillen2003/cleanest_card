@@ -2,25 +2,22 @@
 	<span class="pull-right"><%= check_box_tag "item_ids[]", item.id, false, :class => "select-card-checkbox" %></span>
 	<h5 class="list-group-item-heading"><%= link_to item.name, edit_item_path(item.id) %></h5>
 
-	<div class="card-controls invisible">
+	<div>
 		<small>
-			<%= link_to "Tasks", item_steps_url(item), :remote => true , :class => "show-tasks-link" %>
+			<%= link_to "Tasks", item_steps_url(item), :remote => true , :class => "show-tasks-link invisible" %>
 			<a href="#" class="hide-tasks hidden">Hide Tasks</a>
 			&nbsp;&nbsp;&nbsp;
 		</small>		
 
 		<small class="pull-right">
-			<%= link_to 'Del', item, method: :delete, :remote => true, data: { confirm: 'Are you sure?' }, :class => "delete-item-link" %>
+			<%= link_to 'Del', item, method: :delete, :remote => true, data: { confirm: 'Are you sure?' },
+				:class => "delete-item-link invisible" %>
 			&nbsp;&nbsp;
 		</small>
 
 		<small class="pull-right">
-			<a href="#">Plan</a>
-			&nbsp;&nbsp;
-		</small>
-
-		<small class="pull-right">
-			<%= link_to "Insert Items", new_item_path(:cat_id => cat_id), :remote => true %>
+			<%= link_to "Insert Items", new_item_path(:cat_id => cat_id), :remote => true,
+				:class => "insert-items-link invisible" %>
 			&nbsp;&nbsp;
 		</small>
 	</div>
