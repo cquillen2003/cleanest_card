@@ -1,8 +1,31 @@
 $(document).on("click", ".link-items", function() {
-	console.log("link items called");
+	
 	var parentId = $(this).closest("li").attr("id");
-	console.log(parentId);
-	$("#parent_id").val(parentId);
+	
+	//Perform action without a form to avoid the problem I had with
+	//the Insert Items form (form within a form).
+	var itemObjectsArray = $(".select-card-checkbox:checked").serializeArray();
 
-	$("#link-items-form").submit();
+	var itemIdsArray = [];
+
+	for (var i = 0; i < itemObjectsArray.length; i++) {
+		itemIdsArray[i] = itemObjectsArray[i].value;
+	}
+
+	$.ajax({
+		type: "PUT",
+		url: "/items/link_items",
+		data: {
+			parent_id: parentId,
+			item_ids: itemIdsArray
+		},
+		cache: true,
+		dataType: "script",
+		success: function() {
+			$(".select-card-checkbox:checked").closest("li").remove();
+			$(".add-items").addClass("hidden");
+		}
+	});
+	
 });
+

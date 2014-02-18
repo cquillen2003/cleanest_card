@@ -193,10 +193,6 @@ $(document).on("ajax:beforeSend", "a", function() {
 	console.log("marked called");
 });
 
-$(document).on("ajax:success", "#link-items-form", function() {
-	$(".select-card-checkbox:checked").closest("li").remove();
-});
-
 
 $(document).on("click", ".cancel", function() {
 	$(this).closest("li").remove();

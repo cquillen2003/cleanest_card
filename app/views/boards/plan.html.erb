@@ -30,15 +30,12 @@
 					<span class="pull-right">0 Selected &nbsp;</span>
 				</div>
 			</div>
-			<%= form_tag link_items_items_path, :method => :put, :remote => true, :id => "link-items-form" do %>
-				<%= hidden_field_tag "parent_id", "" %>		
-				<div class="panel panel-default">
-				  <div class="panel-heading" id="backlog-panel-heading">
-				    <h3 class="panel-title">Backlog</h3>
-				  </div>
-				  <%= render 'backlog_cards' %>
-				</div>
-			<% end %>			
+			<div class="panel panel-default">
+			  <div class="panel-heading" id="backlog-panel-heading">
+			    <h3 class="panel-title">Backlog</h3>
+			  </div>
+			  <%= render 'backlog_cards' %>
+			</div>
 		</div>
 		<div class="col-md-17">
 			<div class="row">
