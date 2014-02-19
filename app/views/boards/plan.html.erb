@@ -11,6 +11,7 @@
 					<li style="padding-left: 20px">Categories:</li>
 					<li class="divider"></li>
 					<%= form_tag plan_url, :method => 'get', :remote => true, :id => "filter-form" do %>
+						<%= hidden_field_tag :collapse_all_field, 0 %>
 						<% @categories.each do |category| %>
 							<li>
 								<div class="form-group" style="padding-left: 20px">
@@ -44,6 +45,11 @@
 			<div class="row">
 				<div class="col-md-24">
 					<div class="menu">
+						<div style="display: inline; padding-left: 5px">
+							<label style="font-weight: normal">
+								<%= check_box_tag "collapse", 1, false, :id => "collapse-all" %> Collapse all
+							</label>
+						</div>					
 						<div class="dropdown pull-right" style="width: 500px">
 							<a href="#" data-toggle="dropdown" class="pull-right menu-link">Collaborators</a>
 							<ul class="dropdown-menu" role="menu" id="category-users">

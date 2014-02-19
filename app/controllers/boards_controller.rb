@@ -86,6 +86,12 @@ class BoardsController < ApplicationController
       bcat_array = params[:bcats]
     else    
       bcat_array = current_user.categories.pluck("categories.id")
+    end
+
+    if params[:collapse_all_field]
+      collapse_all = params[:collapse_all_field].to_i #WOW!  I think this fixed it. Burned a few hours on this gotcha
+    else
+      collapse_all = 0
     end    
 
     #output @cat, @view, @cards, @categories
@@ -102,7 +108,7 @@ class BoardsController < ApplicationController
     done_items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array, :status => "done" })
 
 
-    if params[:collapse_all]
+    if collapse_all == 1
       @planned_cards = planned_items
       @started_cards = started_items
       @done_cards = done_items
@@ -148,8 +154,9 @@ class BoardsController < ApplicationController
           :items_count => 0
       }) 
 
-     	@done_cards = done_empty_items + done_item_steps #TODO: Add assigned items
+      @done_cards = done_empty_items + done_item_steps #TODO: Add assigned items
     end
+
 
     respond_with(@planned_cards, @started_cards, @done_cards)
 

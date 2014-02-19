@@ -153,12 +153,12 @@ $(function() {
 
 	$("#collapse-all").change(function() {
 		if ($("#collapse-all").prop("checked")) {
-			var collapseAll = true;
+			var collapseAll = 1;
 		}
 		else {
-			var collapseAll = false;
+			var collapseAll = 0;
 		}
-		$("#collapse_all").val(collapseAll);
+		$("#collapse_all_field").val(collapseAll);
 		$("#filter-form").submit();
 	});
 	
