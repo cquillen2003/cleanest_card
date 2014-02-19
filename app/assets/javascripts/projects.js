@@ -150,6 +150,17 @@ $(function() {
 	$(document).on("ajax:success", "#filter-form", function() {
 		bindSortable();
 	});
+
+	$("#collapse-all").change(function() {
+		if ($("#collapse-all").prop("checked")) {
+			var collapseAll = true;
+		}
+		else {
+			var collapseAll = false;
+		}
+		$("#collapse_all").val(collapseAll);
+		$("#filter-form").submit();
+	});
 	
 });
 

@@ -9,6 +9,7 @@
 					<a href="#" data-toggle="dropdown" class="menu-link">Filter</a>
 					<ul class="dropdown-menu dropdown-menu-form" role="menu">
 					<%= form_tag current_url, :method => 'get', :remote => true, :id => "filter-form" do %>
+						<%= hidden_field_tag :collapse_all, false %>
 						<% @categories.each do |category| %>
 							<li>
 								<div class="form-group">
@@ -23,7 +24,12 @@
 						<li><%= submit_tag "Apply", :class => "apply-filter" %>
 					<% end %>
 					</ul>
-				</div>						
+				</div>
+			      <div style="display: inline; padding-left: 25px">
+			        <label style="font-weight: normal">
+			          <%= check_box_tag "collapse", true, false, :id => "collapse-all" %> Collapse all
+			        </label>
+			      </div>										
 				<div class="dropdown pull-right" style="width: 500px">
 					<a href="#" data-toggle="dropdown" class="pull-right menu-link">Collaborators</a>
 					<ul class="dropdown-menu" role="menu" id="category-users">

@@ -8,10 +8,12 @@
 				<div class="dropdown" style="display:inline">
 					<a href="#" data-toggle="dropdown" class="menu-link">Filter</a>
 					<ul class="dropdown-menu dropdown-menu-form" role="menu">
+					<li style="padding-left: 20px">Categories:</li>
+					<li class="divider"></li>
 					<%= form_tag plan_url, :method => 'get', :remote => true, :id => "filter-form" do %>
 						<% @categories.each do |category| %>
 							<li>
-								<div class="form-group">
+								<div class="form-group" style="padding-left: 20px">
 									<div class="checkbox">
 										<label>
 											<%= check_box_tag "bcats[]", category.id %><%= category.name %>
@@ -20,7 +22,8 @@
 								</div>
 							</li>
 						<% end %>
-						<li><%= submit_tag "Apply", :class => "apply-filter" %>
+						<li class="divider"></li>							
+						<li style="padding-left: 20px"><%= submit_tag "Apply", :class => "apply-filter" %></li>
 					<% end %>
 					</ul>
 				</div>
@@ -40,7 +43,7 @@
 		<div class="col-md-17">
 			<div class="row">
 				<div class="col-md-24">
-					<div class="menu">						
+					<div class="menu">
 						<div class="dropdown pull-right" style="width: 500px">
 							<a href="#" data-toggle="dropdown" class="pull-right menu-link">Collaborators</a>
 							<ul class="dropdown-menu" role="menu" id="category-users">
@@ -54,10 +57,9 @@
 									<% end %>
 								</li>
 							</ul>
-						</div>
+						</div>						
 					</div>
 				</div>
-
 			</div>
 			<div class="row">
 				<div class="col-md-8">

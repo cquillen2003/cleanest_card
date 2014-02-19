@@ -102,10 +102,10 @@ class BoardsController < ApplicationController
     done_items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array, :status => "done" })
 
 
-    if @view == "projects"
-      @planned_cards = planned_projects
-      @started_cards = started_projects
-      @done_cards = done_projects
+    if params[:collapse_all]
+      @planned_cards = planned_items
+      @started_cards = started_items
+      @done_cards = done_items
     else
       #if @view == "tasks"
       #planned items
@@ -150,6 +150,8 @@ class BoardsController < ApplicationController
 
      	@done_cards = done_empty_items + done_item_steps #TODO: Add assigned items
     end
+
+    respond_with(@planned_cards, @started_cards, @done_cards)
 
   end
   
