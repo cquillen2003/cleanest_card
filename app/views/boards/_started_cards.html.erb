@@ -1,5 +1,5 @@
 <ul class="list-group" style="height: 250px" id="column-started">
 	<% @started_cards.each do |card| %>			  
-		<%= render :partial => "items/item_card", :locals => { :item => card, :cat_id => @kcat } %>				       
+		<%= render :partial => "items/item_card", :locals => { :item => card } %>				       
   	<% end %>
 </ul>

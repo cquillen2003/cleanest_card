@@ -4,8 +4,8 @@
 
 	<div>
 		<small>
-			<%= link_to "Tasks", item_steps_url(item), :remote => true , :class => "show-tasks-link invisible" %>
-			<a href="#" class="hide-tasks hidden">Hide Tasks</a>
+			<%= link_to "Expand", item_steps_url(item), :remote => true , :class => "show-tasks-link invisible" %>
+			<a href="#" class="hide-tasks hidden">Collapse</a>
 			&nbsp;&nbsp;&nbsp;
 		</small>		
 
@@ -16,7 +16,7 @@
 		</small>
 
 		<small class="pull-right">
-			<%= link_to "Insert Items", new_item_path(:cat_id => cat_id), :remote => true,
+			<%= link_to "Insert Items", new_item_path, :remote => true,
 				:class => "insert-items-link invisible" %>
 			&nbsp;&nbsp;
 		</small>

@@ -4,8 +4,9 @@ class ItemsController < ApplicationController
 
 	def new
 		@item = Item.new
+    @linkable_id = current_user.categories.first.id
 
-		respond_with(@item)
+		respond_with(@item, @linkable_id)
 	end
 
 	def create

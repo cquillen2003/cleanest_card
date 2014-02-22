@@ -1,7 +1,7 @@
 <li class="list-group-item" id="new-card">
 	<%= form_for(@item, :remote => true) do |f| %>
 		<%= f.hidden_field :status, :value => "backlog" %>
-		<%= f.hidden_field :linkable_id, :value => params[:cat_id] %>
+		<%= f.hidden_field :linkable_id, :value => @linkable_id %>
 		<%= f.hidden_field :linkable_type, :value => "Category" %>
 
 		<div class="form-group">
