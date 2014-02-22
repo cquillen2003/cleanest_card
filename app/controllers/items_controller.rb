@@ -61,7 +61,8 @@ class ItemsController < ApplicationController
         )
         Split.create!(:item_id => item.id, :new_item_id => @new_item.id)
         step.update_attributes({ :linkable_id => @new_item.id, :status => 'planned' })
-        respond_with(@new_item)       
+        respond_with(@new_item)
+        Item.reset_counters(@new_item.id, :steps)
       else
         #add task to existing
         step.update_attributes({ :linkable_id => latest_split_item.id, :status => 'planned' })
