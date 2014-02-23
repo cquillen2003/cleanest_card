@@ -4,13 +4,13 @@ class ItemsController < ApplicationController
 
 	def new
 		@item = Item.new
-    @linkable_id = current_user.categories.first.id
 
-		respond_with(@item, @linkable_id)
+		respond_with(@item)
 	end
 
 	def create
 		@item = Item.new(params[:item])
+    @item.linkable_id = current_user.categories.first.id if @item.linkable_id.blank?
 		@item.save
 
 		respond_with(@item)

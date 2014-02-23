@@ -2,4 +2,7 @@
 	<% @backlog_cards.each do |card| %>
 		<%= render :partial => "items/item_card", :locals => { :item => card } %>
   	<% end %>
+  	<% if @backlog_cards.count < 8 %>
+  		<%= render "items/new_item_card" %>
+  	<% end %>
 </ul>

@@ -1,11 +1,11 @@
 <li class="list-group-item" id="new-card">
-	<%= form_for(@item, :remote => true) do |f| %>
+	<%= form_for(:item, :url => "/items", :remote => true) do |f| %>
 		<%= f.hidden_field :status, :value => "backlog" %>
-		<%= f.hidden_field :linkable_id, :value => @linkable_id %>
+		<%= f.hidden_field :linkable_id, :value => "" %>
 		<%= f.hidden_field :linkable_type, :value => "Category" %>
 
 		<div class="form-group">
-			<%= f.text_field :name, :class => "form-control input-sm" %>
+			<%= f.text_field :name, :class => "form-control input-sm", :id => "new-item-name" %>
 		</div>
 		<%= f.submit "Add Item", :class => "btn btn-primary btn-sm" %>
 		<button type="button" class="btn btn-default btn-sm cancel">Cancel</button>

@@ -1,2 +1,5 @@
-$("#new-card").after("<%= j(render :partial => "item_card", :locals => { :item => @item, :cat_id => params[:linkable_id] }) %>");
-$("#new-card").remove();
+$("#new-card").before("<%= j(render :partial => "item_card", :locals => { :item => @item }) %>");
+$("#new-item-name").val("");
+//$("#new-card").remove();
+
+//$(".marked").after("<%= j(render "new_item_card") %>");
