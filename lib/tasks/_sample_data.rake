@@ -6,8 +6,8 @@ namespace :db do
 		make_users
 		make_categories
 		#make_backlog_projects
-		make_backlog_items
-		make_empty_backlog_items
+		#make_backlog_items
+		#make_empty_backlog_items
 		#make_split_projects
 		#make_planned_projects
 		#make_started_projects
