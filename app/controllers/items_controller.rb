@@ -75,6 +75,7 @@ class ItemsController < ApplicationController
   			{ :linkable_id => params[:parent_id], :linkable_type => "Item" },
   			{ :id => params[:item_ids] }
   		)
+      Item.reset_counters(params[:parent_id], :steps)
   	end
 	
 end
