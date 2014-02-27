@@ -3,6 +3,9 @@
 	<h5 class="list-group-item-heading"><%= link_to item.name, edit_item_path(item.id) %></h5>
 
 	<div>
+		<% if item.steps.size > 0 %>
+			<span class="badge"><%= item.steps.size %></span>
+		<% end %>
 		<small>
 			<%= link_to "Expand", item_steps_url(item), :remote => true , :class => "show-tasks-link invisible" %>
 			<a href="#" class="hide-tasks hidden">Collapse</a>
@@ -25,16 +28,3 @@
 		<button type="button" class="btn btn-primary btn-xs link-items">Add Items (As tasks)</button>
 	</div>
 </li>
-
-
-
-
-
-
-
-
-
-
-
-
-

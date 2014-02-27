@@ -9,7 +9,7 @@
 					<a href="#" data-toggle="dropdown" class="menu-link">Filter</a>
 					<ul class="dropdown-menu dropdown-menu-form" role="menu">
 					<%= form_tag current_url, :method => 'get', :remote => true, :id => "filter-form" do %>
-						<%= hidden_field_tag :collapse_all_field, 0 %>
+						<%= hidden_field_tag :expand_all_field, 0 %>
 						<% @categories.each do |category| %>
 							<li>
 								<div class="form-group">
@@ -27,7 +27,7 @@
 				</div>
 			      <div style="display: inline; padding-left: 25px">
 			        <label style="font-weight: normal">
-			          <%= check_box_tag "collapse", 1, false, :id => "collapse-all" %> Collapse all
+			          <%= check_box_tag "expand-all", 1, false, :id => "expand-all" %> Expand all
 			        </label>
 			      </div>										
 				<div class="dropdown pull-right" style="width: 500px">

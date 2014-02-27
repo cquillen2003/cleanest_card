@@ -22,10 +22,10 @@ class BoardsController < ApplicationController
       bcat_array = current_user.categories.pluck("categories.id")
     end
 
-    if params[:collapse_all_field]
-      collapse_all = params[:collapse_all_field].to_i #WOW!  I think this fixed it. Burned a few hours on this gotcha
+    if params[:expand_all_field]
+      expand_all = params[:expand_all_field].to_i #WOW!  I think this fixed it. Burned a few hours on this gotcha
     else
-      collapse_all = 0
+      expand_all = 0
     end
 
     #output @bcat, @kcat, @view, @bcards, @kcards, @categories
@@ -40,15 +40,16 @@ class BoardsController < ApplicationController
 
     done_items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array, :status => "done" })
 
-    if collapse_all == 1
+    if expand_all == 0
       @planned_cards = planned_items
       @started_cards = started_items
       @done_cards = done_items
     else
+      all_items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array })
       #if @view == "tasks"
       #planned items
       planned_item_steps = []
-      planned_items.each do |item|
+      all_items.each do |item|
         planned_item_steps = planned_item_steps + item.steps.where({ :status => "planned" })
       end
 
@@ -62,7 +63,7 @@ class BoardsController < ApplicationController
 
       #started items
       started_item_steps = []
-      started_items.each do |item|
+      all_items.each do |item|
         started_item_steps = started_item_steps + item.steps.where({ :status => "started" })
       end
 
@@ -76,7 +77,7 @@ class BoardsController < ApplicationController
 
       #done items      
       done_item_steps = []
-      done_items.each do |item|
+      all_items.each do |item|
         done_item_steps = done_item_steps + item.steps.where({ :status => "done" })
       end
 
@@ -117,10 +118,10 @@ class BoardsController < ApplicationController
       bcat_array = current_user.categories.pluck("categories.id")
     end
 
-    if params[:collapse_all_field]
-      collapse_all = params[:collapse_all_field].to_i #WOW!  I think this fixed it. Burned a few hours on this gotcha
+    if params[:expand_all_field]
+      expand_all = params[:expand_all_field].to_i #WOW!  I think this fixed it. Burned a few hours on this gotcha
     else
-      collapse_all = 0
+      expand_all = 0
     end    
 
     #output @cat, @view, @cards, @categories
@@ -137,15 +138,16 @@ class BoardsController < ApplicationController
     done_items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array, :status => "done" })
 
 
-    if collapse_all == 1
+    if expand_all == 0
       @planned_cards = planned_items
       @started_cards = started_items
       @done_cards = done_items
     else
+      all_items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array })
       #if @view == "tasks"
       #planned items
       planned_item_steps = []
-      planned_items.each do |item|
+      all_items.each do |item|
         planned_item_steps = planned_item_steps + item.steps.where({ :status => "planned" })
       end
 
@@ -159,7 +161,7 @@ class BoardsController < ApplicationController
 
       #started items
       started_item_steps = []
-      started_items.each do |item|
+      all_items.each do |item|
         started_item_steps = started_item_steps + item.steps.where({ :status => "started" })
       end
 
@@ -173,7 +175,7 @@ class BoardsController < ApplicationController
 
       #done items      
       done_item_steps = []
-      done_items.each do |item|
+      all_items.each do |item|
         done_item_steps = done_item_steps + item.steps.where({ :status => "done" })
       end
 

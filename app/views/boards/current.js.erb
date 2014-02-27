@@ -4,3 +4,4 @@ $("#started-panel-heading").after("<%= j(render 'started_cards') %>");
 $("#done-panel-heading").after("<%= j(render 'done_cards') %>");
 
 $("#column-planned, #column-started, #column-done").addClass("actionable"); //Restores sortable functionality
+$(".has-steps").removeClass("sortable"); //Prevents items with tasks (projects) from being sortable

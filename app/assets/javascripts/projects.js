@@ -12,6 +12,8 @@ $(function() {
 	if(pathname == "/boards/current") {
 		$("#current-board").addClass("active");
 		$("#column-planned, #column-started, #column-done").addClass("actionable");
+
+		$(".has-steps").removeClass("sortable");
 	}
 
 	function bindSortable() {
@@ -151,14 +153,14 @@ $(function() {
 		bindSortable();
 	});
 
-	$("#collapse-all").change(function() {
-		if ($("#collapse-all").prop("checked")) {
-			var collapseAll = 1;
+	$("#expand-all").change(function() {
+		if ($("#expand-all").prop("checked")) {
+			var expandAll = 1;
 		}
 		else {
-			var collapseAll = 0;
+			var expandAll = 0;
 		}
-		$("#collapse_all_field").val(collapseAll);
+		$("#expand_all_field").val(expandAll);
 		$("#filter-form").submit();
 	});
 	

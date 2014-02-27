@@ -46,6 +46,7 @@ class ItemsController < ApplicationController
   				step.update_attribute(:status, params[:to])
   			end
   		end
+      Item.reset_counters(item.id, :steps)
   	end
 
     def split
@@ -58,7 +59,7 @@ class ItemsController < ApplicationController
         #create a split and a new project first
         @new_item = Item.create!(:linkable_id => item.linkable_id,
             :linkable_type => item.linkable_type,
-            :name => item.name + " (Split Testing)"
+            :name => item.name + " (Split)"
         )
         Split.create!(:item_id => item.id, :new_item_id => @new_item.id)
         step.update_attributes({ :linkable_id => @new_item.id, :status => 'planned' })
