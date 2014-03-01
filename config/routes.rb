@@ -1,6 +1,6 @@
 CleanestCard::Application.routes.draw do
 	
-	root :to => 'sessions#new'
+	root :to => 'boards#current'
 	
   get "boards/plan", :as => :plan
 

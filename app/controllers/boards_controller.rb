@@ -1,5 +1,7 @@
 class BoardsController < ApplicationController
 
+  before_filter :signed_in_user
+
   respond_to :html, :js
 	
   def plan 	
@@ -192,5 +194,15 @@ class BoardsController < ApplicationController
     respond_with(@planned_cards, @started_cards, @done_cards)
 
   end
+
+
+  private
+  
+    def signed_in_user
+      unless signed_in?
+        flash[:notice] = "Please sign in."
+        redirect_to new_session_path
+      end
+    end
   
 end

@@ -24,7 +24,8 @@ class ItemsController < ApplicationController
 		@item = Item.find(params[:id])
 		@item.update_attributes(params[:item])
 
-		respond_with(@item)
+		#respond_with(@item)
+    render :edit
 	end
 
 	def destroy
