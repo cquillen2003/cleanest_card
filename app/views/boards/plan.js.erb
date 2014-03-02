@@ -6,3 +6,5 @@ $("#started-panel-heading").after("<%= j(render 'started_cards') %>");
 $("#done-panel-heading").after("<%= j(render 'done_cards') %>");
 
 $("#column-backlog, #column-planned").addClass("actionable"); //Restores sortable functionality
+
+$('#column-backlog').perfectScrollbar(); //Restores scrollbar functionality

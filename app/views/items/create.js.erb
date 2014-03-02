@@ -7,3 +7,16 @@ $("#new-item-name").focus();
 //$(".marked").after("<%= j(render "new_item_card") %>");
 $('#column-backlog').perfectScrollbar('update');
 
+
+//Scroll down a bit if new card overflows
+var backlogHeight = $("#column-backlog").height();
+
+var newCardPosition = $("#new-card").position().top;
+var newCardHeight = $("#new-card").height();
+var newBottom = newCardPosition + newCardHeight;
+
+var currentScrollTop = $("#column-backlog").scrollTop();
+
+if (newBottom - backlogHeight > 0) {
+	$('#column-backlog').scrollTop(currentScrollTop + (newBottom - backlogHeight + 20));
+}

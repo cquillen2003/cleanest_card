@@ -7,9 +7,27 @@ $(document).ready(function() {
 	  e.stopPropagation();
 	});
 
-	$('#column-backlog').perfectScrollbar({
-		useKeyboard: false
+	$('#column-backlog').perfectScrollbar();
+
+	//TODO - Remove the following two event bindings
+	//These are workarounds for the problem I had with the spacebar
+	//behaving like the down arrow button
+	$("#column-backlog").on("focusin", "#new-item-name", function() {
+
+		$('#column-backlog').perfectScrollbar('destroy');
+
+		$('#column-backlog').perfectScrollbar({
+			useKeyboard: false
+		});
 	});
-	//Use keyboard set to false to stop weird behavior with space bar
+
+	$("#column-backlog").on("focusout", "#new-item-name", function() {
+
+		$('#column-backlog').perfectScrollbar('destroy');
+
+		$('#column-backlog').perfectScrollbar({
+			useKeyboard: true
+		});
+	});	
 
 });

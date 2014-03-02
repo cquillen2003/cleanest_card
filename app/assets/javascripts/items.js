@@ -24,6 +24,7 @@ $(document).on("click", ".link-items", function() {
 		success: function() {
 			$(".select-card-checkbox:checked").closest("li").remove();
 			$(".add-items").addClass("hidden");
+			$('#column-backlog').perfectScrollbar('update');
 		}
 	});
 	
