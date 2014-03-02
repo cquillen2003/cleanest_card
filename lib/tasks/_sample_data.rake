@@ -17,39 +17,49 @@ namespace :db do
 end
 
 def make_users
-	User.create!(:first_name => "Corey",
+#	User.create!(:first_name => "Corey",
+#		:last_name => "Quillen",
+#		:email => "corey.quillen@gmail.com",
+#		:password => "password",
+#		:password_confirmation => "password"
+#	)
+#	User.create!(:first_name => "Emily",
+#		:last_name => "Edwards",
+#		:email => "emily.edwards@gmail.com",
+#		:password => "password",
+#		:password_confirmation => "password"
+#	)
+	User.create!(:first_name => "Todd",
 		:last_name => "Quillen",
-		:email => "corey.quillen@gmail.com",
+		:email => "toddaquillen@gmail.com",
 		:password => "password",
 		:password_confirmation => "password"
 	)
-	User.create!(:first_name => "Emily",
-		:last_name => "Edwards",
-		:email => "emily.edwards@gmail.com",
-		:password => "password",
-		:password_confirmation => "password"
-	)	
-	3.times do |n|
-		first_name = Faker::Name.first_name
-		last_name = Faker::Name.last_name
-		email = Faker::Internet.email
-		User.create!(:first_name => first_name,
-			:last_name => last_name,
-			:email => email,
-			:password => "password",
-			:password_confirmation => "password"
-		)
-	end
+
+#	3.times do |n|
+#		first_name = Faker::Name.first_name
+#		last_name = Faker::Name.last_name
+#		email = Faker::Internet.email
+#		User.create!(:first_name => first_name,
+#			:last_name => last_name,
+#			:email => email,
+#			:password => "password",
+#			:password_confirmation => "password"
+#		)
+#	end
 end
 
 def make_categories
-	users = User.all
-	users.each do |user|
+	user = User.last
+#	users = User.all
+#	users.each do |user|
 		category = user.categories.create!(:name => "Personal")
 		category.save
-		category = user.categories.create!(:name => "Business")
+		category = user.categories.create!(:name => "Parker")
 		category.save
-	end
+		category = user.categories.create!(:name => "App")
+		category.save		
+#	end
 end
 
 def make_backlog_projects
