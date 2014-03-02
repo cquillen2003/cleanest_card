@@ -19,6 +19,12 @@ body {
 	height: 30px;
 }
 
+#column-backlog {
+	height: 600px;
+	position: relative;
+	overflow: hidden;
+}
+
 .menu-link {
 	margin: 0;
 	padding: 0;

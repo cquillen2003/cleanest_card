@@ -1,5 +1,9 @@
 $("#new-card").before("<%= j(render :partial => "item_card", :locals => { :item => @item }) %>");
 $("#new-item-name").val("");
+$("#new-item-name").focus();
+
 //$("#new-card").remove();
 
 //$(".marked").after("<%= j(render "new_item_card") %>");
+$('#column-backlog').perfectScrollbar('update');
+

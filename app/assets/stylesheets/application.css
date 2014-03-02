@@ -10,5 +10,6 @@
  *
  *= require bootstrap
  *= require_self
+ *= require perfect-scrollbar
  *= require_tree .
  */

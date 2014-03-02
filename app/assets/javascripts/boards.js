@@ -7,4 +7,9 @@ $(document).ready(function() {
 	  e.stopPropagation();
 	});
 
+	$('#column-backlog').perfectScrollbar({
+		useKeyboard: false
+	});
+	//Use keyboard set to false to stop weird behavior with space bar
+
 });
