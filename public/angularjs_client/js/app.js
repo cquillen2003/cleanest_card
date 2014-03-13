@@ -1,0 +1,1 @@
+var cleanCard = angular.module('cleanCard', ['cleanCardControllers','cleanCardServices']);

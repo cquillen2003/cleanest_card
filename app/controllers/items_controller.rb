@@ -1,6 +1,11 @@
 class ItemsController < ApplicationController
 
-	respond_to :html, :js, :json
+	respond_to :js, :json
+
+  def show
+    @item = Item.find(params[:id])
+    respond_with(@item)
+  end
 
 	def new
 		@item = Item.new
