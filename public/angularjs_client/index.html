@@ -21,6 +21,12 @@
     <div ng-controller="cleanCardCtrl">
       <h1>Hello, world! {{ helloWorld }}</h1>
       <p>Here is your first assignment if you choose to accept it: {{ item.name }}</p>
+
+      <p>And here is the rest of the items:</p>
+      <ul>
+        <li ng-repeat="item in items">{{ item.name }}</li>
+      </ul>
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
