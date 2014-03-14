@@ -27,7 +27,7 @@ CleanestCard::Application.routes.draw do
 
   resources :tasks #Needed for stand-alone tasks (not tied to project)
 
-  resources :items do
+  resources :items, :defaults => {:format => :json} do
     collection do
       put :link_items #Add tasks from items
     end
