@@ -12,9 +12,13 @@ cleanCard.config(['$routeProvider',
         templateUrl: 'partials/phone-detail.html',
         controller: 'PhoneDetailCtrl'
       }).
+      when('/test', {
+        templateUrl: 'angularjs_client/templates/test-page.html',
+        controller: 'cleanCardCtrl'
+      }).      
       when('/sessions/new', {
-      	templateUrl: 'sessions/new.html',
-      	controller: 'ItemsCtrl'
+      	templateUrl: 'angularjs_client/templates/sessions-new.html',
+      	controller: 'cleanCardCtrl'
       }).
       otherwise({
         redirectTo: '/phones'
