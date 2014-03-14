@@ -1,0 +1,46 @@
+<div class="container">
+	<div class="row">
+		<!-- for menu -->
+		<br />
+		<br />
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Planned</h3>
+				</div>
+				<ul class="list-group">
+					<li ng-repeat="item in items | filter:{ status: 'planned' }" class="list-group-item">
+						{{ item.name }}<br />
+						<a ng-click="update(item)" href>Plan</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Started</h3>
+				</div>
+				<ul class="list-group">
+					<li ng-repeat="item in items | filter:{ status: 'started' }" class="list-group-item">
+						{{ item.name }}
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Done</h3>
+				</div>
+				<ul class="list-group">
+					<li ng-repeat="item in items | filter:{ status: 'done' }" class="list-group-item">
+						{{ item.name }}
+					</li>
+				</ul>
+			</div>
+		</div>		
+	</div>
+</div>

@@ -20,6 +20,10 @@ cleanCard.config(['$routeProvider',
       	templateUrl: 'angularjs_client/templates/sessions-new.html',
       	controller: 'cleanCardCtrl'
       }).
+      when('/boards/current', {
+        templateUrl: 'angularjs_client/templates/current.html',
+        controller: 'cleanCardCtrl'
+      }).      
       otherwise({
         redirectTo: '/phones'
       });

@@ -24,8 +24,16 @@ cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item) 
 
   	$http.post('/sessions', session).success(function(){
   		console.log("success called back!");
-  	});
-  	
+  	}); 	
+  }
+
+  //Items controller stuff
+
+  $scope.update = function(item) {
+  	console.log("update clicked");
+  	console.log(item);
+	
+	item.status = "started";  	
   }
 
 
