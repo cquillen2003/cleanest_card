@@ -11,10 +11,19 @@
 					<h3 class="panel-title">Planned</h3>
 				</div>
 				<ul class="list-group">
-					<li ng-repeat="item in items | filter:{ status: 'planned' }" class="list-group-item">
+					<li ng-repeat-start="item in items | filter:{ status: 'planned' }" class="list-group-item">
 						{{ item.name }}<br />
 						<a ng-click="update(item)" href>Plan</a>
+						<a ng-click="showNewItemForm = !showNewItemForm" href>Add</a>
 					</li>
+					<li ng-repeat-end ng-if="showNewItemForm" class="list-group-item">
+						<form>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Text input">
+							</div>
+							<button type="button" class="btn btn-primary">Default</button>
+						</form>
+					</li>					
 				</ul>
 			</div>
 		</div>
@@ -26,6 +35,7 @@
 				<ul class="list-group">
 					<li ng-repeat="item in items | filter:{ status: 'started' }" class="list-group-item">
 						{{ item.name }}
+						<a ng-click="move(item)" href>Move back</a>
 					</li>
 				</ul>
 			</div>

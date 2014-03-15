@@ -32,12 +32,29 @@ cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item) 
   $scope.update = function(item) {
   	console.log("update clicked");
 	
-	//item.status = "started";
-	console.log(item);
-	item.status = "started";
-	item.$update();
+  	//item.status = "started";
+  	console.log(item);
+  	item.status = "started";
+  	item.$update();
 
   }
+
+  $scope.move = function(item) {
+  
+    item.status = "planned";
+    item.$update();
+
+  }
+
+  $scope.addItem = function(item, $index, $event) {
+    console.log(item);
+    console.log($index);
+    console.log($event);
+  }
+
+
+
+  $scope.showNewItemForm = false;
 
 
 
