@@ -4,13 +4,9 @@ var cleanCardControllers = angular.module('cleanCardControllers', []);
 cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item) {
   $scope.helloWorld = 'Have no fear, Angular is here';
 
-  $scope.item = Item.get({id: 1});
-
-  console.log($scope.item);
+  //$scope.item = Item.get({id: 1});
 
   $scope.items = Item.query();
-
-  console.log($scope.items);
 
   //Sessions controller stuff
 
@@ -46,16 +42,19 @@ cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item) 
 
   }
 
-  $scope.addItem = function(item, $index, $event) {
-    console.log(item);
-    console.log($index);
-    console.log($event);
+
+  $scope.createItem = function() {
+
+    console.log($scope.item);
+
+    var item = new Item($scope.item);
+    item.status = "planned"
+    
+    item.$save(function(response) {
+      $scope.items.push(response);
+    });
+
   }
-
-
-
-  $scope.showNewItemForm = false;
-
 
 
 

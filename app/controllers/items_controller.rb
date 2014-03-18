@@ -20,7 +20,8 @@ class ItemsController < ApplicationController
 
 	def create
 		@item = Item.new(params[:item])
-    @item.linkable_id = current_user.categories.first.id if @item.linkable_id.blank?
+    #current_user is nil for some reason when calling this method from angularjs_client
+    #@item.linkable_id = current_user.categories.first.id if @item.linkable_id.blank?
 		@item.save
 
 		respond_with(@item)
