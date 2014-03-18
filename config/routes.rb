@@ -7,7 +7,7 @@ CleanestCard::Application.routes.draw do
   get "boards/current", :as => :current
 
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions, :defaults => {:format => :json}, only: [:new, :create, :destroy]
   
   match '/signout', to: 'sessions#destroy',     via: 'delete'
   

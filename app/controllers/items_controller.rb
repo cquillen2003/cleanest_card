@@ -1,9 +1,11 @@
 class ItemsController < ApplicationController
 
-	respond_to :js, :json
+	respond_to :json, :html
 
   def index
-    @items = Item.all
+    category = current_user.categories.first
+    @items = category.items
+
     respond_with(@items)
   end
 
@@ -20,8 +22,12 @@ class ItemsController < ApplicationController
 
 	def create
 		@item = Item.new(params[:item])
+    category = current_user.categories.first
     #current_user is nil for some reason when calling this method from angularjs_client
-    #@item.linkable_id = current_user.categories.first.id if @item.linkable_id.blank?
+    #This problem has to do with CSRF protection (see warning in console from web server)
+    #The following solution seems to be working:
+    #http://technpol.wordpress.com/2013/09/21/angularjs-and-rails-csrf-protection/
+    @item.linkable_id = category.id if @item.linkable_id.blank?
 		@item.save
 
 		respond_with(@item)
