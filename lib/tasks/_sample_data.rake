@@ -6,8 +6,8 @@ namespace :db do
 		make_users
 		make_categories
 		#make_backlog_projects
-		#make_backlog_items
-		#make_empty_backlog_items
+		make_backlog_items
+		make_empty_backlog_items
 		#make_split_projects
 		#make_planned_projects
 		#make_started_projects
@@ -17,18 +17,18 @@ namespace :db do
 end
 
 def make_users
-#	User.create!(:first_name => "Corey",
-#		:last_name => "Quillen",
-#		:email => "corey.quillen@gmail.com",
-#		:password => "password",
-#		:password_confirmation => "password"
-#	)
-#	User.create!(:first_name => "Emily",
-#		:last_name => "Edwards",
-#		:email => "emily.edwards@gmail.com",
-#		:password => "password",
-#		:password_confirmation => "password"
-#	)
+	User.create!(:first_name => "Corey",
+		:last_name => "Quillen",
+		:email => "corey.quillen@gmail.com",
+		:password => "password",
+		:password_confirmation => "password"
+	)
+	User.create!(:first_name => "Emily",
+		:last_name => "Edwards",
+		:email => "emily.edwards@gmail.com",
+		:password => "password",
+		:password_confirmation => "password"
+	)
 	User.create!(:first_name => "Todd",
 		:last_name => "Quillen",
 		:email => "toddaquillen@gmail.com",
@@ -36,30 +36,30 @@ def make_users
 		:password_confirmation => "password"
 	)
 
-#	3.times do |n|
-#		first_name = Faker::Name.first_name
-#		last_name = Faker::Name.last_name
-#		email = Faker::Internet.email
-#		User.create!(:first_name => first_name,
-#			:last_name => last_name,
-#			:email => email,
-#			:password => "password",
-#			:password_confirmation => "password"
-#		)
-#	end
+	3.times do |n|
+		first_name = Faker::Name.first_name
+		last_name = Faker::Name.last_name
+		email = Faker::Internet.email
+		User.create!(:first_name => first_name,
+			:last_name => last_name,
+			:email => email,
+			:password => "password",
+			:password_confirmation => "password"
+		)
+	end
 end
 
 def make_categories
 	user = User.last
-#	users = User.all
-#	users.each do |user|
+	users = User.all
+	users.each do |user|
 		category = user.categories.create!(:name => "Personal")
 		category.save
 		category = user.categories.create!(:name => "Parker")
 		category.save
 		category = user.categories.create!(:name => "App")
 		category.save		
-#	end
+	end
 end
 
 def make_backlog_projects

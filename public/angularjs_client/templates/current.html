@@ -19,10 +19,13 @@
 							<button class="btn btn-primary">Default</button>
 						</form>
 					</li>				
-					<li ng-repeat="item in items | filter:{ status: 'planned' }" class="list-group-item">
+					<li ng-repeat-start="item in items | filter:{ status: 'backlog' }" class="list-group-item">
 						{{ item.name }}<br />
+						<a ng-click="expandItem(item)" href>Expand</a>
 						<a ng-click="update(item)" href>Plan</a>
-						<a ng-click="showNewItemForm = !showNewItemForm" href>Add</a>
+					</li>
+					<li ng-repeat-end ng-repeat="task in item.tasks" ng-if="item.expand" class="list-group-item">
+						{{ task.name }}
 					</li>					
 				</ul>
 			</div>

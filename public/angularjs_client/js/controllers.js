@@ -1,7 +1,7 @@
 var cleanCardControllers = angular.module('cleanCardControllers', []);
 
  
-cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item) {
+cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item, Task) {
   $scope.helloWorld = 'Have no fear, Angular is here';
 
   //$scope.item = Item.get({id: 1});
@@ -49,12 +49,29 @@ cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item) 
 
     var item = new Item($scope.item);
     item.status = "planned"
+    item.linkable_type = "Category"
     
     item.$save(function(response) {
       $scope.items.push(response);
     });
 
   }
+
+
+  $scope.expandItem = function(item) {
+
+    item.tasks = Task.query({itemId: item.id});
+
+    item.expand = !item.expand;
+
+   
+    console.log(tasks);
+
+  }
+
+  //Tasks controller stuff
+
+  //TODO: create tasks:index to call from expandItem
 
 
 

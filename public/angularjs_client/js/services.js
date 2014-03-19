@@ -7,3 +7,9 @@ cleanCardServices.factory('Item', function($resource) {
   //http://www.dillonbuchanan.com/programming/ruby-on-rails-angularjs-resources/
   return $resource('/items/:id', {id: '@id'}, {update: {method: 'PUT'}});
 });
+
+cleanCardServices.factory('Task', function($resource) {
+
+	return $resource('/items/:itemId/items/:id', {itemId: '@itemId', id: '@id'});
+
+});
