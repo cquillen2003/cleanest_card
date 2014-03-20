@@ -20,11 +20,25 @@ cleanCard.config(['$routeProvider',
       	templateUrl: 'angularjs_client/templates/sessions-new.html',
       	controller: 'cleanCardCtrl'
       }).
+      when('/boards/plan', {
+        templateUrl: 'angularjs_client/templates/current.html',
+        controller: 'cleanCardCtrl'
+      }).
       when('/boards/current', {
         templateUrl: 'angularjs_client/templates/current.html',
         controller: 'cleanCardCtrl'
-      }).      
+      }).            
       otherwise({
         redirectTo: '/phones'
       });
-}]);
+  }
+])
+.run(function($rootScope) {
+
+//Way to set $rootScope variables on every page request
+//Found technique online in post from Igor, while researching
+//how to handle layouts/common page elements like header, footer
+//https://groups.google.com/forum/#!topic/angular/ddjJ4WOmwSw
+
+
+});

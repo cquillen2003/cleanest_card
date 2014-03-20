@@ -1,14 +1,22 @@
+
 <div class="container">
 	<div class="row">
 		<!-- for menu -->
+		<div class="col-md-3" ng-if="showBacklog">
+			Left Menu
+		</div>
+		<div ng-class="rightMenuWidth">
+			Backlog
+			<input type="checkbox" ng-model="showBacklog">
+		</div>
 		<br />
 		<br />
 	</div>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-3" ng-if="showBacklog">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">Planned</h3>
+					<h3 class="panel-title">Backlog</h3>
 				</div>
 				<ul class="list-group">
 					<li class="list-group-item">
@@ -29,8 +37,21 @@
 					</li>					
 				</ul>
 			</div>
+		</div>	
+		<div ng-class="columnWidth">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Planned</h3>
+				</div>
+				<ul class="list-group">
+					<li ng-repeat="item in items | filter:{ status: 'planned' }" class="list-group-item">
+						{{ item.name }}
+						<a ng-click="move(item)" href>Move back</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-		<div class="col-md-4">
+		<div ng-class="columnWidth">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Started</h3>
@@ -38,12 +59,11 @@
 				<ul class="list-group">
 					<li ng-repeat="item in items | filter:{ status: 'started' }" class="list-group-item">
 						{{ item.name }}
-						<a ng-click="move(item)" href>Move back</a>
 					</li>
 				</ul>
 			</div>
-		</div>
-		<div class="col-md-4">
+		</div>		
+		<div ng-class="columnWidth">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Done</h3>

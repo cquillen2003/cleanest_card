@@ -1,7 +1,7 @@
 var cleanCardControllers = angular.module('cleanCardControllers', []);
 
  
-cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item, Task) {
+cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, $routeParams, Item, Task) {
   $scope.helloWorld = 'Have no fear, Angular is here';
 
   //$scope.item = Item.get({id: 1});
@@ -37,7 +37,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item, 
 
   $scope.move = function(item) {
   
-    item.status = "planned";
+    item.status = "backlog";
     item.$update();
 
   }
@@ -48,7 +48,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item, 
     console.log($scope.item);
 
     var item = new Item($scope.item);
-    item.status = "planned"
+    item.status = "backlog"
     item.linkable_type = "Category"
     
     item.$save(function(response) {
@@ -64,8 +64,6 @@ cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item, 
 
     item.expand = !item.expand;
 
-   
-    console.log(tasks);
 
   }
 
@@ -73,6 +71,25 @@ cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, Item, 
 
   //TODO: create tasks:index to call from expandItem
 
+
+  //Boards controller stuff
+
+  $scope.showBacklog = true;
+
+  $scope.columnWidth = 'col-md-3';
+
+  $scope.$watch('showBacklog', function() {
+
+    if($scope.showBacklog === true) {
+      $scope.columnWidth = 'col-md-3';
+      $scope.rightMenuWidth = 'col-md-9';
+    }
+    else {
+      $scope.columnWidth = 'col-md-4';
+      $scope.rightMenuWidth = 'col-md-12';     
+    }
+
+  });  
 
 
 });
