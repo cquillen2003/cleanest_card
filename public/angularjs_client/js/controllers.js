@@ -43,11 +43,11 @@ cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, $route
   }
 
 
-  $scope.createItem = function() {
+  $scope.createItem = function(item) {
 
-    console.log($scope.item);
+    console.log(item);
 
-    var item = new Item($scope.item);
+    var item = new Item(item);
     item.status = "backlog"
     item.linkable_type = "Category"
     
