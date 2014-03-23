@@ -2,3 +2,19 @@
 	height: 800px;
 	overflow-y: scroll;
 }
+
+.list-group-item {
+}
+
+.cc-panel-heading {
+	margin-bottom: 0;
+	border-bottom-width: 0;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.cc-panel-list {
+	border-top-width: 0;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}

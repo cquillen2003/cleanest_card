@@ -3,23 +3,38 @@
 	<div class="row">
 		<!-- for menu -->
 		<div class="col-md-3" ng-if="showBacklog">
-			<div class="panel panel-default"
-				style="margin-right: 15px; margin-bottom: 0; border-bottom-left-radius: 0;
-							border-bottom-right-radius: 0; border-bottom: 0">
+			<div class="panel panel-default cc-panel-heading" style="margin-right: 15px">
 				<div class="panel-heading">
 					<h3 class="panel-title">Backlog</h3>
 				</div>
 			</div>	
 		</div>
 		<div ng-class="columnWidth">
+			<div class="panel panel-default cc-panel-heading">
+				<div class="panel-heading">
+					<h3 class="panel-title">Planned</h3>
+				</div>
+			</div>
 		</div>
 		<div ng-class="columnWidth">
-		</div>		
+			<div class="panel panel-default cc-panel-heading">
+				<div class="panel-heading">
+					<h3 class="panel-title">Started</h3>
+				</div>
+			</div>		
+		</div>
+		<div ng-class="columnWidth">
+			<div class="panel panel-default cc-panel-heading">
+				<div class="panel-heading">
+					<h3 class="panel-title">Done</h3>
+				</div>
+			</div>		
+		</div>				
 	</div>
 	<div class="row">
 		<div class="col-md-3" ng-if="showBacklog" id="backlog">
 		
-			<div class="panel panel-default">
+			<div class="panel panel-default cc-panel-list">
 
 				<ul class="list-group">
 					<li class="list-group-item">
@@ -42,10 +57,7 @@
 			</div>
 		</div>	
 		<div ng-class="columnWidth">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Planned</h3>
-				</div>
+			<div class="panel panel-default cc-panel-list">
 				<ul class="list-group">
 					<li ng-repeat="item in items | filter:{ status: 'planned' }" class="list-group-item">
 						{{ item.name }}
@@ -55,10 +67,7 @@
 			</div>
 		</div>
 		<div ng-class="columnWidth">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Started</h3>
-				</div>
+			<div class="panel panel-default cc-panel-list">
 				<ul class="list-group">
 					<li ng-repeat="item in items | filter:{ status: 'started' }" class="list-group-item">
 						{{ item.name }}
@@ -67,10 +76,8 @@
 			</div>
 		</div>		
 		<div ng-class="columnWidth">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Done</h3>
-				</div>
+			<div class="panel panel-default cc-panel-list">
+
 				<ul class="list-group">
 					<li ng-repeat="item in items | filter:{ status: 'done' }" class="list-group-item">
 						{{ item.name }}
