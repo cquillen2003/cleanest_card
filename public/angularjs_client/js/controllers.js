@@ -1,7 +1,7 @@
 var cleanCardControllers = angular.module('cleanCardControllers', []);
 
  
-cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, $routeParams, Item, Task) {
+cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $routeParams, Item, Task) {
   $scope.helloWorld = 'Have no fear, Angular is here';
 
   //$scope.item = Item.get({id: 1});
@@ -73,14 +73,13 @@ cleanCardControllers.controller('cleanCardCtrl', function ($scope, $http, $route
 
 
   //Boards controller stuff
-
-  $scope.showBacklog = true;
-
   $scope.columnWidth = 'col-md-3';
 
-  $scope.$watch('showBacklog', function() {
+  $rootScope.$watch('showBacklog', function() {
 
-    if($scope.showBacklog === true) {
+    console.log("rootscope watch fired");
+
+    if($rootScope.showBacklog === true) {
       $scope.columnWidth = 'col-md-3';
       $scope.rightMenuWidth = 'col-md-9';
     }
