@@ -3,21 +3,24 @@
 	<div class="row">
 		<!-- for menu -->
 		<div class="col-md-3" ng-if="showBacklog">
-			Left Menu
-		</div>
-		<div ng-class="rightMenuWidth">
-			Backlog
-			<input type="checkbox" ng-model="showBacklog">
-		</div>
-		<br />
-		<br />
-	</div>
-	<div class="row">
-		<div class="col-md-3" ng-if="showBacklog">
-			<div class="panel panel-default">
+			<div class="panel panel-default"
+				style="margin-right: 15px; margin-bottom: 0; border-bottom-left-radius: 0;
+							border-bottom-right-radius: 0; border-bottom: 0">
 				<div class="panel-heading">
 					<h3 class="panel-title">Backlog</h3>
 				</div>
+			</div>	
+		</div>
+		<div ng-class="columnWidth">
+		</div>
+		<div ng-class="columnWidth">
+		</div>		
+	</div>
+	<div class="row">
+		<div class="col-md-3" ng-if="showBacklog" id="backlog">
+		
+			<div class="panel panel-default">
+
 				<ul class="list-group">
 					<li class="list-group-item">
 						<form ng-submit="createItem(item)" name="new-item-form">
