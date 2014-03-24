@@ -33,26 +33,24 @@
 	</div>
 	<div class="row">
 		<div class="col-md-3" ng-if="showBacklog" id="backlog">
-		
-			<div class="panel panel-default cc-panel-list">
-
-				<ul class="list-group">
-					<li class="list-group-item">
-						<form ng-submit="createItem(item)" name="new-item-form">
-							<div class="form-group">
-								<input type="text" ng-model="item.name" class="form-control" />
-							</div>
-							<button class="btn btn-primary">Default</button>
-						</form>
-					</li>				
+			<div class="panel panel-default cc-panel-list">			
+				<ul class="list-group">				
 					<li ng-repeat-start="item in items | filter:{ status: 'backlog' }" class="list-group-item">
 						{{ item.name }}<br />
 						<a ng-click="expandItem(item)" href>Expand</a>
-						<a ng-click="update(item)" href>Plan</a>
+						<a ng-click="plan(item)" href>Plan</a>
 					</li>
 					<li ng-repeat-end ng-repeat="task in item.tasks" ng-if="item.expand" class="list-group-item">
 						{{ task.name }}
-					</li>					
+					</li>
+					<li class="list-group-item">
+						<form ng-submit="createItem(card)" name="myForm">
+							<div class="form-group">
+								<input type="text" ng-model="card.name" class="form-control" />
+							</div>
+							<button class="btn btn-primary">Default</button>
+						</form>					
+					</li>															
 				</ul>
 			</div>
 		</div>	

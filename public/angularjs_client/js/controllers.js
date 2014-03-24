@@ -25,12 +25,9 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   //Items controller stuff
 
-  $scope.update = function(item) {
-  	console.log("update clicked");
+  $scope.plan = function(item) {
 	
-  	//item.status = "started";
-  	console.log(item);
-  	item.status = "started";
+  	item.status = "planned";
   	item.$update();
 
   }
@@ -43,17 +40,20 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   }
 
 
-  $scope.createItem = function(item) {
+  $scope.createItem = function(card) {
 
-    console.log(item);
+    var item = new Item(card);
 
-    var item = new Item(item);
     item.status = "backlog"
     item.linkable_type = "Category"
     
     item.$save(function(response) {
       $scope.items.push(response);
     });
+
+    card.name = ''; //Clear form field
+                    //This took forever to figure out because $scope.card is not defined
+                    //because the ng-if creates a new child scope
 
   }
 
