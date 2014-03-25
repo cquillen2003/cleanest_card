@@ -2,11 +2,6 @@ var cleanCardControllers = angular.module('cleanCardControllers', []);
 
  
 cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $routeParams, Item, Task) {
-  $scope.helloWorld = 'Have no fear, Angular is here';
-
-  //$scope.item = Item.get({id: 1});
-
-  $scope.items = Item.query();
 
   //Sessions controller stuff
 
@@ -24,6 +19,9 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   }
 
   //Items controller stuff
+
+  $scope.items = Item.query();
+
 
   $scope.plan = function(item) {
 	
@@ -88,7 +86,13 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       $scope.rightMenuWidth = 'col-md-12';     
     }
 
-  });  
+  });
+
+
+  $rootScope.categories = [
+    {id: 1, name: "Personal"},
+    {id: 2, name: "Streamline"}
+  ]
 
 
 });
