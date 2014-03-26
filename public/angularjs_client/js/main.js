@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 
 	// Allow Bootstrap dropdown menus to have forms/checkboxes inside, 

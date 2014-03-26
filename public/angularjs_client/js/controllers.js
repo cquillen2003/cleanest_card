@@ -18,9 +18,27 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   	}); 	
   }
 
+  //Navbar stuff
+
+  $scope.showBacklog = true;
+
+  $scope.rootFunction = function() {
+    $scope.showBacklog = !$scope.showBacklog;
+  }
+
+  $scope.categoryFiltering = true;
+
+
   //Items controller stuff
 
   $scope.items = Item.query();
+
+  console.log($scope.items);
+
+  $scope.filterBacklog = function() {
+    console.log("filter changed");
+    console.log($scope.categoryCheckbox);
+  }
 
 
   $scope.plan = function(item) {
@@ -73,11 +91,9 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   //Boards controller stuff
   $scope.columnWidth = 'col-md-3';
 
-  $rootScope.$watch('showBacklog', function() {
+  $scope.$watch('showBacklog', function() {
 
-    console.log("rootscope watch fired");
-
-    if($rootScope.showBacklog === true) {
+    if($scope.showBacklog === true) {
       $scope.columnWidth = 'col-md-3';
       $scope.rightMenuWidth = 'col-md-9';
     }
@@ -89,7 +105,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   });
 
 
-  $rootScope.categories = [
+  $scope.categories = [
     {id: 1, name: "Personal"},
     {id: 2, name: "Streamline"}
   ]

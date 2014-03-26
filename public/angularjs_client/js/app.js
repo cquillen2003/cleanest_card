@@ -40,12 +40,5 @@ cleanCard.config(['$routeProvider',
 //how to handle layouts/common page elements like header, footer
 //https://groups.google.com/forum/#!topic/angular/ddjJ4WOmwSw
 
-  $rootScope.showBacklog = true;
-
-  $rootScope.rootFunction = function() {
-    console.log("clicked mother fucker");
-    $rootScope.showBacklog = !$rootScope.showBacklog;
-  }
-
 
 });
