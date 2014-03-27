@@ -1,7 +1,7 @@
 var cleanCardControllers = angular.module('cleanCardControllers', []);
 
  
-cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $routeParams, Item, Task) {
+cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $routeParams, $filter, Item, Task) {
 
   //Sessions controller stuff
 
@@ -31,13 +31,23 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   //Items controller stuff
 
-  $scope.items = Item.query();
+  $scope.allitems = Item.query();
+
+  $scope.items = $scope.allitems;
 
   console.log($scope.items);
 
   $scope.filterBacklog = function() {
     console.log("filter changed");
     console.log($scope.categoryCheckbox);
+
+    if ($scope.categoryCheckbox) {
+      $scope.items = $filter('filter')($scope.items, {name: "Corey"})
+    }
+    else {
+      $scope.items = $scope.allitems;
+    }
+
   }
 
 
