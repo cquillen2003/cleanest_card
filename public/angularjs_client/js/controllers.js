@@ -7,8 +7,6 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   $scope.create = function() {
 
-  	console.log("form submitted");
-
   	if ($scope.user) {
   		var session = {email: $scope.user.email, password: $scope.user.password};
   	}
@@ -35,18 +33,37 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   $scope.items = $scope.allitems;
 
-  console.log($scope.items);
+
 
   $scope.filterBacklog = function() {
-    console.log("filter changed");
-    console.log($scope.categoryCheckbox);
 
+    $scope.items = $filter('filter')($scope.allitems,
+        function(item) {
+          var match = false;    
+          angular.forEach($scope.categories, function(category, key) {
+            console.log(item.name);
+            console.log(item.linkable_id);
+            if (item.linkable_id === category.id && category.selected) {
+              console.log("return true");
+              match = true;
+            }
+          });
+        console.log("return false");
+        return match;
+        }
+
+    );
+
+    console.log($scope.items);
+
+    /*
     if ($scope.categoryCheckbox) {
       $scope.items = $filter('filter')($scope.items, {name: "Corey"})
     }
     else {
       $scope.items = $scope.allitems;
     }
+    */
 
   }
 

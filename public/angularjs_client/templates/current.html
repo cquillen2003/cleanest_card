@@ -13,11 +13,11 @@
             <ul class="dropdown-menu dropdown-menu-form" role="menu">
               <li style="padding-left: 20px">Categories:</li>
               <li class="divider"></li>
-              <li>
+              <li ng-repeat="category in categories">
                 <div class="checkbox" style="padding-left: 20px">
                   <label>
-                    <input ng-change="filterBacklog()" type="checkbox" ng-model="categoryCheckbox">
-                    Personal
+                    <input ng-change="filterBacklog()" type="checkbox" ng-model="category.selected">
+                    {{ category.name }}
                   </label>
                 </div>
               </li>

@@ -3,8 +3,12 @@ class ItemsController < ApplicationController
 	respond_to :json, :html
 
   def index
-    category = current_user.categories.first
-    @items = category.items
+    #category = current_user.categories.first
+    #@items = category.items
+
+    bcat_array = current_user.categories.pluck("categories.id")
+
+    @items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array})
 
     respond_with(@items)
   end
