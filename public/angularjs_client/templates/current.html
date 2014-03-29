@@ -89,9 +89,22 @@
 			<div class="panel panel-default cc-panel-list">			
 				<ul class="list-group">				
 					<li ng-repeat-start="item in items | filter:{ status: 'backlog' }" class="list-group-item">
-						{{ item.name }}<br />
-						<a ng-click="expandItem(item)" href>Expand</a>
-						<a ng-click="plan(item)" href>Plan</a>
+						<h5 class="list-group-item-heading">{{ item.name }}</h5>
+						<div>
+							<span class="badge">5</span>
+							<small>
+								<a href ng-click="expandItem(item)">Expand</a>
+							</small>
+							<small class="pull-right">
+								<a href ng-click="plan(item)">Plan</a>
+							</small>							
+							<small class="pull-right">
+								<a href ng-click="deleteItem(item)">Del &nbsp;</a>
+							</small>
+							<small class="pull-right">
+								<a href>New &nbsp;</a>
+							</small>
+						</div>
 					</li>
 					<li ng-repeat-end ng-repeat="task in item.tasks" ng-if="item.expand" class="list-group-item">
 						{{ task.name }}
@@ -110,9 +123,23 @@
 		<div ng-class="columnWidth">
 			<div class="panel panel-default cc-panel-list">
 				<ul class="list-group">
-					<li ng-repeat="item in items | filter:{ status: 'planned' }" class="list-group-item">
-						{{ item.name }}
-						<a ng-click="move(item)" href>Move back</a>
+					<li ng-repeat="item in items | filter:{ status: 'planned' } | limitTo: 11" class="list-group-item">
+						<h5 class="list-group-item-heading">{{ item.name }}</h5>
+						<div>
+							<span class="badge">5</span>
+							<small>
+								<a href ng-click="move(item)">Back</a>
+							</small>
+							<small class="pull-right">
+								<a href>Start</a>
+							</small>							
+							<small class="pull-right">
+								<a href>Del &nbsp;</a>
+							</small>
+							<small class="pull-right">
+								<a href>New &nbsp;</a>
+							</small>
+						</div>					
 					</li>
 				</ul>
 			</div>

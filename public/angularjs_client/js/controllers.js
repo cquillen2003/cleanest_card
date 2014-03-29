@@ -110,6 +110,16 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   }
 
+  $scope.deleteItem = function(item) {
+
+    var index = $scope.items.indexOf(item);
+
+    item.$remove(function() {
+      $scope.items.splice(index, 1);
+    });
+    
+  }
+
   //Tasks controller stuff
 
   //TODO: create tasks:index to call from expandItem
