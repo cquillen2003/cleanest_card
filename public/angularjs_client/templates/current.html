@@ -88,12 +88,20 @@
 		<div class="col-md-3" ng-if="showBacklog" id="backlog">
 			<div class="panel panel-default cc-panel-list">			
 				<ul class="list-group">				
-					<li ng-repeat-start="item in items | filter:{ status: 'backlog', name: filterKeyword }" class="list-group-item">
+					<li ng-repeat-start="item in items | filter:{ status: 'backlog', name: filterKeyword }" class="list-group-item" ng-mouseenter="showCardControls = true" ng-mouseleave="showCardControls = false" ng-init="showCardControls = false">
+						<span class="pull-right" ng-show="item.items_count === 0 && showItemSelectBoxes">
+							<input type="checkbox" ng-model="item.selected">
+						</span>
 						<h5 class="list-group-item-heading">{{ item.name }}</h5>
-						<div>
-							<span class="badge">5</span>
+						<div ng-class="{invisible: !showCardControls}">
+							<span class="badge" ng-show="item.items_count > 0">
+								{{ item.items_count }}
+							</span>
 							<small>
 								<a href ng-click="expandItem(item)">Expand</a>
+							</small>
+							<small>
+								<a href ng-click="selectItemsAsTasks(item)">Add</a>
 							</small>
 							<small class="pull-right">
 								<a href ng-click="plan(item)">Plan</a>
@@ -104,6 +112,9 @@
 							<small class="pull-right">
 								<a href>New &nbsp;</a>
 							</small>
+						</div>
+						<div ng-show="item.showAddItemsButton">
+							<button type="button" ng-click="convertItems(item)" class="btn btn-primary btn-xs">Add Items as Tasks</button>
 						</div>
 					</li>
 					<li ng-repeat-end ng-repeat="task in item.tasks" ng-if="item.expand" class="list-group-item">

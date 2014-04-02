@@ -124,6 +124,38 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   //TODO: create tasks:index to call from expandItem
 
+  $scope.selectItemsAsTasks = function(item) {
+    item.showAddItemsButton = true;
+
+    $scope.showItemSelectBoxes = true;
+
+  }
+
+  $scope.convertItems = function(item) {
+
+    //TODO: hide checkbox for this item (need variable to be on item scope)
+
+    var parentItemId = item.id;
+
+    var selectedItems = $filter('filter')($scope.allitems, { selected: true });
+    console.log(selectedItems);
+
+    angular.forEach(selectedItems, function(item, key) {
+      console.log(item);
+      console.log(parentItemId);
+      item.linkable_type = 'Item';
+      item.linkable_id = parentItemId;
+      item.$update();
+
+      var index = $scope.items.indexOf(item);
+      $scope.items.splice(index, 1);
+
+    });
+
+    item.showAddItemsButton = false;
+
+  }
+
 
   //Boards controller stuff
   $scope.columnWidth = 'col-md-3';
