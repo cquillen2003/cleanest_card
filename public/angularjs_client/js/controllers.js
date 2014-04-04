@@ -31,9 +31,11 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   $scope.allitems = Item.query();
 
+  $scope.allTasks = Item.query({type: 'task'});
+
+  $scope.allProjectTasks = Item.query({type: 'projecttask'});
+
   $scope.items = $scope.allitems;
-
-
 
   $scope.filterBacklog = function() {
 
@@ -54,17 +56,40 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
     );
 
-    console.log($scope.items);
+  }
 
-    /*
-    if ($scope.categoryCheckbox) {
-      $scope.items = $filter('filter')($scope.items, {name: "Corey"})
+  $scope.expandAll = false;
+
+  $scope.filterBoard = function() {
+
+    console.log($scope.expandAll);
+
+    if ($scope.expandAll) {
+      var boardItems = $scope.allProjectTasks.concat($scope.allTasks);
     }
     else {
-      $scope.items = $scope.allitems;
+      var boardItems = $scope.allitems;
     }
-    */
 
+    console.log(boardItems);
+
+    $scope.boardItems = $filter('filter')(boardItems,
+        function(item) {
+          var match = false;    
+          angular.forEach($scope.categories, function(category, key) {
+            //console.log(item.name);
+            //console.log(item.linkable_id);
+            if (item.linkable_id === category.id && category.selected) {
+              //console.log("return true");
+              match = true;
+            }
+          });
+        //console.log("return false");
+        return match;
+        }
+
+    ); 
+    console.log($scope.boardItems);
   }
 
 

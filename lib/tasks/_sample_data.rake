@@ -55,9 +55,7 @@ def make_categories
 	users.each do |user|
 		category = user.categories.create!(:name => "Personal")
 		category.save
-		category = user.categories.create!(:name => "Parker")
-		category.save
-		category = user.categories.create!(:name => "App")
+		category = user.categories.create!(:name => "Business")
 		category.save		
 	end
 end
@@ -98,17 +96,20 @@ def make_backlog_items
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
 				status = "backlog"
 				priority = "high"
+				item_type = "Project"
 				#order = order + 1
 				item = category.items.create!(:name => name,
 					:description => description,
 					:status => status,
-					:priority => priority
+					:priority => priority,
+					:item_type => item_type
 				)
 				item.save
 				5.times do |n|
 					name = "#{user.first_name} #{item.name} step #{n}"
 					status = "backlog"
-					step = item.steps.create!(:name => name, :status => status)
+					item_type = "Project Task"
+					step = item.steps.create!(:name => name, :status => status, :item_type => item_type)
 					step.save
 				end
 			end
@@ -126,11 +127,13 @@ def make_empty_backlog_items
 				description = Faker::Lorem.sentences(sentence_count = 2, supplemental = false)
 				status = "backlog"
 				priority = "high"
+				item_type = "Task"
 				#order = order + 1
 				item = category.items.create!(:name => name,
 					:description => description,
 					:status => status,
-					:priority => priority
+					:priority => priority,
+					:item_type => item_type
 				)
 				item.save
 			end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140113043242) do
+ActiveRecord::Schema.define(:version => 20140404045807) do
 
   create_table "assignments", :force => true do |t|
     t.integer  "assignable_id"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20140113043242) do
     t.integer  "items_count",   :default => 0, :null => false
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+    t.string   "item_type"
   end
 
   create_table "projects", :force => true do |t|

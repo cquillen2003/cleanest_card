@@ -8,7 +8,22 @@ class ItemsController < ApplicationController
 
     bcat_array = current_user.categories.pluck("categories.id")
 
-    @items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array})
+    if params[:type] == 'project'
+      @items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array, :item_type => "Project"})
+    elsif params[:type] == 'projecttask'
+      projects = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array, :item_type => "Project"})
+      
+      project_tasks = []
+      projects.each do |project|
+        project_tasks = project_tasks + project.steps
+      end
+      
+      @items = project_tasks
+    elsif params[:type] == 'task'
+      @items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array, :item_type => "Task"})
+    else
+      @items = Item.where({ :linkable_type => "Category", :linkable_id => bcat_array})
+    end
 
     respond_with(@items)
   end

@@ -1,5 +1,6 @@
 class Item < ActiveRecord::Base
-	attr_accessible :due_date, :linkable_id, :linkable_type, :name, :description, :notes, :order, :priority, :status, :user_id, :steps_attributes
+	attr_accessible :due_date, :linkable_id, :linkable_type, :name, :description,
+                  :notes, :order, :priority, :status, :user_id, :item_type, :steps_attributes
 
 	belongs_to :linkable, :polymorphic => true, :counter_cache => true
 
