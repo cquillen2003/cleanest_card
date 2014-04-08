@@ -62,33 +62,18 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   $scope.filterBoard = function() {
 
+    $scope.expandAll = !$scope.expandAll;
+
     console.log($scope.expandAll);
 
     if ($scope.expandAll) {
-      var boardItems = $scope.allProjectTasks.concat($scope.allTasks);
+      $scope.boardItems = $scope.allProjectTasks.concat($scope.allTasks);
     }
     else {
-      var boardItems = $scope.allitems;
+      $scope.boardItems = $scope.allitems;
     }
 
-    console.log(boardItems);
-
-    $scope.boardItems = $filter('filter')(boardItems,
-        function(item) {
-          var match = false;    
-          angular.forEach($scope.categories, function(category, key) {
-            //console.log(item.name);
-            //console.log(item.linkable_id);
-            if (item.linkable_id === category.id && category.selected) {
-              //console.log("return true");
-              match = true;
-            }
-          });
-        //console.log("return false");
-        return match;
-        }
-
-    ); 
+    
     console.log($scope.boardItems);
   }
 
@@ -97,6 +82,22 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 	
   	item.status = "planned";
   	item.$update();
+
+    var tasks = Task.query({itemId: item.id}, function(response) {
+
+      console.log("plan function fired, tasks next");
+      console.log(tasks);
+
+      angular.forEach(tasks, function(task, key) {
+        console.log("individual task");
+        console.log(task);
+        task.status = 'planned';
+        task.$update({itemId: task.linkable_id, id: task.id});
+      });
+
+
+    });
+
 
   }
 

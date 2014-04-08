@@ -57,11 +57,14 @@ class ItemsController < ApplicationController
 	end
 
 	def update
+    puts 'items controller called here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    puts params[:item]
+
 		@item = Item.find(params[:id])
 		@item.update_attributes(params[:item])
 
-		#respond_with(@item)
-    render :edit
+		respond_with(@item)
+    #render :edit
 	end
 
 	def destroy

@@ -10,6 +10,6 @@ cleanCardServices.factory('Item', function($resource) {
 
 cleanCardServices.factory('Task', function($resource) {
 
-	return $resource('/items/:itemId/items/:id', {itemId: '@itemId', id: '@id'});
+	return $resource('/items/:itemId/items/:id', {itemId: '@itemId', id: '@id'}, {update: {method: 'PUT'}});
 
 });
