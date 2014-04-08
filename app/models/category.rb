@@ -4,8 +4,8 @@ class Category < ActiveRecord::Base
   has_many :assignments, :as => :assignable
   has_many :users, :through => :assignments
   
-  has_many :projects
-  has_many :tasks, :as => :taskable
+  #has_many :projects
+  #has_many :tasks, :as => :taskable
   has_many :items, :as => :linkable
   
 end

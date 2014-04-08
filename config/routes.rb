@@ -13,25 +13,25 @@ CleanestCard::Application.routes.draw do
   
   resources :assignments
   
-  resources :projects do
-  	resources :tasks, :controller => 'project_tasks' do
-  		collection do
-  			put :mass_update
-  		end
-  	end
-  end
+  #resources :projects do
+  #	resources :tasks, :controller => 'project_tasks' do
+  #		collection do
+  #			put :mass_update
+  #		end
+  #	end
+  #end
 
-  post "projects/:id/split", :to => "projects#split", :as => :split_project
+  #post "projects/:id/split", :to => "projects#split", :as => :split_project
 
-  put "projects/:id/plan", :to => "projects#plan"
+  #put "projects/:id/plan", :to => "projects#plan"
 
-  resources :tasks #Needed for stand-alone tasks (not tied to project)
+  #resources :tasks #Needed for stand-alone tasks (not tied to project)
 
   resources :items, :defaults => {:format => :json} do
-    collection do
-      put :link_items #Add tasks from items
-    end
-    resources :items, :as => 'steps', :controller => 'steps'
+    #collection do
+      #put :link_items #Add tasks from items
+    #end
+    resources :items, :as => 'tasks', :controller => 'tasks', :defaults => {:format => :json}
   end
 
   post "items/:id/split", :to => "items#split", :as => :split_item

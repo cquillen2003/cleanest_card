@@ -1,13 +1,13 @@
 class Item < ActiveRecord::Base
 	attr_accessible :due_date, :linkable_id, :linkable_type, :name, :description,
-                  :notes, :order, :priority, :status, :user_id, :item_type, :steps_attributes
+                  :notes, :order, :priority, :status, :user_id, :item_type, :tasks_attributes
 
 	belongs_to :linkable, :polymorphic => true, :counter_cache => true
 
-	has_many :steps, :as => :linkable, :class_name => "Item", :foreign_key => "linkable_id"
+	has_many :tasks, :as => :linkable, :class_name => "Item", :foreign_key => "linkable_id"
   has_many :splits
 
-	accepts_nested_attributes_for :steps, :allow_destroy => true
+	accepts_nested_attributes_for :tasks, :allow_destroy => true
 
   after_save :update_parent
 
@@ -50,18 +50,18 @@ class Item < ActiveRecord::Base
         #self.status = "cq"
         parent_item = Item.find(self.linkable_id)
 
-        backlog_steps = parent_item.steps.where({ :status => "backlog" }).count
-        planned_steps = parent_item.steps.where({ :status => "planned" }).count
-        started_steps = parent_item.steps.where({ :status => "started" }).count
-        done_steps = parent_item.steps.where({ :status => "done" }).count
+        backlog_tasks = parent_item.tasks.where({ :status => "backlog" }).count
+        planned_tasks = parent_item.tasks.where({ :status => "planned" }).count
+        started_tasks = parent_item.tasks.where({ :status => "started" }).count
+        done_tasks = parent_item.tasks.where({ :status => "done" }).count
 
-        if (planned_steps + started_steps + done_steps) == 0 && backlog_steps > 0
+        if (planned_tasks + started_tasks + done_tasks) == 0 && backlog_tasks > 0
           parent_item.update_attribute(:status, "backlog")
-        elsif (backlog_steps + started_steps + done_steps) == 0 && planned_steps > 0
+        elsif (backlog_tasks + started_tasks + done_tasks) == 0 && planned_tasks > 0
           parent_item.update_attribute(:status, "planned")
-        elsif (started_steps + done_steps) > 0 && (planned_steps + started_steps) > 0
+        elsif (started_tasks + done_tasks) > 0 && (planned_tasks + started_tasks) > 0
           parent_item.update_attribute(:status, "started")
-        elsif (backlog_steps + planned_steps + started_steps) == 0 && done_steps > 0
+        elsif (backlog_tasks + planned_tasks + started_tasks) == 0 && done_tasks > 0
           parent_item.update_attribute(:status, "done")
         else
           #TODO: log error

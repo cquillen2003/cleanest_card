@@ -15,7 +15,7 @@ class ItemsController < ApplicationController
       
       project_tasks = []
       projects.each do |project|
-        project_tasks = project_tasks + project.steps
+        project_tasks = project_tasks + project.tasks
       end
       
       @items = project_tasks
