@@ -100,7 +100,7 @@
 		<div class="col-md-3" ng-if="showBacklog" id="backlog">
 			<div class="panel panel-default cc-panel-list">			
 				<ul class="list-group">				
-					<li ng-repeat-start="item in items | filter:{ status: 'backlog', name: filterKeyword }" class="list-group-item" ng-mouseenter="showCardControls = true" ng-mouseleave="showCardControls = false" ng-init="showCardControls = false">
+					<li ng-repeat-start="item in backlogItems | filter:{ status: 'backlog', name: filterKeyword }" class="list-group-item" ng-mouseenter="showCardControls = true" ng-mouseleave="showCardControls = false" ng-init="showCardControls = false">
 						<span class="pull-right" ng-show="item.items_count === 0 && showItemSelectBoxes">
 							<input type="checkbox" ng-model="item.selected">
 						</span>

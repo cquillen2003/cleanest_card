@@ -29,17 +29,21 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   //Items controller stuff
 
-  $scope.allitems = Item.query();
+  $scope.allItemsAndTasks = Item.query();
+
+  $scope.allItems = Item.query({type: 'item'});
 
   $scope.allTasks = Item.query({type: 'task'});
 
-  $scope.allProjectTasks = Item.query({type: 'projecttask'});
+  //$scope.allProjectTasks = Item.query({type: 'projecttask'});
+  
 
-  $scope.items = $scope.allitems;
+
+  $scope.backlogItems = $scope.allItems;
 
   $scope.filterBacklog = function() {
 
-    $scope.items = $filter('filter')($scope.allitems,
+    $scope.backlogItems = $filter('filter')($scope.allItems,
         function(item) {
           var match = false;    
           angular.forEach($scope.categories, function(category, key) {
@@ -58,7 +62,10 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   }
 
+
   $scope.expandAll = false;
+
+  $scope.boardItems = $scope.allItems;
 
   $scope.filterBoard = function() {
 
@@ -66,12 +73,24 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
     console.log($scope.expandAll);
 
-    if ($scope.expandAll) {
-      $scope.boardItems = $scope.allProjectTasks.concat($scope.allTasks);
-    }
-    else {
-      $scope.boardItems = $scope.allitems;
-    }
+    $scope.boardItems = $filter('filter')($scope.allItemsAndTasks, function(item) {
+      if ($scope.expandAll) {
+        if (item.items_count > 0) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      }
+      else {
+        if (item.linkable_type === 'Category') {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+    });
 
     
     console.log($scope.boardItems);
@@ -117,7 +136,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     item.linkable_type = "Category"
     
     item.$save(function(response) {
-      $scope.items.push(response);
+      $scope.backlogItems.push(response);
     });
 
     card.name = ''; //Clear form field
@@ -138,10 +157,10 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   $scope.deleteItem = function(item) {
 
-    var index = $scope.items.indexOf(item);
+    var index = $scope.backlogItems.indexOf(item);
 
     item.$remove(function() {
-      $scope.items.splice(index, 1);
+      $scope.backlogItems.splice(index, 1);
     });
     
   }
@@ -163,7 +182,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
     var parentItemId = item.id;
 
-    var selectedItems = $filter('filter')($scope.allitems, { selected: true });
+    var selectedItems = $filter('filter')($scope.allItems, { selected: true });
     console.log(selectedItems);
 
     angular.forEach(selectedItems, function(item, key) {
@@ -173,8 +192,8 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       item.linkable_id = parentItemId;
       item.$update();
 
-      var index = $scope.items.indexOf(item);
-      $scope.items.splice(index, 1);
+      var index = $scope.backlogItems.indexOf(item);
+      $scope.backlogItems.splice(index, 1);
 
     });
 
@@ -199,11 +218,10 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   });
 
-
   $scope.categories = [
     {id: 1, name: "Personal"},
     {id: 2, name: "Streamline"}
-  ]
+  ]    
 
 
 });

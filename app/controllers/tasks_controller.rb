@@ -20,7 +20,7 @@ class TasksController < ApplicationController
 	end
 	
 	def edit
-		#@project = Project.find(params[:project_id])
+		#@project = Project.find(params[:project_id]) #these methods were copied from old project_tasks controller
 		@task = Item.find(params[:id])
 	end
 
@@ -37,6 +37,8 @@ class TasksController < ApplicationController
 		@task = Item.find(params[:id])
 		@task.update_attributes(params[:task])
 		respond_with(@task)
+
+		Item.reset_counters(params[:item_id], :tasks)
 	end
 
 	def destroy
