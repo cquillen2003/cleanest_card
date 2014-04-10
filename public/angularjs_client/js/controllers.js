@@ -31,14 +31,12 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   $scope.allItemsAndTasks = Item.query();
 
-  $scope.allItems = Item.query({type: 'item'});
+  //$scope.allItems = Item.query({type: 'item'});
 
-  $scope.allTasks = Item.query({type: 'task'});
-
-  //$scope.allProjectTasks = Item.query({type: 'projecttask'});
+  //$scope.allTasks = Item.query({type: 'task'});
   
 
-
+  /* TO DELETE
   $scope.backlogItems = $scope.allItems;
 
   $scope.filterBacklog = function() {
@@ -47,24 +45,47 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
         function(item) {
           var match = false;    
           angular.forEach($scope.categories, function(category, key) {
-            console.log(item.name);
-            console.log(item.linkable_id);
+            //console.log(item.name);
+            //console.log(item.linkable_id);
             if (item.linkable_id === category.id && category.selected) {
-              console.log("return true");
+              //console.log("return true");
               match = true;
             }
           });
-        console.log("return false");
+        //console.log("return false");
         return match;
         }
 
     );
 
   }
+  */
+
+  $scope.items = $scope.allItemsAndTasks;
+
+  console.log($scope.items);
+
+  $scope.backlogFilterFunction = function(item) {
+
+    console.log("backlog filter function fired");
+
+    var match = false;    
+      angular.forEach($scope.categories, function(category, key) {
+        //console.log(item.name);
+        //console.log(item.linkable_id);
+        if (item.item_type !== 'Task' && item.linkable_id === category.id && category.selected) {
+          //console.log("return true");
+          match = true;
+        }
+      });
+    //console.log("return false");
+    return match;
+  }
 
 
   $scope.expandAll = false;
 
+  /* TO DELETE
   $scope.boardItems = $scope.allItems;
 
   $scope.filterBoard = function() {
@@ -94,6 +115,29 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
     
     console.log($scope.boardItems);
+  }
+  */
+
+  $scope.boardFilterFunction = function(item) {
+
+    console.log("board filter function fired");
+
+      if ($scope.expandAll) {
+        if (item.items_count > 0) {
+          return false;
+        }
+        else {
+          return true;
+        }
+      }
+      else {
+        if (item.linkable_type === 'Category') {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }    
   }
 
 
@@ -134,9 +178,10 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
     item.status = "backlog"
     item.linkable_type = "Category"
+    item.item_type = "Item"
     
     item.$save(function(response) {
-      $scope.backlogItems.push(response);
+      $scope.items.push(response);
     });
 
     card.name = ''; //Clear form field
@@ -157,10 +202,10 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   $scope.deleteItem = function(item) {
 
-    var index = $scope.backlogItems.indexOf(item);
+    var index = $scope.items.indexOf(item);
 
     item.$remove(function() {
-      $scope.backlogItems.splice(index, 1);
+      $scope.items.splice(index, 1);
     });
     
   }
@@ -182,7 +227,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
     var parentItemId = item.id;
 
-    var selectedItems = $filter('filter')($scope.allItems, { selected: true });
+    var selectedItems = $filter('filter')($scope.items, { selected: true });
     console.log(selectedItems);
 
     angular.forEach(selectedItems, function(item, key) {
@@ -190,10 +235,11 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       console.log(parentItemId);
       item.linkable_type = 'Item';
       item.linkable_id = parentItemId;
+      item.item_type = 'Task';
       item.$update();
 
-      var index = $scope.backlogItems.indexOf(item);
-      $scope.backlogItems.splice(index, 1);
+      var index = $scope.items.indexOf(item);
+      $scope.items.splice(index, 1);
 
     });
 
