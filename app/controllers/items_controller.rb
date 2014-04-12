@@ -59,16 +59,26 @@ class ItemsController < ApplicationController
 		@item = Item.find(params[:id])
 		@item.update_attributes(params[:item])
 
+    Item.reset_counters(@item.id, :tasks)
+
+    Item.reset_counters(@item.linkable_id, :tasks) if @item.linkable_type = 'Item'
+
 		respond_with(@item)
     #render :edit
 	end
 
 	def destroy
 		@item = Item.find(params[:id])
-    	@item.destroy
+    if @item.tasks.count > 0
+      @item.tasks.each do |task|
+        task.destroy
+      end
+    end
+    @item.destroy
+
     	
-    	respond_with(@item)
-  	end	
+    respond_with(@item)
+  end	
 
   	def plan
   		item = Item.find(params[:id])
