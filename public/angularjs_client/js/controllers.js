@@ -121,6 +121,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   $scope.boardFilterFunction = function(item) {
 
     console.log("board filter function fired");
+    console.log(item);
 
       if ($scope.expandAll) {
         if (item.items_count > 0) {
@@ -146,20 +147,22 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   	item.status = "planned";
   	item.$update();
 
-    var tasks = Task.query({itemId: item.id}, function(response) {
+    //var tasks = Task.query({itemId: item.id}, function(response) {
 
-      console.log("plan function fired, tasks next");
-      console.log(tasks);
+      angular.forEach($scope.items, function(task, key) {
 
-      angular.forEach(tasks, function(task, key) {
-        console.log("individual task");
-        console.log(task);
-        task.status = 'planned';
-        task.$update({itemId: task.linkable_id, id: task.id});
+        if (task.linkable_type === "Item" && task.linkable_id === item.id) {
+
+          task.status = "planned";
+          task.$update({itemId: item.id, id: task.id}, function(response) {
+            console.log("plan individual task success function called!!!!!!!!!!!!!!!!!!!!!!");
+          });
+
+        }
+
       });
 
-
-    });
+    //});
 
 
   }
@@ -237,7 +240,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       task.$update();
 
       var index = $scope.items.indexOf(task);
-      $scope.items.splice(index, 1);
+      //$scope.items.splice(index, 1);  //These should be filtered out now, so need to stay in items array
 
       item.items_count = item.items_count + 1;
 
