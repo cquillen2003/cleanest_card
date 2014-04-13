@@ -230,16 +230,16 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     var selectedItems = $filter('filter')($scope.items, { selected: true });
     console.log(selectedItems);
 
-    angular.forEach(selectedItems, function(item, key) {
-      console.log(item);
-      console.log(parentItemId);
-      item.linkable_type = 'Item';
-      item.linkable_id = parentItemId;
-      item.item_type = 'Task';
-      item.$update();
+    angular.forEach(selectedItems, function(task, key) {
+      task.linkable_type = 'Item';
+      task.linkable_id = parentItemId;
+      task.item_type = 'Task';
+      task.$update();
 
-      var index = $scope.items.indexOf(item);
+      var index = $scope.items.indexOf(task);
       $scope.items.splice(index, 1);
+
+      item.items_count = item.items_count + 1;
 
     });
 
