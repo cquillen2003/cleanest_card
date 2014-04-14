@@ -215,6 +215,26 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   //Tasks controller stuff
 
+  $scope.start = function(item) {
+    item.status = 'started';
+    item.$update();
+  }
+
+  $scope.backStart = function(item) {
+    item.status = 'planned';
+    item.$update();
+  }
+
+  $scope.done = function(item) {
+    item.status = 'done';
+    item.$update();
+  }
+
+  $scope.backDone = function(item) {
+    item.status = 'started';
+    item.$update();
+  }
+
   //TODO: create tasks:index to call from expandItem
 
   $scope.selectItemsAsTasks = function(item) {

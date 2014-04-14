@@ -148,19 +148,29 @@
 				<ul class="list-group">
 					<li ng-repeat="item in items | filter: boardFilterFunction | filter:{ status: 'planned' } | limitTo: 11" class="list-group-item">
 						<h5 class="list-group-item-heading">{{ item.name }}</h5>
-						<div>
-							<span class="badge">5</span>
+						<div ng-show="item.items_count > 0">
+							<span class="badge">
+								{{ item.items_count }}
+							</span>
 							<small>
 								<a href ng-click="move(item)">Back</a>
-							</small>
+							</small>						
 							<small class="pull-right">
-								<a href>Start</a>
-							</small>							
-							<small class="pull-right">
-								<a href>Del &nbsp;</a>
+								<a href ng-click="deleteItem(item)">Del &nbsp;</a>
 							</small>
 							<small class="pull-right">
 								<a href>New &nbsp;</a>
+							</small>
+						</div>
+						<div ng-show="item.items_count === 0">
+							<small>
+								<a href>Back</a>
+							</small>
+							<small class="pull-right">
+								<a href ng-click="start(item)">Start &nbsp;</a>
+							</small>
+							<small class="pull-right">
+								<a href ng-click="deleteItem(item)">Del &nbsp;</a>
 							</small>
 						</div>					
 					</li>
@@ -170,8 +180,27 @@
 		<div ng-class="columnWidth">
 			<div class="panel panel-default cc-panel-list">
 				<ul class="list-group">
-					<li ng-repeat="item in boardItems | filter:{ status: 'started' }" class="list-group-item">
-						{{ item.name }}
+					<li ng-repeat="item in items | filter: boardFilterFunction | filter:{ status: 'started' } | limitTo: 11" class="list-group-item">
+						<h5 class="list-group-item-heading">{{ item.name }}</h5>
+						<div ng-show="item.items_count > 0">
+							<span class="badge">
+								{{ item.items_count }}
+							</span>						
+							<small class="pull-right">
+								<a href ng-click="deleteItem(item)">Del &nbsp;</a>
+							</small>
+						</div>
+						<div ng-show="item.items_count === 0">
+							<small>
+								<a href ng-click="backStart(item)">Back</a>
+							</small>
+							<small class="pull-right">
+								<a href ng-click="done(item)">Done &nbsp;</a>
+							</small>
+							<small class="pull-right">
+								<a href ng-click="deleteItem(item)">Del &nbsp;</a>
+							</small>
+						</div>												
 					</li>
 				</ul>
 			</div>
@@ -180,8 +209,24 @@
 			<div class="panel panel-default cc-panel-list">
 
 				<ul class="list-group">
-					<li ng-repeat="item in boardItems | filter:{ status: 'done' }" class="list-group-item">
-						{{ item.name }}
+					<li ng-repeat="item in items | filter: boardFilterFunction | filter:{ status: 'done' } | limitTo: 11" class="list-group-item">
+						<h5 class="list-group-item-heading">{{ item.name }}</h5>
+						<div ng-show="item.items_count > 0">
+							<span class="badge">
+								{{ item.items_count }}
+							</span>						
+							<small class="pull-right">
+								<a href ng-click="deleteItem(item)">Del &nbsp;</a>
+							</small>
+						</div>
+						<div ng-show="item.items_count === 0">
+							<small>
+								<a href ng-click="backDone(item)">Back</a>
+							</small>
+							<small class="pull-right">
+								<a href ng-click="deleteItem(item)">Del &nbsp;</a>
+							</small>
+						</div>													
 					</li>
 				</ul>
 			</div>
