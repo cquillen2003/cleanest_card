@@ -29,39 +29,40 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   //Items controller stuff
 
-  $scope.allItemsAndTasks = Item.query();
+  $scope.allItemsAndTasks = Item.query(function(response) {
+      filterBoard();
+  });
 
-  //$scope.allItems = Item.query({type: 'item'});
+  $scope.allItems = Item.query({type: 'item'});
 
   //$scope.allTasks = Item.query({type: 'task'});
   
-
-  /* TO DELETE
-  $scope.backlogItems = $scope.allItems;
+  //$scope.backlogItems = $scope.allItems;
 
   $scope.filterBacklog = function() {
+
+    console.log("filter backlog function fired");
 
     $scope.backlogItems = $filter('filter')($scope.allItems,
         function(item) {
           var match = false;    
           angular.forEach($scope.categories, function(category, key) {
-            //console.log(item.name);
-            //console.log(item.linkable_id);
-            if (item.linkable_id === category.id && category.selected) {
-              //console.log("return true");
+            console.log(item.name);
+            console.log(item.linkable_id);
+            if (item.item_type !== 'Task' && item.linkable_id === category.id && category.selected) {
+              console.log("return true");
               match = true;
             }
           });
-        //console.log("return false");
+        console.log("return false");
         return match;
         }
 
     );
 
   }
-  */
 
-  $scope.items = $scope.allItemsAndTasks;
+  /*
 
   console.log($scope.items);
 
@@ -81,20 +82,20 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     //console.log("return false");
     return match;
   }
-
+  */
 
   $scope.expandAll = false;
 
-  /* TO DELETE
-  $scope.boardItems = $scope.allItems;
-
-  $scope.filterBoard = function() {
-
+  $scope.toggleExpandAll = function() {
     $scope.expandAll = !$scope.expandAll;
+    filterBoard();
+  }
+
+  var filterBoard = function() {
 
     console.log($scope.expandAll);
 
-    $scope.boardItems = $filter('filter')($scope.allItemsAndTasks, function(item) {
+    $scope.items = $filter('filter')($scope.allItemsAndTasks, function(item) {
       if ($scope.expandAll) {
         if (item.items_count > 0) {
           return false;
@@ -114,10 +115,10 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     });
 
     
-    console.log($scope.boardItems);
+    console.log($scope.items);
   }
-  */
 
+  /*
   $scope.boardFilterFunction = function(item) {
 
     console.log("board filter function fired");
@@ -140,22 +141,28 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
         }
       }    
   }
+  */
 
 
   $scope.plan = function(item) {
 	
   	item.status = "planned";
-  	item.$update();
+  	item.$update(function(response) {
+      $scope.allItemsAndTasks.push(response);
+      filterBoard();
+    });
 
     //var tasks = Task.query({itemId: item.id}, function(response) {
 
-      angular.forEach($scope.items, function(task, key) {
+      angular.forEach($scope.allItemsAndTasks, function(task, key) {
 
         if (task.linkable_type === "Item" && task.linkable_id === item.id) {
 
           task.status = "planned";
+          //updateParentStatus();
           task.$update({itemId: item.id, id: task.id}, function(response) {
-            console.log("plan individual task success function called!!!!!!!!!!!!!!!!!!!!!!");
+            $scope.allItemsAndTasks.push(response);
+            filterBoard();
           });
 
         }
@@ -191,7 +198,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     item.item_type = "Item"
     
     item.$save(function(response) {
-      $scope.items.push(response);
+      $scope.backlogItems.push(response);
     });
 
     card.name = ''; //Clear form field
@@ -218,6 +225,39 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       $scope.items.splice(index, 1);
     });
     
+  }
+
+  var updateParentStatus = function(parentItem) {
+
+    var backlogTasks = 0;
+    var plannedTasks = 0;
+    var startedTasks = 0;
+    var doneTasks = 0;
+
+    angular.forEach($scope.items, function(item, key) {
+      if (item.linkable_type === "Item" && item.linkable_id === parentItem.id) {
+
+        switch(item.status) {
+          case "backlog":
+            backlogtasks = backlogTasks + 1;
+            break;
+          case "planned":
+            plannedTasks = plannedTasks + 1;
+            break;
+          case "started":
+            startedTasks = startedTasks + 1;
+            break;
+          case "done":
+            doneTasks = doneTasks + 1;
+            break;
+        }
+
+      }
+      console.log("updateParentStatus called here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      console.log(plannedTasks);
+    });
+
+
   }
 
   //Tasks controller stuff
@@ -257,7 +297,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
     var parentItemId = item.id;
 
-    var selectedItems = $filter('filter')($scope.items, { selected: true });
+    var selectedItems = $filter('filter')($scope.backlogItems, { selected: true });
     console.log(selectedItems);
 
     angular.forEach(selectedItems, function(task, key) {
@@ -266,8 +306,8 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       task.item_type = 'Task';
       task.$update();
 
-      var index = $scope.items.indexOf(task);
-      //$scope.items.splice(index, 1);  //These should be filtered out now, so need to stay in items array
+      var index = $scope.backlogItems.indexOf(task);
+      $scope.backlogItems.splice(index, 1);
 
       item.items_count = item.items_count + 1;
 

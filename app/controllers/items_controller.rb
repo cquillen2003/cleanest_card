@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
 
     Item.reset_counters(@item.id, :tasks)
 
-    Item.reset_counters(@item.linkable_id, :tasks) if @item.linkable_type = 'Item'
+    Item.reset_counters(@item.linkable_id, :tasks) if @item.linkable_type == 'Item'
 
 		respond_with(@item)
     #render :edit

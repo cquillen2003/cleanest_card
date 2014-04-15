@@ -6,7 +6,7 @@
     <form class="navbar-form navbar-left" role="search" style="width: 25%; padding-left: 0" ng-show="showBacklog">
       <div class="input-group">
         <div class="input-group-btn">
-          <input type="text" class="form-control" ng-model="filterKeyword" placeholder="Filter backlog">        
+          <input type="text" class="form-control" ng-model="filterKeyword" ng-change="filterBacklog()" placeholder="Filter backlog">        
           <button type="button" class="btn btn-default" data-toggle="dropdown">
             <span class="caret">
           </button>
@@ -60,7 +60,7 @@
 		<div class="col-md-9">
 		  <div class="checkbox">
 		    <label>
-		      <input type="checkbox" ng-click="filterBoard()" ng-model="expandAll"> Expand all
+		      <input type="checkbox" ng-click="toggleExpandAll()" ng-model="expandAll"> Expand all
 		    </label>
 		  </div>
 		</div>
@@ -100,7 +100,7 @@
 		<div class="col-md-3" ng-if="showBacklog" id="backlog">
 			<div class="panel panel-default cc-panel-list">			
 				<ul class="list-group">				
-					<li ng-repeat-start="item in items | filter: backlogFilterFunction | filter:{ status: 'backlog', name: filterKeyword }" class="list-group-item" ng-mouseenter="showCardControls = true" ng-mouseleave="showCardControls = false" ng-init="showCardControls = false">
+					<li ng-repeat-start="item in backlogItems | filter:{ status: 'backlog', name: filterKeyword }" class="list-group-item" ng-mouseenter="showCardControls = true" ng-mouseleave="showCardControls = false" ng-init="showCardControls = false">
 						<span class="pull-right" ng-show="item.items_count === 0 && showItemSelectBoxes">
 							<input type="checkbox" ng-model="item.selected">
 						</span>
@@ -146,7 +146,7 @@
 		<div ng-class="columnWidth">
 			<div class="panel panel-default cc-panel-list">
 				<ul class="list-group">
-					<li ng-repeat="item in items | filter: boardFilterFunction | filter:{ status: 'planned' } | limitTo: 11" class="list-group-item">
+					<li ng-repeat="item in items | filter:{ status: 'planned' } | limitTo: 11" class="list-group-item">
 						<h5 class="list-group-item-heading">{{ item.name }}</h5>
 						<div ng-show="item.items_count > 0">
 							<span class="badge">
@@ -180,7 +180,7 @@
 		<div ng-class="columnWidth">
 			<div class="panel panel-default cc-panel-list">
 				<ul class="list-group">
-					<li ng-repeat="item in items | filter: boardFilterFunction | filter:{ status: 'started' } | limitTo: 11" class="list-group-item">
+					<li ng-repeat="item in items | filter:{ status: 'started' } | limitTo: 11" class="list-group-item">
 						<h5 class="list-group-item-heading">{{ item.name }}</h5>
 						<div ng-show="item.items_count > 0">
 							<span class="badge">
@@ -209,7 +209,7 @@
 			<div class="panel panel-default cc-panel-list">
 
 				<ul class="list-group">
-					<li ng-repeat="item in items | filter: boardFilterFunction | filter:{ status: 'done' } | limitTo: 11" class="list-group-item">
+					<li ng-repeat="item in items | filter:{ status: 'done' } | limitTo: 11" class="list-group-item">
 						<h5 class="list-group-item-heading">{{ item.name }}</h5>
 						<div ng-show="item.items_count > 0">
 							<span class="badge">
