@@ -153,7 +153,7 @@
 								{{ item.items_count }}
 							</span>
 							<small>
-								<a href ng-click="move(item)">Back</a>
+								<a href ng-click="backPlanned(item)">Back</a>
 							</small>						
 							<small class="pull-right">
 								<a href ng-click="deleteItem(item)">Del &nbsp;</a>
@@ -164,7 +164,7 @@
 						</div>
 						<div ng-show="item.items_count === 0">
 							<small>
-								<a href>Back</a>
+								<a href ng-click="backPlanned(item)">Back</a>
 							</small>
 							<small class="pull-right">
 								<a href ng-click="start(item)">Start &nbsp;</a>

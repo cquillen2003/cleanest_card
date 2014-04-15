@@ -167,10 +167,17 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   }
 
-  $scope.move = function(item) {
+  $scope.backPlanned = function(item) {
   
     item.status = "backlog";
     item.$update();
+
+    angular.forEach($scope.items, function(task, key) {
+      if (task.linkable_type === "Item" && task.linkable_id === item.id) {
+        task.status = "backlog";
+        task.$update({itemId: item.id, id: task.id});
+      }
+    });
 
   }
 
