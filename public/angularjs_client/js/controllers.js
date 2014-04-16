@@ -29,26 +29,25 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   //Items controller stuff
 
-  $scope.allItemsAndTasks = Item.query(function(response) {
-      filterBoard();
-  });
-
-  $scope.allItems = Item.query({type: 'item'});
-
   //$scope.allTasks = Item.query({type: 'task'});
   
   //$scope.backlogItems = $scope.allItems;
 
   $scope.filterBacklog = function() {
+    backlogFilter()
+  }
+
+  var backlogFilter = function() {
 
     console.log("filter backlog function fired");
 
-    $scope.backlogItems = $filter('filter')($scope.allItems,
+    $scope.backlogItems = $filter('filter')($scope.allItemsAndTasks,
         function(item) {
+
+          console.log(item);
+
           var match = false;    
           angular.forEach($scope.categories, function(category, key) {
-            console.log(item.name);
-            console.log(item.linkable_id);
             if (item.item_type !== 'Task' && item.linkable_id === category.id && category.selected) {
               console.log("return true");
               match = true;
@@ -93,19 +92,23 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   var filterBoard = function() {
 
-    console.log($scope.expandAll);
+    //console.log("filter board fired");
+    //console.log($scope.expandAll);
 
     $scope.items = $filter('filter')($scope.allItemsAndTasks, function(item) {
       if ($scope.expandAll) {
-        if (item.items_count > 0) {
-          return false;
+        //console.log(item);
+        if (item.items_count === 0) {
+          //console.log("return true");
+          return true;
         }
         else {
-          return true;
+          //console.log("return false");
+          return false;
         }
       }
       else {
-        if (item.linkable_type === 'Category') {
+        if (item.linkable_type !== 'Item') {
           return true;
         }
         else {
@@ -115,8 +118,15 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     });
 
     
-    console.log($scope.items);
+    //console.log($scope.items);
   }
+
+  $scope.allItemsAndTasks = Item.query(function(response) {
+      backlogFilter();
+      filterBoard();
+  });
+
+  //$scope.allItems = Item.query({type: 'item'});  
 
   /*
   $scope.boardFilterFunction = function(item) {
@@ -148,7 +158,6 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 	
   	item.status = "planned";
   	item.$update(function(response) {
-      $scope.allItemsAndTasks.push(response);
       filterBoard();
     });
 
@@ -161,7 +170,6 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
           task.status = "planned";
           //updateParentStatus();
           task.$update({itemId: item.id, id: task.id}, function(response) {
-            $scope.allItemsAndTasks.push(response);
             filterBoard();
           });
 
@@ -198,7 +206,8 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     item.item_type = "Item"
     
     item.$save(function(response) {
-      $scope.backlogItems.push(response);
+      $scope.allItemsAndTasks.push(response);
+      backlogFilter();
     });
 
     card.name = ''; //Clear form field
@@ -219,10 +228,12 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   $scope.deleteItem = function(item) {
 
-    var index = $scope.items.indexOf(item);
+    var index = $scope.allItemsAndTasks.indexOf(item);
 
     item.$remove(function() {
-      $scope.items.splice(index, 1);
+      $scope.allItemsAndTasks.splice(index, 1);
+      backlogFilter();
+      filterBoard();
     });
     
   }
@@ -304,16 +315,19 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       task.linkable_type = 'Item';
       task.linkable_id = parentItemId;
       task.item_type = 'Task';
-      task.$update();
+      task.$update(function(response) {
+        item.items_count = item.items_count + 1;
+      });
 
       var index = $scope.backlogItems.indexOf(task);
       $scope.backlogItems.splice(index, 1);
 
-      item.items_count = item.items_count + 1;
-
     });
 
     item.showAddItemsButton = false;
+
+    console.log("convert items called");
+    console.log(item);
 
   }
 
