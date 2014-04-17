@@ -168,7 +168,6 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
         if (task.linkable_type === "Item" && task.linkable_id === item.id) {
 
           task.status = "planned";
-          //updateParentStatus();
           task.$update({itemId: item.id, id: task.id}, function(response) {
             filterBoard();
           });
@@ -176,6 +175,9 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
         }
 
       });
+
+    console.log("updateParentStatus");
+    updateParentStatus(item);
 
     //});
 
@@ -187,12 +189,14 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     item.status = "backlog";
     item.$update();
 
-    angular.forEach($scope.items, function(task, key) {
+    angular.forEach($scope.allItemsAndTasks, function(task, key) {
       if (task.linkable_type === "Item" && task.linkable_id === item.id) {
         task.status = "backlog";
         task.$update({itemId: item.id, id: task.id});
       }
     });
+
+    updateParentStatus(item);
 
   }
 
@@ -238,6 +242,16 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     
   }
 
+  var findParentItem = function(task) {
+    angular.forEach($scope.allItemsAndTasks, function(item, key) {
+      if (item.linkable_type !== "Item" && item.id === task.linkable_id) {
+        console.log("you found the parent Item!!");
+        console.log(item);
+        return item;
+      }
+    })
+  }
+
   var updateParentStatus = function(parentItem) {
 
     var backlogTasks = 0;
@@ -245,12 +259,12 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     var startedTasks = 0;
     var doneTasks = 0;
 
-    angular.forEach($scope.items, function(item, key) {
+    angular.forEach($scope.allItemsAndTasks, function(item, key) {
       if (item.linkable_type === "Item" && item.linkable_id === parentItem.id) {
 
         switch(item.status) {
           case "backlog":
-            backlogtasks = backlogTasks + 1;
+            backlogTasks = backlogTasks + 1;
             break;
           case "planned":
             plannedTasks = plannedTasks + 1;
@@ -262,10 +276,37 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
             doneTasks = doneTasks + 1;
             break;
         }
-
       }
-      console.log("updateParentStatus called here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-      console.log(plannedTasks);
+    });
+
+    console.log("updateParentStatus called here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    console.log(backlogTasks);
+    console.log(plannedTasks);
+    console.log(startedTasks);
+    console.log(doneTasks);
+
+
+    if (plannedTasks + startedTasks + doneTasks === 0 && backlogTasks > 0) {
+      parentItem.status = "backlog";
+    }
+    else if (backlogTasks + startedTasks + doneTasks === 0 && plannedTasks > 0) {
+      parentItem.status = "planned";
+    }
+    else if (startedTasks + doneTasks > 0 && plannedTasks + startedTasks > 0) {
+      parentItem.status = "started";
+    }
+    else if (backlogTasks + plannedTasks + startedTasks === 0 && doneTasks > 0) {
+      parentItem.status = "done";
+    }
+    else {
+      console.log("updateParentStatus error");
+    }
+
+    console.log(parentItem.status);
+
+    parentItem.$update(function(response) {
+      console.log("parentItem update success!");
+      filterBoard();
     });
 
 
@@ -276,21 +317,26 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   $scope.start = function(item) {
     item.status = 'started';
     item.$update();
+    console.log(findParentItem(item));
+    
   }
 
   $scope.backStart = function(item) {
     item.status = 'planned';
     item.$update();
+    updateParentStatus(item);
   }
 
   $scope.done = function(item) {
     item.status = 'done';
     item.$update();
+    updateParentStatus(item);
   }
 
   $scope.backDone = function(item) {
     item.status = 'started';
     item.$update();
+    updateParentStatus(item);
   }
 
   //TODO: create tasks:index to call from expandItem
