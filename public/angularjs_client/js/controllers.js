@@ -176,7 +176,6 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
       });
 
-    console.log("updateParentStatus");
     updateParentStatus(item);
 
     //});
@@ -252,7 +251,16 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     })
   }
 
-  var updateParentStatus = function(parentItem) {
+  var updateParentStatus = function(item) {
+
+    //TODO: I think I need to remove the active record callback on the item model that does this
+    //set parentItemId
+    if (item.linkable_type !== "Item") {
+      var parentItemId = item.id;
+    }
+    else {
+      var parentItemId = item.linkable_id;
+    }
 
     var backlogTasks = 0;
     var plannedTasks = 0;
@@ -260,7 +268,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     var doneTasks = 0;
 
     angular.forEach($scope.allItemsAndTasks, function(item, key) {
-      if (item.linkable_type === "Item" && item.linkable_id === parentItem.id) {
+      if (item.linkable_type === "Item" && item.linkable_id === parentItemId) {
 
         switch(item.status) {
           case "backlog":
@@ -279,36 +287,30 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       }
     });
 
-    console.log("updateParentStatus called here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    console.log(backlogTasks);
-    console.log(plannedTasks);
-    console.log(startedTasks);
-    console.log(doneTasks);
-
-
     if (plannedTasks + startedTasks + doneTasks === 0 && backlogTasks > 0) {
-      parentItem.status = "backlog";
+      var parentItemStatus = "backlog";
     }
     else if (backlogTasks + startedTasks + doneTasks === 0 && plannedTasks > 0) {
-      parentItem.status = "planned";
+      var parentItemStatus = "planned";
     }
     else if (startedTasks + doneTasks > 0 && plannedTasks + startedTasks > 0) {
-      parentItem.status = "started";
+      var parentItemStatus = "started";
     }
     else if (backlogTasks + plannedTasks + startedTasks === 0 && doneTasks > 0) {
-      parentItem.status = "done";
+      var parentItemStatus = "done";
     }
     else {
       console.log("updateParentStatus error");
     }
 
-    console.log(parentItem.status);
-
-    parentItem.$update(function(response) {
-      console.log("parentItem update success!");
-      filterBoard();
+    angular.forEach($scope.allItemsAndTasks, function(item, key) {
+      if (item.linkable_type !== "Item" && item.id === parentItemId) {
+        item.status = parentItemStatus;
+        item.$update(function(response) {
+          filterBoard();
+        });
+      }
     });
-
 
   }
 
@@ -317,7 +319,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   $scope.start = function(item) {
     item.status = 'started';
     item.$update();
-    console.log(findParentItem(item));
+    updateParentStatus(item);
     
   }
 
