@@ -39,21 +39,21 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   var backlogFilter = function() {
 
-    console.log("filter backlog function fired");
+    //console.log("filter backlog function fired");
 
     $scope.backlogItems = $filter('filter')($scope.allItemsAndTasks,
         function(item) {
 
-          console.log(item);
+          //console.log(item);
 
           var match = false;    
           angular.forEach($scope.categories, function(category, key) {
             if (item.item_type !== 'Task' && item.linkable_id === category.id && category.selected) {
-              console.log("return true");
+              //console.log("return true");
               match = true;
             }
           });
-        console.log("return false");
+        //console.log("return false");
         return match;
         }
 
@@ -119,11 +119,15 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
     
     //console.log($scope.items);
+      console.log("board items");
+      console.log($scope.items);
   }
 
   $scope.allItemsAndTasks = Item.query(function(response) {
       backlogFilter();
       filterBoard();
+      console.log("board items");
+      console.log($scope.items);
   });
 
   //$scope.allItems = Item.query({type: 'item'});  
@@ -169,14 +173,13 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
           task.status = "planned";
           task.$update({itemId: item.id, id: task.id}, function(response) {
+            updateParentStatus(task);
             filterBoard();
           });
 
         }
 
       });
-
-    updateParentStatus(item);
 
     //});
 
@@ -192,10 +195,9 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       if (task.linkable_type === "Item" && task.linkable_id === item.id) {
         task.status = "backlog";
         task.$update({itemId: item.id, id: task.id});
+        updateParentStatus(task);
       }
     });
-
-    updateParentStatus(item);
 
   }
 
@@ -238,7 +240,31 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       backlogFilter();
       filterBoard();
     });
-    
+
+    /*TODO: delete tasks when item is deleted, this if fucking way to hard
+
+    var taskIndices = [];
+
+    angular.forEach($scope.allItemsAndTasks, function(task, key) {
+      console.log("task")
+      console.log(task);
+      if (task.linkable_type === "Item" && task.linkable_id === item.id) {
+        console.log("found task to delete!!!!!!");
+
+        var taskIndex = $scope.allItemsAndTasks.indexOf(task);
+        taskIndices.push(taskIndex);
+        
+      }
+    });
+
+    console.log("task indices");
+    console.log(taskIndices);
+
+    angular.forEach(taskIndices, function(val, key) {
+      $scope.allItemsAndTasks.splice(val, 1);
+    });
+    */
+
   }
 
   var findParentItem = function(task) {
@@ -251,16 +277,10 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     })
   }
 
-  var updateParentStatus = function(item) {
+  var updateParentStatus = function(task) {
 
     //TODO: I think I need to remove the active record callback on the item model that does this
     //set parentItemId
-    if (item.linkable_type !== "Item") {
-      var parentItemId = item.id;
-    }
-    else {
-      var parentItemId = item.linkable_id;
-    }
 
     var backlogTasks = 0;
     var plannedTasks = 0;
@@ -268,7 +288,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     var doneTasks = 0;
 
     angular.forEach($scope.allItemsAndTasks, function(item, key) {
-      if (item.linkable_type === "Item" && item.linkable_id === parentItemId) {
+      if (item.linkable_type === "Item" && item.linkable_id === task.linkable_id) {
 
         switch(item.status) {
           case "backlog":
@@ -304,7 +324,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     }
 
     angular.forEach($scope.allItemsAndTasks, function(item, key) {
-      if (item.linkable_type !== "Item" && item.id === parentItemId) {
+      if (item.linkable_type !== "Item" && item.id === task.linkable_id) {
         item.status = parentItemStatus;
         item.$update(function(response) {
           filterBoard();
