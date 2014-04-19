@@ -1,13 +1,13 @@
-<li class="list-group-item card item sortable <%= "has-steps" if item.steps.size > 0 %>" id="<%= item.id %>">
+<li class="list-group-item card item sortable <%= "has-steps" if item.tasks.size > 0 %>" id="<%= item.id %>">
 	<span class="pull-right"><%= check_box_tag "item_ids[]", item.id, false, :class => "select-card-checkbox" %></span>
 	<h5 class="list-group-item-heading"><%= link_to item.name, edit_item_path(item.id) %></h5>
 
 	<div>
-		<% if item.steps.size > 0 %>
-			<span class="badge"><%= item.steps.size %></span>
+		<% if item.tasks.size > 0 %>
+			<span class="badge"><%= item.tasks.size %></span>
 		<% end %>
 		<small>
-			<%= link_to "Expand", item_steps_url(item), :remote => true , :class => "show-tasks-link invisible" %>
+			<%= link_to "Expand", item_tasks_url(item), :remote => true , :class => "show-tasks-link invisible" %>
 			<a href="#" class="hide-tasks hidden">Collapse</a>
 			&nbsp;&nbsp;&nbsp;
 		</small>		
