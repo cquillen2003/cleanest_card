@@ -12,7 +12,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   	}
 
   	$http.post('/sessions', session).success(function(){
-  		console.log("success called back!");
+  		//console.log("success called back!");
   	}); 	
   }
 
@@ -117,17 +117,11 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       }
     });
 
-    
-    //console.log($scope.items);
-      console.log("board items");
-      console.log($scope.items);
   }
 
   $scope.allItemsAndTasks = Item.query(function(response) {
       backlogFilter();
       filterBoard();
-      console.log("board items");
-      console.log($scope.items);
   });
 
   //$scope.allItems = Item.query({type: 'item'});  
@@ -241,41 +235,23 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       filterBoard();
     });
 
-    /*TODO: delete tasks when item is deleted, this if fucking way to hard
+    //Have to rebuild the allItemsAndTasks array without this project's tasks
+    //because splice changes the array
+    //http://stackoverflow.com/questions/16884544/javascript-splice-function-inside-foreach-loop-decrements-index
+  
+    $scope.allItemsAndTasks = $filter('filter')($scope.allItemsAndTasks, function(loopItem) {
 
-    var taskIndices = [];
-
-    angular.forEach($scope.allItemsAndTasks, function(task, key) {
-      console.log("task")
-      console.log(task);
-      if (task.linkable_type === "Item" && task.linkable_id === item.id) {
-        console.log("found task to delete!!!!!!");
-
-        var taskIndex = $scope.allItemsAndTasks.indexOf(task);
-        taskIndices.push(taskIndex);
-        
+      if (loopItem.linkable_type === "Item" && loopItem.linkable_id === item.id) {
+        return false;
       }
+      return true;
     });
 
-    console.log("task indices");
-    console.log(taskIndices);
-
-    angular.forEach(taskIndices, function(val, key) {
-      $scope.allItemsAndTasks.splice(val, 1);
-    });
-    */
+    backlogFilter();
+    filterBoard();
 
   }
 
-  var findParentItem = function(task) {
-    angular.forEach($scope.allItemsAndTasks, function(item, key) {
-      if (item.linkable_type !== "Item" && item.id === task.linkable_id) {
-        console.log("you found the parent Item!!");
-        console.log(item);
-        return item;
-      }
-    })
-  }
 
   var updateParentStatus = function(task) {
 
@@ -377,7 +353,6 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     var parentItemId = item.id;
 
     var selectedItems = $filter('filter')($scope.backlogItems, { selected: true });
-    console.log(selectedItems);
 
     angular.forEach(selectedItems, function(task, key) {
       task.linkable_type = 'Item';
@@ -393,9 +368,6 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     });
 
     item.showAddItemsButton = false;
-
-    console.log("convert items called");
-    console.log(item);
 
   }
 
