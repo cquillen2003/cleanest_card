@@ -29,7 +29,7 @@ cleanCard.config(['$routeProvider',
         controller: 'cleanCardCtrl'
       }).            
       otherwise({
-        redirectTo: '/phones'
+        redirectTo: '/sessions/new'
       });
   }
 ])
