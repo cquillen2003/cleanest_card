@@ -13,3 +13,9 @@ cleanCardServices.factory('Task', function($resource) {
 	return $resource('/items/:itemId/items/:id', {itemId: '@itemId', id: '@id'}, {update: {method: 'PUT'}});
 
 });
+
+cleanCardServices.factory('Category', function($resource) {
+
+	return $resource('/categories/:id', {id: '@id'}, {update: {method: 'PUT'}});
+
+});

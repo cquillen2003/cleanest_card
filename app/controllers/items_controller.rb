@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
 
+  before_filter :signed_in_user
+
 	respond_to :json, :html
 
   def index
@@ -124,5 +126,16 @@ class ItemsController < ApplicationController
   		)
       Item.reset_counters(params[:parent_id], :steps)
   	end
+
+
+    private
+    
+      def signed_in_user
+        unless signed_in?
+          flash[:notice] = "Please sign in."
+          redirect_to new_session_path
+        end
+      end
+
 	
 end

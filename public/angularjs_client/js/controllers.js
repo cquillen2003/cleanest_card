@@ -1,7 +1,7 @@
 var cleanCardControllers = angular.module('cleanCardControllers', []);
 
  
-cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $routeParams, $filter, Item, Task) {
+cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $routeParams, $filter, Category, Item, Task) {
 
   //Sessions controller stuff
 
@@ -388,10 +388,16 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   });
 
+  $scope.categories = Category.query(function(response) {
+    //console.log("Categories success!");
+  });
+
+  /*
   $scope.categories = [
     {id: 1, name: "Personal"},
     {id: 2, name: "Streamline"}
-  ]    
+  ]
+  */    
 
 
 });
