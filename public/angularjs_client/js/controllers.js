@@ -1,7 +1,7 @@
 var cleanCardControllers = angular.module('cleanCardControllers', []);
 
  
-cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $routeParams, $filter, Category, Item, Task) {
+cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $routeParams, $filter, $location, Category, Item, Task) {
 
   //Sessions controller stuff
 
@@ -13,12 +13,22 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   	$http.post('/sessions', session).success(function(){
   		//console.log("success called back!");
+      $location.path('/boards/current');
   	}); 	
+  }
+
+  $scope.deleteSession = function() {
+
+    $http.delete('/signout').success(function() {
+      console.log("session destroyed successfully");
+      $location.path('/sessions/new');
+    });
+
   }
 
   //Navbar stuff
 
-  $scope.showBacklog = true;
+  $scope.showBacklog = false;
 
   $scope.rootFunction = function() {
     $scope.showBacklog = !$scope.showBacklog;

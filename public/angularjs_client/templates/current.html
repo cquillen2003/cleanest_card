@@ -45,7 +45,7 @@
           <li><a href="#">Another action</a></li>
           <li><a href="#">Something else here</a></li>
           <li class="divider"></li>
-          <li><a href>Sign Out</a></li>
+          <li><a ng-click="deleteSession()" href>Sign Out</a></li>
         </ul>
       </li>
     </ul>    
@@ -129,7 +129,7 @@
 							<button type="button" ng-click="convertItems(item)" class="btn btn-primary btn-xs">Add Items as Tasks</button>
 						</div>
 					</li>
-					<li ng-repeat-end ng-repeat="task in item.tasks" ng-if="item.expand" class="list-group-item">
+					<li ng-repeat-end ng-repeat="task in item.tasks" ng-if="item.expand" class="list-group-item" style="background-color: #d9edf7;">
 						{{ task.name }}
 					</li>
 					<li class="list-group-item">
@@ -137,7 +137,7 @@
 							<div class="form-group">
 								<input type="text" ng-model="card.name" class="form-control" />
 							</div>
-							<button class="btn btn-primary">Default</button>
+							<button class="btn btn-primary">Add Item</button>
 						</form>					
 					</li>															
 				</ul>

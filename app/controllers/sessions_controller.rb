@@ -19,7 +19,8 @@ class SessionsController < ApplicationController
 	
 	def destroy
 		sign_out
-		redirect_to new_session_path
+		render :nothing => true
+		#redirect_to new_session_path
 		#redirect_to root_url #undefined route now because of index.html driving angularjs_client
 	end
 	
