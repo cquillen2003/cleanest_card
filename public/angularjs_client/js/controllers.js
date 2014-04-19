@@ -33,9 +33,19 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   $scope.rootFunction = function() {
     $scope.showBacklog = !$scope.showBacklog;
   }
+  
 
-  $scope.categoryFiltering = true;
+  var selectAllCategories = function() {
+    angular.forEach($scope.categories, function(category) {
+        category.selected = true;
+    });
+    backlogFilter();
+  }
 
+  $scope.categories = Category.query(function(response) {
+    //console.log("Categories success!");
+    selectAllCategories()
+  });
 
   //Items controller stuff
 
@@ -397,17 +407,6 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     }
 
   });
-
-  $scope.categories = Category.query(function(response) {
-    //console.log("Categories success!");
-  });
-
-  /*
-  $scope.categories = [
-    {id: 1, name: "Personal"},
-    {id: 2, name: "Streamline"}
-  ]
-  */    
 
 
 });
