@@ -25,4 +25,20 @@ module SessionsHelper
 		self.current_user = nil
 		cookies.delete(:remember_token)
 	end
+
+
+	#Mobile detection and preference
+
+	def mobile_view
+		if mobile_request?
+			prepend_view_path Rails.root + 'app' + 'views_mobile'
+		end
+	end
+
+	def mobile_request?
+		request.user_agent =~ /(iPhone|iPod|Android|Windows Phone)/
+	end
+
+
+
 end

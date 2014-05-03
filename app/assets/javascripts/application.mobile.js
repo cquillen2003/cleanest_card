@@ -10,13 +10,4 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
-//= require jquery-ui-1.10.3.custom
-//= require bootstrap
-//= require angular.min
-//= require angular-resource.min
-//= require angular-route.min
-//= require perfect-scrollbar
-//= require jquery_nested_form
-//= require_tree .
+

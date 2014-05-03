@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Clean Card</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <%= stylesheet_link_tag    "application", media: "all" %>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/angularjs_client/css/main.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -16,10 +20,18 @@
     <![endif]-->
     <%= csrf_meta_tags %>
   </head>
-  <body>
-  	
-    <%= yield %>
+  <body ng-app="cleanCard">
+
+  	<div ng-view></div>
+
 
 		<%= javascript_include_tag "application" %>
+
+    <script src="/angularjs_client/js/main.js"></script>
+
+    <script src="/angularjs_client/js/app.js"></script>
+    <script src="/angularjs_client/js/controllers.js"></script>
+    <script src="/angularjs_client/js/services.js"></script>
+
   </body>
 </html>

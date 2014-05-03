@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
 
 	respond_to :json, :html
+
+	before_filter :mobile_view
 	
 	def new
 	end
@@ -9,8 +11,8 @@ class SessionsController < ApplicationController
 		user = User.find_by_email(params[:session][:email].downcase)
 		if user && user.authenticate(params[:session][:password])
 			sign_in user
-			#redirect_to current_url
-			render :nothing => true
+			redirect_to current_url
+			#render :nothing => true
 		else
 			flash.now[:error] = 'Invalid email/password combination'
 			render 'new'
