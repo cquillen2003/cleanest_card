@@ -1,0 +1,19 @@
+<ion-view title="Backlog">
+	
+	<ion-nav-buttons side="right">
+		<button class="button">Edit</button>
+	</ion-nav-buttons>
+
+	<div class="bar bar-subheader">
+		<button class="button button-clear button-positive">Filter</button>
+  	<button class="button button-clear button-positive">Search</button>
+	</div>	
+
+  <ion-content class="has-header has-subheader">
+    <ion-list>
+      <ion-item ng-repeat="friend in friends" type="item-text-wrap" href="#/tab/friend/{{friend.id}}">
+        {{friend.name}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

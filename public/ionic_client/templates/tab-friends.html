@@ -1,0 +1,24 @@
+<ion-view title="Friends" hide-nav-bar="true">
+
+	<div class="bar bar-header bar-positive">
+		<div class="button-bar">
+		  <a class="button">Planned (5)</a>
+		  <a class="button">Started (2)</a>
+		  <a class="button">Done (7)</a>
+		</div>
+	</div>
+
+	<div class="bar bar-subheader">
+		<button class="button button-clear button-positive">Filter</button>
+  	<button class="button button-clear button-positive">Expand All</button>
+	</div>
+
+
+  <ion-content class="has-header has-subheader">
+    <ion-list>
+      <ion-item ng-repeat="friend in friends" type="item-text-wrap" href="#/tab/friend/{{friend.id}}">
+        {{friend.name}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
