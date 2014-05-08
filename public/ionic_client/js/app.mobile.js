@@ -38,7 +38,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       views: {
         'tab-dash': {
           templateUrl: '/ionic_client/templates/tab-dash.html',
-          controller: 'FriendsCtrl'
+          controller: 'DashCtrl'
         }
       }
     })

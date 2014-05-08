@@ -1,6 +1,11 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {
+.controller('DashCtrl', function($scope, Item) {
+
+  $scope.allItemsAndTasks = Item.query(function(response) {
+ 
+  });
+
 })
 
 .controller('FriendsCtrl', function($scope, Friends) {

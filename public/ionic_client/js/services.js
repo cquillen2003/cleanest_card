@@ -1,4 +1,10 @@
-angular.module('starter.services', [])
+angular.module('starter.services', ['ngResource'])
+
+
+.factory('Item', function($resource) {
+  return $resource('/items/:id', {id: '@id'}, {update: {method: 'PUT'}});
+})
+
 
 /**
  * A simple example service that returns some data.
