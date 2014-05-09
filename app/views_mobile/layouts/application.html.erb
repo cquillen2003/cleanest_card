@@ -22,9 +22,16 @@
 
   </head>
   <body ng-app="mobileClient">
-
+ 
     <!-- Make sure all your bars are the first things in your <body> -->
-    <div ui-view></div>
+    <header class="bar bar-nav">
+      <div ui-view="navbar-content"></div>
+    </header>
+
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+    <div class="content">
+      <div ui-view="main"></div>
+    </div>
 
   </body>
 </html>
