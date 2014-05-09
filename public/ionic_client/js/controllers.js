@@ -17,4 +17,26 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AccountCtrl', function($scope) {
+})
+
+
+.controller('SessionsCtrl', function($scope, $http) {
+
+  //Sessions controller stuff
+
+  $scope.create = function() {
+
+  	console.log("sessions controller create called");
+  	console.log($scope.user);
+
+  	if ($scope.user) {
+  		var session = {email: $scope.user.email, password: $scope.user.password};
+  	}
+
+  	$http.post('/sessions', session).success(function(){
+  		//console.log("success called back!");
+      $location.path('/boards/current');
+  	}); 	
+  }
+
 });
