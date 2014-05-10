@@ -16,12 +16,10 @@
     <%= stylesheet_link_tag "application.mobile", media: "all" %>
 
     <!-- Include the compiled Ratchet JS -->
-    <!-- <script src="ratchet.js"></script> -->
-    <%= javascript_include_tag "application.mobile" %>
-    <script src="app.js"></script>    
+    <!-- <script src="ratchet.js"></script> -->        
 
   </head>
-  <body ng-app="mobileClient">
+  <body ng-app="cleanCard">
  
     <!-- Make sure all your bars are the first things in your <body> -->
     <header class="bar bar-nav">
@@ -51,6 +49,12 @@
         New
       </a>
     </nav>
+
+    <%= javascript_include_tag "application.mobile" %>
+    <script src="app.js"></script>
+
+    <script src="/angularjs_client/js/controllers.js"></script>
+    <script src="/angularjs_client/js/services.js"></script>    
 
   </body>
 </html>

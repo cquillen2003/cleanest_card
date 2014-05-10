@@ -1,7 +1,7 @@
-var mobileClient = angular.module('mobileClient', ['ui.router']);
+var cleanCard = angular.module('cleanCard', ['ui.router', 'cleanCardControllers', 'cleanCardServices']);
 
 
-mobileClient.config(function($stateProvider, $urlRouterProvider) {
+cleanCard.config(function($stateProvider, $urlRouterProvider) {
 
 	$urlRouterProvider.otherwise('/backlog');
 
@@ -11,7 +11,8 @@ mobileClient.config(function($stateProvider, $urlRouterProvider) {
 			views: {
 				'navbar-content': { templateUrl: 'nav-backlog.html' },
 				'main': { templateUrl: 'backlog.html' }
-			}
+			},
+			controller: 'cleanCardCtrl'
 		})
 		.state('board', {
 			url: '/board',
