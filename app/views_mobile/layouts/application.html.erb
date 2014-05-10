@@ -28,10 +28,29 @@
       <div ui-view="navbar-content"></div>
     </header>
 
-    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
-    <div class="content">
-      <div ui-view="main"></div>
+    <div class="bar bar-standard bar-header-secondary">
+      <button class="btn btn-link pull-left">Filter</button>
+      <button class="btn btn-link pull-right">Search</button>
     </div>
+
+    <!-- Note: Can't wrap the content div in another div without causing problems -->
+
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+    <div class="content">    
+        <div ui-view="main"></div>
+    </div>    
+
+    <nav class="bar bar-tab">
+      <a class="tab-item active" href="#">
+        Backlog
+      </a>
+      <a class="tab-item" href="#">
+        Board
+      </a>
+      <a class="tab-item" href="#">
+        New
+      </a>
+    </nav>
 
   </body>
 </html>
