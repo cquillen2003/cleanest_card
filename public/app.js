@@ -1,4 +1,4 @@
-var cleanCard = angular.module('cleanCard', ['ui.router', 'cleanCardControllers', 'cleanCardServices']);
+var cleanCard = angular.module('cleanCard', ['ngRoute', 'ui.router', 'cleanCardControllers', 'cleanCardServices']);
 
 
 cleanCard.config(function($stateProvider, $urlRouterProvider) {
@@ -10,15 +10,27 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 			url: '/backlog',
 			views: {
 				'navbar-content': { templateUrl: 'nav-backlog.html' },
-				'main': { templateUrl: 'backlog.html' }
-			},
-			controller: 'cleanCardCtrl'
+				'main': {
+					templateUrl: 'backlog.html',
+					controller: 'cleanCardCtrl'
+				}
+			}
 		})
 		.state('board', {
 			url: '/board',
 			views: {
 				'navbar-content': { templateUrl: 'nav-board.html' },
 				'main': { templateUrl: 'board.html' }
+			}
+		})
+		.state('login', {
+			url: '/sessions/new',
+			views: {
+				'navbar-content': { templateUrl: 'nav-backlog.html' },
+				'main': {
+					templateUrl: 'login.html',
+					controller: 'cleanCardCtrl'
+				}
 			}
 		})
 

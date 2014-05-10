@@ -3,6 +3,7 @@ var cleanCardControllers = angular.module('cleanCardControllers', []);
  
 cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $routeParams, $filter, $location, Category, Item, Task) {
 
+
   //Sessions controller stuff
 
   $scope.create = function() {
