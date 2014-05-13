@@ -1,3 +1,8 @@
 <ul class="table-view">
-  <li ng-repeat="item in backlogItems" class="table-view-cell">{{ item.name }} <span class="badge">4</span></li>
+  <li ng-repeat="item in backlogItems" class="table-view-cell">
+  	<a ui-sref="item({itemId: item.id})">
+ 		{{ item.name }} 
+  		<span class="badge">4</span>
+  	</a>
+  </li>
 </ul>

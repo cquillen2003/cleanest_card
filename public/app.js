@@ -23,6 +23,16 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 				'main': { templateUrl: 'board.html' }
 			}
 		})
+		.state('item', {
+			url: '/items/:itemId',
+			views: {
+				'navbar-content': { templateUrl: 'nav-item.html' },
+				'main': { 
+					templateUrl: 'item.html',
+					controller: 'itemCtrl'
+				}
+			}
+		})		
 		.state('login', {
 			url: '/sessions/new',
 			views: {

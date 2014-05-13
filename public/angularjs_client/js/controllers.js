@@ -409,5 +409,25 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   });
 
+  //Mobile app specific stuff
+  $rootScope.showSubMenu = true;
+
+
+});
+
+
+
+cleanCardControllers.controller('itemCtrl', function ($rootScope, $scope, $state, $stateParams, Item) {
+
+  $rootScope.showSubMenu = false;
+
+  $scope.item = Item.get({id: $stateParams.itemId}, function(response) {
+    console.log("success callback");
+  });
+
+
+  $rootScope.goBack = function() {
+    $state.go('backlog');
+  }
 
 });
