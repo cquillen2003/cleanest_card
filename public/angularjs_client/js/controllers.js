@@ -60,21 +60,20 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   var backlogFilter = function() {
 
-    //console.log("filter backlog function fired");
+    console.log("filter backlog function fired");
 
     $scope.backlogItems = $filter('filter')($scope.allItemsAndTasks,
         function(item) {
 
-          //console.log(item);
+          console.log(item);
 
           var match = false;    
           angular.forEach($scope.categories, function(category, key) {
             if (item.item_type !== 'Task' && item.linkable_id === category.id && category.selected) {
-              //console.log("return true");
               match = true;
             }
           });
-        //console.log("return false");
+        console.log(match);
         return match;
         }
 
@@ -412,9 +411,25 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   //Mobile app specific stuff
   $rootScope.showSubMenu = true;
 
+  $scope.showModal = false;
+
+  $scope.toggleModal = function() {
+    console.log("toggle modal");
+    $scope.showModal = !$scope.showModal;
+
+  }
+
+
 
 });
 
+
+cleanCardControllers.controller('mainMobileCtrl', function ($scope, Category) {
+
+
+
+
+});
 
 
 cleanCardControllers.controller('itemCtrl', function ($rootScope, $scope, $state, $stateParams, Item) {
@@ -430,4 +445,6 @@ cleanCardControllers.controller('itemCtrl', function ($rootScope, $scope, $state
     $state.go('backlog');
   }
 
+
 });
+

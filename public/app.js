@@ -11,8 +11,7 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 			views: {
 				'navbar-content': { templateUrl: 'nav-backlog.html' },
 				'main': {
-					templateUrl: 'backlog.html',
-					controller: 'cleanCardCtrl'
+					templateUrl: 'backlog.html'
 				}
 			}
 		})
@@ -39,7 +38,6 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 				'navbar-content': { templateUrl: 'nav-backlog.html' },
 				'main': {
 					templateUrl: 'login.html',
-					controller: 'cleanCardCtrl'
 				}
 			}
 		})
