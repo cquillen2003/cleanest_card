@@ -1,5 +1,5 @@
 <div class="segmented-control">
-	<a class="control-item active">Planned</a>
-	<a class="control-item">Started</a>
-	<a class="control-item">Done</a>
+	<a ui-sref="items({ status: 'planned' })" ui-sref-active="active" class="control-item">Planned</a>
+	<a ui-sref="items({ status: 'started' })" ui-sref-active="active" class="control-item">Started</a>
+	<a ui-sref="items({ status: 'done' })" ui-sref-active="active" class="control-item">Done</a>
 </div>

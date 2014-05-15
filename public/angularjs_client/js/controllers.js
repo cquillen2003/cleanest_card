@@ -1,7 +1,7 @@
 var cleanCardControllers = angular.module('cleanCardControllers', []);
 
  
-cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $routeParams, $filter, $location, Category, Item, Task) {
+cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $stateParams, $routeParams, $filter, $location, Category, Item, Task) {
 
 
   //Sessions controller stuff
@@ -60,12 +60,10 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   var backlogFilter = function() {
 
-    console.log("filter backlog function fired");
-
     $scope.backlogItems = $filter('filter')($scope.allItemsAndTasks,
         function(item) {
 
-          console.log(item);
+          //console.log(item);
 
           var match = false;    
           angular.forEach($scope.categories, function(category, key) {
@@ -73,7 +71,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
               match = true;
             }
           });
-        console.log(match);
+        //console.log(match);
         return match;
         }
 
@@ -419,17 +417,20 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   }
 
+  //$scope.filteredStatus = $stateParams.status;
+  //console.log("state changed");
+/*
+  $scope.filteredStatus = 'planned';
 
+  //Straight from the angular-ui-router docs: https://github.com/angular-ui/ui-router/wiki
+  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, error){
+    console.log("state changed from event");
+    $scope.filteredStatus = $stateParams.status;
+  });
+*/
 
 });
 
-
-cleanCardControllers.controller('mainMobileCtrl', function ($scope, Category) {
-
-
-
-
-});
 
 
 cleanCardControllers.controller('itemCtrl', function ($rootScope, $scope, $state, $stateParams, Item) {
