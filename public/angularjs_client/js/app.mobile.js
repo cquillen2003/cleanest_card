@@ -43,9 +43,9 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 		.state('backlog', {
 			url: '/backlog',
 			views: {
-				'navbar-content': { templateUrl: 'nav-backlog.html' },
+				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-backlog.html' },
 				'main': {
-					templateUrl: 'backlog.html',
+					templateUrl: 'angularjs_client/templates_mobile/backlog.html',
 					controller: 'cleanCardCtrl'
 				}
 			}
@@ -53,9 +53,9 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 		.state('items', {
 			url: '/items?status',
 			views: {
-				'navbar-content': { templateUrl: 'nav-board.html' },
+				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-board.html' },
 				'main': {
-					templateUrl: 'board.html',
+					templateUrl: 'angularjs_client/templates_mobile/board.html',
 					controller: 'cleanCardCtrl'
 				}
 			}
@@ -63,9 +63,9 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 		.state('item', {
 			url: '/items/:itemId',
 			views: {
-				'navbar-content': { templateUrl: 'nav-item.html' },
+				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-item.html' },
 				'main': { 
-					templateUrl: 'item.html',
+					templateUrl: 'angularjs_client/templates_mobile/item.html',
 					controller: 'itemCtrl'
 				}
 			}
@@ -73,9 +73,9 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 		.state('login', {
 			url: '/sessions/new',
 			views: {
-				'navbar-content': { templateUrl: 'nav-backlog.html' },
+				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-backlog.html' },
 				'main': {
-					templateUrl: 'login.html',
+					templateUrl: 'angularjs_client/templates_mobile/login.html',
 					controller: 'sessionsCtrl'
 				}
 			}
