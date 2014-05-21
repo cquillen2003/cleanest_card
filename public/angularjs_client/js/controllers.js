@@ -1,4 +1,4 @@
-var cleanCardControllers = angular.module('cleanCardControllers', []);
+var cleanCardControllers = angular.module('cleanCardControllers', ['ngTouch']);
 
 
 cleanCardControllers.controller('subMenuCtrl', function($rootScope, $scope) {
