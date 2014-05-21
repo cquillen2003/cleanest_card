@@ -5,32 +5,28 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 
 	$urlRouterProvider.otherwise('/backlog');
 
+	//cleanCardCtrl is binded to <body>
 	$stateProvider
 		.state('backlog', {
 			url: '/backlog',
 			views: {
 				'navbar-content': { templateUrl: 'nav-backlog.html' },
 				'main': {
-					templateUrl: 'backlog.html'
+					templateUrl: 'backlog.html',
+					controller: 'cleanCardCtrl'
 				}
 			}
 		})
-		.state('board', {
-			url: '/board',
-			views: {
-				'navbar-content': { templateUrl: 'nav-board.html' },
-				'main': { templateUrl: 'board.html' }
-			}
-		})
-		/*
 		.state('items', {
 			url: '/items?status',
 			views: {
 				'navbar-content': { templateUrl: 'nav-board.html' },
-				'main': { templateUrl: 'board.html' }
+				'main': {
+					templateUrl: 'board.html',
+					controller: 'cleanCardCtrl'
+				}
 			}
 		})
-*/
 		.state('item', {
 			url: '/items/:itemId',
 			views: {
@@ -47,6 +43,7 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 				'navbar-content': { templateUrl: 'nav-backlog.html' },
 				'main': {
 					templateUrl: 'login.html',
+					controller: 'sessionsCtrl'
 				}
 			}
 		})

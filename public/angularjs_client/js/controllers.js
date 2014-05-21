@@ -1,31 +1,38 @@
 var cleanCardControllers = angular.module('cleanCardControllers', []);
 
- 
-cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $stateParams, $routeParams, $filter, $location, Category, Item, Task) {
 
-
-  //Sessions controller stuff
+cleanCardControllers.controller('sessionsCtrl', function ($scope, $http, $state) {
 
   $scope.create = function() {
 
-  	if ($scope.user) {
-  		var session = {email: $scope.user.email, password: $scope.user.password};
-  	}
+    if ($scope.user) {
+      var session = {email: $scope.user.email, password: $scope.user.password};
+    }
 
-  	$http.post('/sessions', session).success(function(){
-  		//console.log("success called back!");
-      $location.path('/boards/current');
-  	}); 	
+    $http.post('/sessions', session).success(function(){
+      //console.log("success called back!");
+      //$location.path('/boards/current');
+      $state.go('board');
+    });   
   }
 
   $scope.deleteSession = function() {
 
     $http.delete('/signout').success(function() {
       console.log("session destroyed successfully");
-      $location.path('/sessions/new');
+      //$location.path('/sessions/new');
     });
 
   }
+
+});
+
+ 
+cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $stateParams, $routeParams, $filter, $location, Category, Item, Task) {
+
+
+  //Sessions controller stuff
+   
 
   //Navbar stuff
 
@@ -417,17 +424,9 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
 
   }
 
-  //$scope.filteredStatus = $stateParams.status;
-  //console.log("state changed");
-/*
-  $scope.filteredStatus = 'planned';
+  //Filter board depending on button
+  $scope.filteredStatus = $stateParams.status;
 
-  //Straight from the angular-ui-router docs: https://github.com/angular-ui/ui-router/wiki
-  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, error){
-    console.log("state changed from event");
-    $scope.filteredStatus = $stateParams.status;
-  });
-*/
 
 });
 
