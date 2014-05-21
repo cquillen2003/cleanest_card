@@ -1,6 +1,13 @@
 var cleanCardControllers = angular.module('cleanCardControllers', []);
 
 
+cleanCardControllers.controller('subMenuCtrl', function($rootScope, $scope) {
+
+
+
+});
+
+
 cleanCardControllers.controller('sessionsCtrl', function ($scope, $http, $state) {
 
   $scope.create = function() {
@@ -43,18 +50,6 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   }
   
 
-  var selectAllCategories = function() {
-    angular.forEach($scope.categories, function(category) {
-        category.selected = true;
-    });
-    backlogFilter();
-  }
-
-  $scope.categories = Category.query(function(response) {
-    //console.log("Categories success!");
-    selectAllCategories()
-  });
-
   //Items controller stuff
 
   //$scope.allTasks = Item.query({type: 'task'});
@@ -62,8 +57,14 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   //$scope.backlogItems = $scope.allItems;
 
   $scope.filterBacklog = function() {
-    backlogFilter()
+    backlogFilter();
   }
+
+  //Listens to event in subMenuCtrl (mobile only)
+  $scope.$on('MyEvent', function() {
+    console.log("my event called!");
+    backlogFilter();
+  });
 
   var backlogFilter = function() {
 
@@ -73,7 +74,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
           //console.log(item);
 
           var match = false;    
-          angular.forEach($scope.categories, function(category, key) {
+          angular.forEach($rootScope.categories, function(category, key) {
             if (item.item_type !== 'Task' && item.linkable_id === category.id && category.selected) {
               match = true;
             }
@@ -416,13 +417,11 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
   //Mobile app specific stuff
   $rootScope.showSubMenu = true;
 
-  $scope.showModal = false;
+  //$rootScope.showModal = true;
 
-  $scope.toggleModal = function() {
-    console.log("toggle modal");
-    $scope.showModal = !$scope.showModal;
 
-  }
+
+
 
   //Filter board depending on button
   $scope.filteredStatus = $stateParams.status;

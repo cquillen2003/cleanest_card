@@ -50,6 +50,7 @@
       </a>
     </nav>
 
+
     <div id="myModalexample" class="modal" ng-class="{active: showModal}">
       <header class="bar bar-nav">
         <a class="icon icon-close pull-right" href ng-click="toggleModal()"></a>
@@ -61,7 +62,7 @@
         <div class="card">
           <ul class="table-view">
             <li ng-repeat="category in categories" class="table-view-cell">
-              <input ng-change="filterBacklog()" type="checkbox" ng-model="category.selected">
+              <input ng-change="filterMobile()" type="checkbox" ng-model="category.selected">
               &nbsp;{{ category.name }}            
             </li>                        
           </ul>
