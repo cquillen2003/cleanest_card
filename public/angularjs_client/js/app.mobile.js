@@ -1,4 +1,10 @@
-var cleanCard = angular.module('cleanCard', ['ngRoute', 'ui.router', 'cleanCardControllers', 'cleanCardServices']);
+var cleanCard = angular.module('cleanCard', [
+	'ngRoute',
+	'ui.router',
+	'cleanCardControllers',
+	'cleanCardMobileControllers',
+	'cleanCardServices'
+]);
 
 cleanCard.run(function($rootScope, Category) {
 
@@ -46,7 +52,7 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-backlog.html' },
 				'main': {
 					templateUrl: 'angularjs_client/templates_mobile/backlog.html',
-					controller: 'cleanCardCtrl'
+					controller: 'BoardsCtrl'
 				}
 			}
 		})
@@ -56,7 +62,7 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-board.html' },
 				'main': {
 					templateUrl: 'angularjs_client/templates_mobile/board.html',
-					controller: 'cleanCardCtrl'
+					controller: 'BoardsCtrl'
 				}
 			}
 		})
