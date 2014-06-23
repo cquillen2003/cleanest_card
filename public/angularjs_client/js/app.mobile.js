@@ -3,8 +3,37 @@ var cleanCard = angular.module('cleanCard', [
 	'ui.router',
 	'cleanCardControllers',
 	'cleanCardMobileControllers',
-	'cleanCardServices'
+	'cleanCardServices',
+	'goangular'
 ]);
+
+
+cleanCard.config(function($goConnectionProvider) {
+	$goConnectionProvider.$set('https://goinstant.net/76134da4b781/my-application');
+
+	console.log(document.cookie);
+
+	//https://developer.mozilla.org/en-US/docs/Web/API/document.cookie
+	var goinstantToken = document.cookie.replace(/(?:(?:^|.*;\s*)goinstant_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+	console.log(goinstantToken);
+
+	var url = 'https://goinstant.net/76134da4b781/my-application'
+
+	var opts = {
+		user: goinstantToken
+	}
+
+	goinstant.connect(url, opts, function(err, conn, room) {
+		if (err) {
+			throw err;
+			console.log("goinstant connect error");
+		}
+		console.log("goinstant connect with rails generated token succeeded!");
+	})
+
+});
+
 
 cleanCard.run(function($rootScope, Category) {
 

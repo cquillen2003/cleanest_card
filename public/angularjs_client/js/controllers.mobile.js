@@ -4,9 +4,15 @@ var cleanCardMobileControllers = angular.module('cleanCardMobileControllers', ['
 //Moving ui-independent logic to services per angular docs
 //This will become the desktop apps boards controller as well in the future
 
-cleanCardMobileControllers.controller('BoardsCtrl', function ($rootScope, $scope, $stateParams, ItemService) {
+cleanCardMobileControllers.controller('BoardsCtrl', function ($rootScope, $scope, $stateParams, rtCategories, rtItems) {
 
-  $scope.items = ItemService.all();
+
+	$scope.cats = rtCategories.query();
+
+
+	console.log($scope.cats);
+
+  $scope.items = rtItems.all();
 
   $rootScope.showSubMenu = true;
 
@@ -14,9 +20,28 @@ cleanCardMobileControllers.controller('BoardsCtrl', function ($rootScope, $scope
   $scope.filteredStatus = $stateParams.status;
 
 
-  $scope.update = function(attr) {
-    console.log("update called");
-    ItemService.update(attr);
+  $scope.addItem = function() {
+  	$scope.item.status = 'backlog';
+  	rtItems.create($scope.item).then(function() {
+  		$scope.item.name = '';
+  	});
+  }
+
+
+  $scope.next = function(id, status) {
+  	//Create attr object for update
+  	var attr;
+
+  	if (status === 'planned') {
+  		attr = {status: 'started'};
+  	}
+  	else if (status === 'started') {
+  		attr = {status: 'done'};
+  	}
+  	else {
+  		attr = {};
+  	}
+	rtItems.update(id, attr);
   }
 
 

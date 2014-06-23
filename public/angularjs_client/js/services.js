@@ -1,4 +1,4 @@
-var cleanCardServices = angular.module('cleanCardServices', ['ngResource']);
+var cleanCardServices = angular.module('cleanCardServices', ['ngResource', 'goangular']);
 
  
 cleanCardServices.factory('Item', function($resource) {
@@ -20,8 +20,53 @@ cleanCardServices.factory('Category', function($resource) {
 
 });
 
+cleanCardServices.factory('rtCategories', function($goKey, $goQuery) {
+
+	//var categories = $goKey('categories').$sync();
+
+	var queryResults = $goQuery('categories', { user_ids: 1 }, { limit: 10 }).$sync();
+ 
+	return {
+		all: function() {
+			return categories;
+		},
+		query: function() {
+			return queryResults;
+		}
+	}
+
+});
 
 
+cleanCardServices.factory('rtItems', function($goKey) {
+
+	var items = $goKey('items').$sync();
+
+	return {
+		all: function() {
+			return items;
+		},
+		create: function(item) {
+			return items.$add(item);
+		},
+		update: function(id, attr) {
+			var item = items.$key(id);
+			angular.forEach(attr, function(value, key) {
+				item.$key(key).$set(value);
+			});
+		}
+	}
+
+
+});
+
+
+
+
+
+//Initial attempt, but had questions about keeping the items array up to date
+//Led me to look into GoInstant's GoAngular that I learned about in the Google video
+//that I found after searching for AngularJS models
 cleanCardServices.factory('ItemService', function($resource) {
 
 	var items = [];

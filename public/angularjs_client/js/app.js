@@ -11,11 +11,10 @@ cleanCard.run(function($rootScope, Category) {
     $rootScope.$broadcast('MyEvent');
     //backlogFilter();
   } 
-
+  //TODO: Move this, this fails on /sessions/new because you are not logged in yet
   $rootScope.categories = Category.query(function(response) {
     selectAllCategories()
   });
-
 
 });
 
@@ -33,7 +32,7 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
     .state('login', {
       url: '/sessions/new',
       templateUrl: 'angularjs_client/templates/sessions-new.html',
-      controller: 'cleanCardCtrl'
+      controller: 'sessionsCtrl'
     })
 
 });
