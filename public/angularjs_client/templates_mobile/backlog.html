@@ -1,6 +1,6 @@
 <ul class="table-view">
-  <li ng-repeat="item in items | keyFilter | filter: { status: 'backlog'}" class="table-view-cell">
-  	<a ui-sref="item({itemId: item.id})">
+  <li ng-repeat="item in items | keyFilter" class="table-view-cell">
+  	<a ui-sref="item({itemId: item.$name})">
  		{{ item.name }} ({{ item.status }})
   		<span class="badge">4</span>
   	</a>

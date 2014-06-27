@@ -8,33 +8,6 @@ var cleanCard = angular.module('cleanCard', [
 ]);
 
 
-cleanCard.config(function($goConnectionProvider) {
-	$goConnectionProvider.$set('https://goinstant.net/76134da4b781/my-application');
-
-	console.log(document.cookie);
-
-	//https://developer.mozilla.org/en-US/docs/Web/API/document.cookie
-	var goinstantToken = document.cookie.replace(/(?:(?:^|.*;\s*)goinstant_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-	console.log(goinstantToken);
-
-	var url = 'https://goinstant.net/76134da4b781/my-application'
-
-	var opts = {
-		user: goinstantToken
-	}
-
-	goinstant.connect(url, opts, function(err, conn, room) {
-		if (err) {
-			throw err;
-			console.log("goinstant connect error");
-		}
-		console.log("goinstant connect with rails generated token succeeded!");
-	})
-
-});
-
-
 cleanCard.run(function($rootScope, Category) {
 
 	//Categories (mobile and desktop)
@@ -69,8 +42,34 @@ cleanCard.run(function($rootScope, Category) {
 });
 
 
-cleanCard.config(function($stateProvider, $urlRouterProvider) {
+cleanCard.config(function($stateProvider, $urlRouterProvider, $goConnectionProvider) {
 
+	//Authenticate user with GoInstant
+	$goConnectionProvider.$set('https://goinstant.net/76134da4b781/my-application');
+
+	console.log(document.cookie);
+
+	//https://developer.mozilla.org/en-US/docs/Web/API/document.cookie
+	var goinstantToken = document.cookie.replace(/(?:(?:^|.*;\s*)goinstant_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+	console.log(goinstantToken);
+
+	var url = 'https://goinstant.net/76134da4b781/my-application'
+
+	var opts = {
+		user: goinstantToken
+	}
+
+	goinstant.connect(url, opts, function(err, conn, room) {
+		if (err) {
+			throw err;
+			console.log("goinstant connect error");
+		}
+		console.log("goinstant connect with rails generated token succeeded!");
+	})
+
+
+	//Routes
 	$urlRouterProvider.otherwise('/backlog');
 
 	//cleanCardCtrl is binded to <body> (was, but not anymore)
@@ -101,7 +100,7 @@ cleanCard.config(function($stateProvider, $urlRouterProvider) {
 				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-item.html' },
 				'main': { 
 					templateUrl: 'angularjs_client/templates_mobile/item.html',
-					controller: 'itemCtrl'
+					controller: 'ItemMobileCtrl'
 				}
 			}
 		})		

@@ -4,10 +4,10 @@ var cleanCardMobileControllers = angular.module('cleanCardMobileControllers', ['
 //Moving ui-independent logic to services per angular docs
 //This will become the desktop apps boards controller as well in the future
 
-cleanCardMobileControllers.controller('BoardsCtrl', function ($rootScope, $scope, $stateParams, rtCategories, rtItems) {
+cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, rtCategories, rtItems) {
 
 
-	$scope.cats = rtCategories.query();
+	//$scope.cats = rtCategories.query();
 
 
 	console.log($scope.cats);
@@ -21,33 +21,26 @@ cleanCardMobileControllers.controller('BoardsCtrl', function ($rootScope, $scope
 
 
   $scope.addItem = function() {
-  	$scope.item.status = 'backlog';
+  	$scope.item.status = 'planned';
   	rtItems.create($scope.item).then(function() {
   		$scope.item.name = '';
   	});
   }
 
 
-  $scope.next = function(id, status) {
-  	//Create attr object for update
-  	var attr;
-
-  	if (status === 'planned') {
-  		attr = {status: 'started'};
-  	}
-  	else if (status === 'started') {
-  		attr = {status: 'done'};
-  	}
-  	else {
-  		attr = {};
-  	}
-	rtItems.update(id, attr);
+  $scope.nextStatus = function(id, status) {
+    rtItems.nextStatus(id, status);
   }
 
 
 });
 
 
+cleanCardMobileControllers.controller('ItemMobileCtrl', function($scope, $stateParams, rtItems) {
 
+  $scope.item = rtItems.get($stateParams.itemId);
+	
+
+});
 
 

@@ -54,10 +54,31 @@ cleanCardServices.factory('rtItems', function($goKey) {
 			angular.forEach(attr, function(value, key) {
 				item.$key(key).$set(value);
 			});
+		},
+		get: function(id) {
+			return items[id];
+
+		},
+		//Non RESTFUL actions
+		nextStatus: function(id, status) {
+			var item = items.$key(id);
+		  	var attr;
+
+		  	if (status === 'planned') {
+		  		attr = {status: 'started'};
+		  	}
+		  	else if (status === 'started') {
+		  		attr = {status: 'done'};
+		  	}
+		  	else {
+		  		attr = {};
+		  	}
+			//TODO: Refactor: This part is same as update() method above, but not sure how to call it from here
+			angular.forEach(attr, function(value, key) {
+				item.$key(key).$set(value);
+			});		  	
 		}
 	}
-
-
 });
 
 
