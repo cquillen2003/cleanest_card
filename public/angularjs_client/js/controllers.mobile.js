@@ -9,9 +9,6 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 
 	//$scope.cats = rtCategories.query();
 
-
-	console.log($scope.cats);
-
   $scope.items = rtItems.all();
 
   $rootScope.showSubMenu = true;
@@ -21,7 +18,7 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 
 
   $scope.addItem = function() {
-  	$scope.item.status = 'planned';
+  	$scope.item.status = 'backlog';
   	rtItems.create($scope.item).then(function() {
   		$scope.item.name = '';
   	});
@@ -36,9 +33,20 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 });
 
 
-cleanCardMobileControllers.controller('ItemMobileCtrl', function($scope, $stateParams, rtItems) {
+cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $scope, $stateParams, $state, rtItems) {
 
   $scope.item = rtItems.get($stateParams.itemId);
+
+  $rootScope.showSubMenu = false;
+
+  $scope.nextStatus = function(id, status) {
+    rtItems.nextStatus(id, status);
+  }
+
+  $scope.deleteItem = function(id) {
+    rtItems.deleteItem(id);
+    $state.go('items', {status: $scope.item.status});
+  }
 	
 
 });
