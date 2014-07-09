@@ -33,9 +33,16 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 });
 
 
-cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $scope, $stateParams, $state, rtItems) {
+cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $scope, $stateParams, $state, $goKey) {
+  
+  $scope.items = $goKey('items').$sync();
 
-  $scope.item = rtItems.get($stateParams.itemId);
+  $scope.items.$on('ready', function() {
+    $scope.item = $scope.items[$stateParams.itemId];
+    console.log($scope.item);
+  });
+
+  $scope.itemId = $stateParams.itemId;
 
   $rootScope.showSubMenu = false;
 
@@ -44,8 +51,12 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
   }
 
   $scope.deleteItem = function(id) {
-    rtItems.deleteItem(id);
-    $state.go('items', {status: $scope.item.status});
+    console.log(id);
+    $scope.items.$key(id).$remove().then(function() {
+      console.log('item deleted');
+      
+    });
+    //$scope.items.$key(id).$remove();
   }
 	
 

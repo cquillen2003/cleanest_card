@@ -6,34 +6,31 @@
 	</ul>
 </div>
 
+<div class="content-padded">
+	<div class="segmented-control">
+		<a class="control-item active" href="#item1mobile">
+			Planned
+		</a>
+		<a class="control-item" href="#item2mobile">
+			Started
+		</a>
+		<a class="control-item" href="#item3mobile">
+			Done
+		</a>
+	</div>
+</div>
+
 <div class="card">
 	<ul class="table-view">
-    	<li class="table-view-cell">
-			<div class="segmented-control">
-			  <a class="control-item active" href="#item1mobile">
-			    Thing one
-			  </a>
-			  <a class="control-item" href="#item2mobile">
-			    Thing two
-			  </a>
-			  <a class="control-item" href="#item3mobile">
-			    Thing three
-			  </a>
-			</div>    		
-    	</li>
+    	<li class="table-view-cell">Item 1</li>
     	<li class="table-view-cell">Item 2</li>
     	<li class="table-view-cell">Item 3</li>
-    	<li class="table-view-cell">Item 4</li>
+    	<li class="table-view-cell">
+    		<input type="text" placeholder="Full name">
+    		<button class="btn btn-negative">Button</button>
+    	</li>
 	</ul>
 </div>
-
-<div class="content-padded">
-	<form>
-	  <input type="text" placeholder="Full name">
-	  <button class="btn btn-positive btn-block">Add task</button>
-	</form>
-</div>
-
 
 
 <br />
@@ -41,5 +38,5 @@
 
 <div class="content-padded">
 	<button ng-click="nextStatus(item.$name, item.status)" class="btn btn-block btn-outlined">Plan</button>
-	<button ng-click="deleteItem(item.$name)" class="btn btn-negative btn-block btn-outlined">Delete</button>
+	<button ng-click="deleteItem(itemId)" class="btn btn-negative btn-block btn-outlined">Delete</button>
 </div>

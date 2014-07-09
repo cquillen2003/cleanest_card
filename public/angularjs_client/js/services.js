@@ -40,10 +40,12 @@ cleanCardServices.factory('rtCategories', function($goKey, $goQuery) {
 
 cleanCardServices.factory('rtItems', function($goKey) {
 
+	console.log('goKey items called');
 	var items = $goKey('items').$sync();
 
 	return {
 		all: function() {
+			console.log("rtItems.all() called");
 			return items;
 		},
 		create: function(item) {
@@ -56,7 +58,8 @@ cleanCardServices.factory('rtItems', function($goKey) {
 			});
 		},
 		get: function(id) {
-			return items[id];
+			console.log("rtItems.get() called");
+			return $goKey(id).$sync();
 		},
 		deleteItem: function(id) {
 			items.$key(id).$remove();

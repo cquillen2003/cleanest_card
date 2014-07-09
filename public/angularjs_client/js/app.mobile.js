@@ -95,7 +95,7 @@ cleanCard.config(function($stateProvider, $urlRouterProvider, $goConnectionProvi
 			}
 		})
 		.state('item', {
-			url: '/items/:itemId',
+			url: '/items/:itemId',			
 			views: {
 				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-item.html' },
 				'main': { 
