@@ -100,8 +100,6 @@ cleanCardServices.factory('rtItems', function($goKey) {
 //that I found after searching for AngularJS models
 cleanCardServices.factory('ItemService', function($resource) {
 
-	var items = [];
-
 	var Item = $resource('/items/:id', {id: '@id'}, {update: {method: 'PUT'}});
 
 	items = Item.query(function(response) {
@@ -110,18 +108,23 @@ cleanCardServices.factory('ItemService', function($resource) {
 
 	return {
 
-		//Array of all items (probably limited to items in view or soon to be)
-		//all: [],
-
 		all: function() {
 			console.log("all method was called!");
 			//Call to server to get all items (items and tasks in seperate arrays?)
-			return items;
+			//Call query here instead of returning an array of items from above
+			//so that new request is made when navigating to this controller
+			return Item.query(function(response) {
+				console.log('Item.query success');
+			})
 		},
 
 		find: function(itemId) {
 			//Searches array for item by id, if not found get from server
 			//Add to array if server call made
+			//Belay my last, always go to server when called (server is single source of truth)
+			  return Item.get({id: itemId}, function(response) {
+			    console.log('Item.get success');
+			  });
 		},
 
 		create: function(item) {

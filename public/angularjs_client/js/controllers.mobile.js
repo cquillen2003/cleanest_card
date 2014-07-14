@@ -4,12 +4,12 @@ var cleanCardMobileControllers = angular.module('cleanCardMobileControllers', ['
 //Moving ui-independent logic to services per angular docs
 //This will become the desktop apps boards controller as well in the future
 
-cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, rtCategories, rtItems) {
+cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, rtCategories, ItemService) {
 
 
 	//$scope.cats = rtCategories.query();
 
-  $scope.items = rtItems.all();
+  $scope.items = ItemService.all();
 
   $rootScope.showSubMenu = true;
 
@@ -33,16 +33,9 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 });
 
 
-cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $scope, $stateParams, $state, $goKey) {
-  
-  $scope.items = $goKey('items').$sync();
+cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $scope, $stateParams, $state, ItemService) {
 
-  $scope.items.$on('ready', function() {
-    $scope.item = $scope.items[$stateParams.itemId];
-    console.log($scope.item);
-  });
-
-  $scope.itemId = $stateParams.itemId;
+  $scope.item = ItemService.find($stateParams.itemId);
 
   $rootScope.showSubMenu = false;
 
@@ -54,7 +47,7 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
     console.log(id);
     $scope.items.$key(id).$remove().then(function() {
       console.log('item deleted');
-      
+
     });
     //$scope.items.$key(id).$remove();
   }
