@@ -1,9 +1,53 @@
-<ul class="table-view">
-  <li ng-repeat="item in items | filter:{ status: filteredStatus } | limitTo: 11" 
-  		class="table-view-cell" ng-swipe-left="showActions = true" ng-swipe-right="showActions = false">
-  	{{ item.name }} ({{ item.status }}) <span class="badge">4</span>
-  	<button ng-show="showActions" ng-click="updateItem(item, {status: $parent.nextStatus})" class="btn btn-positive">
-  		{{ $parent.nextStatus }}
-  	</button>
-  </li>
-</ul>
+<!-- Make sure all your bars are the first things in your <body> -->
+<header class="bar bar-nav">
+	<div>
+		<div class="segmented-control">
+			<a ui-sref="items({ status: 'planned' })" ui-sref-active="active" class="control-item">Planned</a>
+			<a ui-sref="items({ status: 'started' })" ui-sref-active="active" class="control-item">Started</a>
+			<a ui-sref="items({ status: 'done' })" ui-sref-active="active" class="control-item">Done</a>
+		</div>
+	</div>
+</header>
+
+<div class="bar bar-standard bar-header-secondary">
+<button class="btn btn-link pull-left" ng-click="toggleModal()">Filter</button>
+<button class="btn btn-link pull-right">Expand All</button>
+</div>
+
+<!-- Note: Can't wrap the content div in another div (ui-view for example) without causing problems -->
+
+<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+<div class="content">    
+
+	<ul class="table-view">
+	  <li ng-repeat="item in items | filter:{ status: filteredStatus } | limitTo: 11" 
+	  		class="table-view-cell" ng-swipe-left="showActions = true" ng-swipe-right="showActions = false">
+	  	{{ item.name }} ({{ item.status }}) <span class="badge">4</span>
+	  	<button ng-show="showActions" ng-click="updateItem(item, {status: $parent.nextStatus})" class="btn btn-positive">
+	  		{{ $parent.nextStatus }}
+	  	</button>
+	  </li>
+	</ul>
+
+</div>
+
+
+<div id="myModalexample" class="modal" ng-class="{active: showModal}">
+  <header class="bar bar-nav">
+    <a class="icon icon-close pull-right" href ng-click="toggleModal()"></a>
+    <h1 class="title">Filter Board</h1>
+  </header>
+
+  <div class="content">
+
+    <div class="card">
+      <ul class="table-view">
+        <li ng-repeat="category in categories" class="table-view-cell">
+          <input ng-change="filterMobile()" type="checkbox" ng-model="category.selected">
+          &nbsp;{{ category.name }}            
+        </li>                        
+      </ul>
+    </div>
+
+  </div>
+</div>

@@ -75,45 +75,37 @@ cleanCard.config(function($stateProvider, $urlRouterProvider, $goConnectionProvi
 
 	//cleanCardCtrl is binded to <body> (was, but not anymore)
 	$stateProvider
-		.state('backlog', {
-			url: '/backlog',
-			views: {
-				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-backlog.html' },
-				'main': {
-					templateUrl: 'angularjs_client/templates_mobile/backlog.html',
-					controller: 'BoardsCtrl'
-				}
-			}
-		})
 		.state('items', {
-			url: '/items?status',
-			views: {
-				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-board.html' },
-				'main': {
-					templateUrl: 'angularjs_client/templates_mobile/board.html',
-					controller: 'BoardsCtrl'
-				}
-			}
+			abstract: true, //An 'abstract' state is simply a state that can't be transitioned to.
+			url: '/items',
+			// Note: abstract still needs a ui-view for its children to populate.
+        	// You can simply add it inline here.
+			template: '<ui-view />'
 		})
-		.state('item', {
-			url: '/items/:itemId',			
-			views: {
-				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-item.html' },
-				'main': { 
-					templateUrl: 'angularjs_client/templates_mobile/item.html',
-					controller: 'ItemMobileCtrl'
-				}
-			}
+
+		.state('items.backlog', {
+			url: '/backlog',
+			templateUrl: 'angularjs_client/templates_mobile/backlog.html',
+			controller: 'BoardsCtrl'
+		})
+
+		.state('items.view', {
+			url: '/{itemId:[0-9]{1,8}}', // will only match a contactId of one to eight number characters
+			templateUrl: 'angularjs_client/templates_mobile/item.html',
+			controller: 'ItemMobileCtrl'		
+
+		})
+
+		.state('items.board', {
+			url: '/:status',
+			templateUrl: 'angularjs_client/templates_mobile/board.html',
+			controller: 'BoardsCtrl'
 		})		
+
 		.state('login', {
 			url: '/sessions/new',
-			views: {
-				'navbar-content': { templateUrl: 'angularjs_client/templates_mobile/nav-backlog.html' },
-				'main': {
-					templateUrl: 'angularjs_client/templates_mobile/login.html',
-					controller: 'sessionsCtrl'
-				}
-			}
+			templateUrl: 'angularjs_client/templates_mobile/login.html',
+			controller: 'sessionsCtrl'
 		})
 
 });

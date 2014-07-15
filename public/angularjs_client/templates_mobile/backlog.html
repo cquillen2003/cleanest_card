@@ -1,16 +1,62 @@
-<ul class="table-view">
-  <li ng-repeat="item in items | filter:{ status: 'backlog' }" class="table-view-cell">
-  	<a ui-sref="item({itemId: item.id})">
- 		{{ item.name }} ({{ item.status }})
-  		<span class="badge">4</span>
-  	</a>
-  </li>
-</ul>
-<div class="content-padded">
-	<form ng-submit="addItem()" class="input-group">
-	  <input ng-model="item.name" type="text">
-	  <button class="btn btn-positive">Add item</button>
-	</form>
+<!-- Make sure all your bars are the first things in your <body> -->
+<header class="bar bar-nav">
+	<div>
+		<button class="btn pull-left">
+			Settings
+		</button>
+		<h1 class="title">Backlog</h1>
+		<button class="btn pull-right">
+			Board
+		</button>
+	</div>
+</header>
+
+<div class="bar bar-standard bar-header-secondary">
+	<button class="btn btn-link pull-left" ng-click="toggleModal()">Filter</button>
+	<button class="btn btn-link pull-right">Search</button>
 </div>
 
-<p ng-repeat="cat in cats | keyFilter">{{cat.name}}</p>
+<!-- Note: Can't wrap the content div in another div (ui-view for example) without causing problems -->
+
+<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+<div class="content">    
+
+	<ul class="table-view">
+	  <li ng-repeat="item in items | filter:{ status: 'backlog' }" class="table-view-cell">
+	  	<a ui-sref="items.view({itemId: item.id})">
+	 		{{ item.name }} ({{ item.status }})
+	  		<span class="badge">4</span>
+	  	</a>
+	  </li>
+	</ul>
+	<div class="content-padded">
+		<form ng-submit="addItem()" class="input-group">
+		  <input ng-model="item.name" type="text">
+		  <button class="btn btn-positive">Add item</button>
+		</form>
+	</div>
+
+</div>
+
+
+<div id="myModalexample" class="modal" ng-class="{active: showModal}">
+  <header class="bar bar-nav">
+    <a class="icon icon-close pull-right" href ng-click="toggleModal()"></a>
+    <h1 class="title">Filter Backlog</h1>
+  </header>
+
+  <div class="content">
+
+    <div class="card">
+      <ul class="table-view">
+        <li ng-repeat="category in categories" class="table-view-cell">
+          <input ng-change="filterMobile()" type="checkbox" ng-model="category.selected">
+          &nbsp;{{ category.name }}            
+        </li>                        
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+

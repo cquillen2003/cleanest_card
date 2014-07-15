@@ -20,56 +20,20 @@
 
   </head>
   <body ng-app="cleanCard">
- 
-    <!-- Make sure all your bars are the first things in your <body> -->
-    <header class="bar bar-nav">
-      <div ui-view="navbar-content"></div>
-    </header>
-
-    <div ng-if="showSubMenu" class="bar bar-standard bar-header-secondary">
-      <button class="btn btn-link pull-left" ng-click="toggleModal()">Filter</button>
-      <button class="btn btn-link pull-right">Search</button>
-    </div>
-
-    <!-- Note: Can't wrap the content div in another div (ui-view for example) without causing problems -->
-
-    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
-    <div class="content">    
-        <div ui-view="main"></div>
-    </div>    
+    
+    <div ui-view></div>    
 
     <nav class="bar bar-tab">
-      <a class="tab-item active" ui-sref="backlog">
+      <a class="tab-item active" ui-sref="items.backlog">
         Backlog
       </a>
-      <a class="tab-item" ui-sref="items({ status: 'planned' })">
+      <a class="tab-item" ui-sref="items.board({ status: 'planned' })">
         Board
       </a>
       <a class="tab-item" href="#">
         New
       </a>
     </nav>
-
-
-    <div id="myModalexample" class="modal" ng-class="{active: showModal}">
-      <header class="bar bar-nav">
-        <a class="icon icon-close pull-right" href ng-click="toggleModal()"></a>
-        <h1 class="title">Filter by Category</h1>
-      </header>
-
-      <div class="content">
-
-        <div class="card">
-          <ul class="table-view">
-            <li ng-repeat="category in categories" class="table-view-cell">
-              <input ng-change="filterMobile()" type="checkbox" ng-model="category.selected">
-              &nbsp;{{ category.name }}            
-            </li>                        
-          </ul>
-        </div>
-
-      </div>
-    </div>
 
 
     <%= javascript_include_tag "application.mobile" %>
