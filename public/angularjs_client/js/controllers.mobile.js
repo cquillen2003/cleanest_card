@@ -4,14 +4,28 @@ var cleanCardMobileControllers = angular.module('cleanCardMobileControllers', ['
 //Moving ui-independent logic to services per angular docs
 //This will become the desktop apps boards controller as well in the future
 
-cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, rtCategories, ItemService) {
+cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, rtCategories, ItemService, Restangular) {
 
 
 	//$scope.cats = rtCategories.query();
 
-  $scope.items = ItemService.all();
+  ItemService.getItems().then(function(items) {
+    $scope.items = items;
+  });
+
+  $scope.$on('items:added', updateItems);
+
+  function updateItems() {
+    ItemService.getItems().then(function(items) {
+      $scope.items = items;
+    });   
+  }
 
   $rootScope.showSubMenu = true;
+
+  $scope.nextStatus = ItemService.calculateNextStatus($stateParams.status);
+
+  console.log($scope.nextStatus);
 
   //Filter board depending on button
   $scope.filteredStatus = $stateParams.status;
@@ -19,14 +33,15 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 
   $scope.addItem = function() {
   	$scope.item.status = 'backlog';
-  	rtItems.create($scope.item).then(function() {
-  		$scope.item.name = '';
-  	});
+    $scope.item.linkable_type = 'Category';
+    $scope.item.linkable_id = 1;
+
+    ItemService.addItem($scope.item);
   }
 
 
-  $scope.nextStatus = function(id, status) {
-    rtItems.nextStatus(id, status);
+  $scope.updateItem = function(item, attr) {
+    ItemService.updateItem(item, attr);
   }
 
 
@@ -35,21 +50,28 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 
 cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $scope, $stateParams, $state, ItemService) {
 
-  $scope.item = ItemService.find($stateParams.itemId);
+  //$scope.item = ItemService.find($stateParams.itemId);
+
+  ItemService.getItem($stateParams.itemId).then(function(item) {
+    $scope.item = item;
+    $scope.nextStatus = ItemService.calculateNextStatus($scope.item.status);
+    console.log($scope.nextStatus);
+  });
 
   $rootScope.showSubMenu = false;
 
-  $scope.nextStatus = function(id, status) {
-    rtItems.nextStatus(id, status);
+  $scope.updateItem = function(item, attr) {
+    ItemService.updateItem(item, attr).then(function(item) {
+      console.log('do anything?');
+    });
   }
 
-  $scope.deleteItem = function(id) {
-    console.log(id);
-    $scope.items.$key(id).$remove().then(function() {
-      console.log('item deleted');
 
+  $scope.deleteItem = function(item) {
+    ItemService.removeItem(item).then(function(item) {
+      //Then method also called in service
+      $state.go('items',{status: 'planned'} );
     });
-    //$scope.items.$key(id).$remove();
   }
 	
 

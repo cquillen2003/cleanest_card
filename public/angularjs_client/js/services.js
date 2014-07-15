@@ -1,4 +1,4 @@
-var cleanCardServices = angular.module('cleanCardServices', ['ngResource', 'goangular']);
+var cleanCardServices = angular.module('cleanCardServices', ['ngResource', 'goangular', 'restangular']);
 
  
 cleanCardServices.factory('Item', function($resource) {
@@ -91,59 +91,60 @@ cleanCardServices.factory('rtItems', function($goKey) {
 	}
 });
 
+//Item service using Restangular
+//Borrowed ideas from the following:
+//https://gist.github.com/auser/6776068
+//http://www.ng-newsletter.com/posts/restangular.html
+cleanCardServices.factory('ItemService', function($rootScope, Restangular) {
 
-
-
-
-//Initial attempt, but had questions about keeping the items array up to date
-//Led me to look into GoInstant's GoAngular that I learned about in the Google video
-//that I found after searching for AngularJS models
-cleanCardServices.factory('ItemService', function($resource) {
-
-	var Item = $resource('/items/:id', {id: '@id'}, {update: {method: 'PUT'}});
-
-	items = Item.query(function(response) {
-		console.log("query success");
-	});
+	var baseItems = Restangular.all('items');
 
 	return {
-
-		all: function() {
-			console.log("all method was called!");
-			//Call to server to get all items (items and tasks in seperate arrays?)
-			//Call query here instead of returning an array of items from above
-			//so that new request is made when navigating to this controller
-			return Item.query(function(response) {
-				console.log('Item.query success');
-			})
+		getItems: function() {
+			return baseItems.getList();
+		},
+		getItem: function(id) {
+			return Restangular.one('items', id).get();
+		},
+		addItem: function(item) {
+			return baseItems.post(item).then(function(item) {
+				console.log('add item success called from service');
+				$rootScope.$broadcast('items:added');
+			});
+		},
+		updateItem: function(item, attr) {
+			angular.forEach(attr, function(value, key) {
+				item[key] = value;
+			});
+			return item.put();
+		},
+		removeItem: function(item) {
+			return item.remove().then(function(item) {
+				console.log('then method called in service');
+				$rootScope.$broadcast('items:deleted');
+			});
 		},
 
-		find: function(itemId) {
-			//Searches array for item by id, if not found get from server
-			//Add to array if server call made
-			//Belay my last, always go to server when called (server is single source of truth)
-			  return Item.get({id: itemId}, function(response) {
-			    console.log('Item.get success');
-			  });
-		},
-
-		create: function(item) {
-			//Add item to array
-			//Add to server
-			//If server call fails, do something (TBD)
-		},
-
-		update: function(attr) {
-			//Find object in array, update it with passed in attributes
-			//Update on server
-			//If server call fails, do something (TBD)
-		},
-
-		deleteItem: function(item) {
-			//Remove from items array
-			//Remove from server
-			//If server call fails, do something (TBD)
+		//Non RESTFUL actions
+		calculateNextStatus: function(currentStatus) {
+		  	if (currentStatus === 'backlog') {
+		  		return 'planned';
+		  	}
+		  	else if (currentStatus === 'planned') {
+		  		return 'started';
+		  	}
+		  	else if (currentStatus === 'started') {
+		  		return 'done';
+		  	}
+		  	else {
+		  		return currentStatus;
+		  	}
 		}
-
 	}
+
 });
+
+
+
+
+

@@ -37,6 +37,6 @@
 <br />
 
 <div class="content-padded">
-	<button ng-click="nextStatus(item.$name, item.status)" class="btn btn-block btn-outlined">Plan</button>
-	<button ng-click="deleteItem(itemId)" class="btn btn-negative btn-block btn-outlined">Delete</button>
+	<button ng-click="updateItem(item, {status: nextStatus})" class="btn btn-block btn-outlined">{{ nextStatus }}</button>
+	<button ng-click="deleteItem(item)" class="btn btn-negative btn-block btn-outlined">Delete</button>
 </div>

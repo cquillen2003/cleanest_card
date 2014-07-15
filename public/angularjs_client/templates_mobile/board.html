@@ -1,7 +1,9 @@
 <ul class="table-view">
-  <li ng-repeat="item in items | keyFilter | filter:{ status: filteredStatus } | limitTo: 11" 
+  <li ng-repeat="item in items | filter:{ status: filteredStatus } | limitTo: 11" 
   		class="table-view-cell" ng-swipe-left="showActions = true" ng-swipe-right="showActions = false">
   	{{ item.name }} ({{ item.status }}) <span class="badge">4</span>
-  	<button ng-show="showActions" ng-click="nextStatus(item.$name, item.status)" class="btn btn-positive">Button</button>
+  	<button ng-show="showActions" ng-click="updateItem(item, {status: $parent.nextStatus})" class="btn btn-positive">
+  		{{ $parent.nextStatus }}
+  	</button>
   </li>
 </ul>

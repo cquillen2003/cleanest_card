@@ -15,4 +15,5 @@
 //= require angular-route.min
 //= require angular-ui-router.min
 //= require angular-touch.min
+//= require lodash.compat.min
 
