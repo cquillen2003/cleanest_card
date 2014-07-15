@@ -4,6 +4,7 @@ var cleanCard = angular.module('cleanCard', [
 	'cleanCardControllers',
 	'cleanCardMobileControllers',
 	'cleanCardServices',
+	'cleanCardFilters',
 	'goangular'
 ]);
 

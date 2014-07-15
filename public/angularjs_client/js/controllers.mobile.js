@@ -4,13 +4,17 @@ var cleanCardMobileControllers = angular.module('cleanCardMobileControllers', ['
 //Moving ui-independent logic to services per angular docs
 //This will become the desktop apps boards controller as well in the future
 
-cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, rtCategories, ItemService, Restangular) {
+cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, ItemService, Restangular, categoryFilter) {
 
 
 	//$scope.cats = rtCategories.query();
 
   ItemService.getItems().then(function(items) {
     $scope.items = items;
+    
+    var testArray = categoryFilter(items, [1]);
+    console.log('testArray:');
+    console.log(testArray);
   });
 
   $scope.$on('items:added', updateItems);
@@ -24,8 +28,6 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
   $rootScope.showSubMenu = true;
 
   $scope.nextStatus = ItemService.calculateNextStatus($stateParams.status);
-
-  console.log($scope.nextStatus);
 
   //Filter board depending on button
   $scope.filteredStatus = $stateParams.status;
