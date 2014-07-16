@@ -4,7 +4,7 @@ var cleanCardMobileControllers = angular.module('cleanCardMobileControllers', ['
 //Moving ui-independent logic to services per angular docs
 //This will become the desktop apps boards controller as well in the future
 
-cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, ItemService, CategoryService, categoryFilter) {
+cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, ItemService, itemFilter) {
 
   //Header/Navigation controls (may move to separate controller and parent view eventually)
 
@@ -15,6 +15,18 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 
   $scope.selectCategories = function() {
     $rootScope.setSelectedCategoryIds();
+    loadItems();
+  }
+
+  $scope.toggleExpandAll = function() {
+    $rootScope.expandAll = !$rootScope.expandAll;
+
+    if ($rootScope.expandAll) {
+      $rootScope.expandAllText = 'Collapse All';
+    }
+    else {
+      $rootScope.expandAllText = 'Expand All';
+    }
 
     loadItems();
   }
@@ -22,7 +34,7 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 
 	function loadItems() {
     ItemService.getItems().then(function(items) {
-      $scope.items = categoryFilter(items, $rootScope.selectedCategoryIds);
+      $scope.items = itemFilter(items, $rootScope.selectedCategoryIds, $rootScope.expandAll);
     });
   }
 

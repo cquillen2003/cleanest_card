@@ -1,20 +1,38 @@
 var cleanCardFilters = angular.module('cleanCardFilters', []);
 
 
-cleanCardFilters.filter('category', function() {
+cleanCardFilters.filter('item', function() {
 
-	return function(items, selectedCategories) {
+	return function(items, selectedCategories, expandAll) {
 		items = items || [];
 		selectedCategories = selectedCategories || [];
+		expandAll = expandAll || false;
 
 		var filteredItems = [];
 
 		angular.forEach(items, function (item, key) {
-			selectedCategories.forEach(function (categoryId) {
-				if (item.linkable_id === categoryId) {
-					filteredItems.push(item);
+
+			if (expandAll) {
+				if (item.items_count === 0) {
+					//Check category is selected
+					selectedCategories.forEach(function (categoryId) {
+						if (item.linkable_id === categoryId) {
+							filteredItems.push(item);
+						}
+					});					
 				}
-			});
+			}
+			else {
+				if (item.linkable_type === 'Category') {
+					//Check category is selected
+					selectedCategories.forEach(function (categoryId) {
+						if (item.linkable_id === categoryId) {
+							filteredItems.push(item);
+						}
+					});
+				}				
+			}
+
 		});
 		return filteredItems;
 	}

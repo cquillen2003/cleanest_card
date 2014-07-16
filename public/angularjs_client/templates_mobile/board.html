@@ -11,7 +11,7 @@
 
 <div class="bar bar-standard bar-header-secondary">
 <button class="btn btn-link pull-left" ng-click="toggleModal()">Filter</button>
-<button class="btn btn-link pull-right">Expand All</button>
+<button class="btn btn-link pull-right" ng-click="toggleExpandAll()">{{ expandAllText }}</button>
 </div>
 
 <!-- Note: Can't wrap the content div in another div (ui-view for example) without causing problems -->

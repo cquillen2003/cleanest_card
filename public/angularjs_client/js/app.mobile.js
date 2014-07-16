@@ -35,6 +35,8 @@ cleanCard.run(function($rootScope, CategoryService) {
 		$rootScope.setSelectedCategoryIds();
 	});
 
+	$rootScope.expandAllText = 'Expand All';
+
 });
 
 
