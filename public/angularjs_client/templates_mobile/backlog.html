@@ -50,7 +50,7 @@
     <div class="card">
       <ul class="table-view">
         <li ng-repeat="category in categories" class="table-view-cell">
-          <input ng-change="filterMobile()" type="checkbox" ng-model="category.selected">
+          <input ng-change="selectCategories()" type="checkbox" ng-model="category.selected">
           &nbsp;{{ category.name }}            
         </li>                        
       </ul>

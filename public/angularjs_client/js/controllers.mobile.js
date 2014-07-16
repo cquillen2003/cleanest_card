@@ -4,28 +4,50 @@ var cleanCardMobileControllers = angular.module('cleanCardMobileControllers', ['
 //Moving ui-independent logic to services per angular docs
 //This will become the desktop apps boards controller as well in the future
 
-cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, ItemService, Restangular, categoryFilter) {
+cleanCardMobileControllers.controller('BoardsCtrl', function($scope, $stateParams, ItemService, CategoryService, categoryFilter) {
 
+  //Header/Navigation controls (may move to separate controller and parent view eventually)
 
-	//$scope.cats = rtCategories.query();
-
-  ItemService.getItems().then(function(items) {
-    $scope.items = items;
-    
-    var testArray = categoryFilter(items, [1]);
-    console.log('testArray:');
-    console.log(testArray);
-  });
-
-  $scope.$on('items:added', updateItems);
-
-  function updateItems() {
-    ItemService.getItems().then(function(items) {
-      $scope.items = items;
-    });   
+  $scope.toggleModal = function() {
+    console.log("toggle modal from local scope");
+    $scope.showModal = !$scope.showModal;
   }
 
-  $rootScope.showSubMenu = true;
+  var selectedCategoryIds = [];
+
+  CategoryService.getCategories().then(function(categories) {
+    $scope.categories = categories;
+
+    //Default all categories to selected
+    angular.forEach($scope.categories, function(category) {
+        category.selected = true;
+        selectedCategoryIds.push(category.id);
+    });
+
+    loadItems();
+  });
+
+  $scope.selectCategories = function() {
+    selectedCategoryIds = [];
+
+    angular.forEach($scope.categories, function(category, key) {
+      if (category.selected) {
+        selectedCategoryIds.push(category.id);
+      }
+    });
+    console.log(selectedCategoryIds);
+
+    loadItems();
+  }
+
+	function loadItems() {
+    ItemService.getItems().then(function(items) {
+      $scope.items = categoryFilter(items, selectedCategoryIds);
+    });
+  }
+
+  $scope.$on('items:added', loadItems);
+
 
   $scope.nextStatus = ItemService.calculateNextStatus($stateParams.status);
 
@@ -36,7 +58,7 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
   $scope.addItem = function() {
   	$scope.item.status = 'backlog';
     $scope.item.linkable_type = 'Category';
-    $scope.item.linkable_id = 1;
+    $scope.item.linkable_id = 2;
 
     ItemService.addItem($scope.item);
   }

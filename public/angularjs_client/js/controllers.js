@@ -60,11 +60,7 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
     backlogFilter();
   }
 
-  //Listens to event in subMenuCtrl (mobile only)
-  $scope.$on('MyEvent', function() {
-    console.log("my event called!");
-    backlogFilter();
-  });
+
 
   var backlogFilter = function() {
 
