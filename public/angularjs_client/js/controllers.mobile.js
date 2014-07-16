@@ -49,6 +49,10 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
     ItemService.updateItem(item, attr);
   }
 
+  $scope.expandItem = function(item) {
+    item.expand = !item.expand;
+  }
+
 
 });
 
