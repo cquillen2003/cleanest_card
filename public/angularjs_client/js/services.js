@@ -145,7 +145,7 @@ cleanCardServices.factory('ItemService', function($rootScope, Restangular) {
 });
 
 
-cleanCardServices.factory('CategoryService', function($rootScope, Restangular) {
+cleanCardServices.factory('CategoryService', function(Restangular) {
 
 	var baseCategories = Restangular.all('categories');
 

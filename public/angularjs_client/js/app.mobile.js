@@ -9,6 +9,35 @@ var cleanCard = angular.module('cleanCard', [
 ]);
 
 
+cleanCard.run(function($rootScope, CategoryService) {
+
+	//Category filter selection set on $rootScope to persist through navigation
+	//Tried putting this in CategoryService but it was messy
+
+	$rootScope.setSelectedCategoryIds = function() {
+		$rootScope.selectedCategoryIds = [];
+
+	    angular.forEach($rootScope.categories, function(category) {
+	      if (category.selected) {
+	      	$rootScope.selectedCategoryIds.push(category.id);
+	      }
+	    });
+	    console.log($rootScope.selectedCategoryIds);		
+	}
+
+	CategoryService.getCategories().then(function(categories) {
+		$rootScope.categories = categories;
+		
+		//Show all current user's categories by default
+		angular.forEach($rootScope.categories, function(category) {
+			category.selected = true;
+		});
+		$rootScope.setSelectedCategoryIds();
+	});
+
+});
+
+
 cleanCard.config(function($stateProvider, $urlRouterProvider, $goConnectionProvider) {
 
 	//Authenticate user with GoInstant

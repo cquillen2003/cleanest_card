@@ -4,7 +4,7 @@ var cleanCardMobileControllers = angular.module('cleanCardMobileControllers', ['
 //Moving ui-independent logic to services per angular docs
 //This will become the desktop apps boards controller as well in the future
 
-cleanCardMobileControllers.controller('BoardsCtrl', function($scope, $stateParams, ItemService, CategoryService, categoryFilter) {
+cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, ItemService, CategoryService, categoryFilter) {
 
   //Header/Navigation controls (may move to separate controller and parent view eventually)
 
@@ -13,41 +13,22 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($scope, $stateParam
     $scope.showModal = !$scope.showModal;
   }
 
-  var selectedCategoryIds = [];
-
-  CategoryService.getCategories().then(function(categories) {
-    $scope.categories = categories;
-
-    //Default all categories to selected
-    angular.forEach($scope.categories, function(category) {
-        category.selected = true;
-        selectedCategoryIds.push(category.id);
-    });
-
-    loadItems();
-  });
-
   $scope.selectCategories = function() {
-    selectedCategoryIds = [];
-
-    angular.forEach($scope.categories, function(category, key) {
-      if (category.selected) {
-        selectedCategoryIds.push(category.id);
-      }
-    });
-    console.log(selectedCategoryIds);
+    $rootScope.setSelectedCategoryIds();
 
     loadItems();
   }
 
+
 	function loadItems() {
     ItemService.getItems().then(function(items) {
-      $scope.items = categoryFilter(items, selectedCategoryIds);
+      $scope.items = categoryFilter(items, $rootScope.selectedCategoryIds);
     });
   }
 
   $scope.$on('items:added', loadItems);
 
+  loadItems();
 
   $scope.nextStatus = ItemService.calculateNextStatus($stateParams.status);
 

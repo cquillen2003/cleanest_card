@@ -2,9 +2,9 @@
 <header class="bar bar-nav">
 	<div>
 		<div class="segmented-control">
-			<a ui-sref="items({ status: 'planned' })" ui-sref-active="active" class="control-item">Planned</a>
-			<a ui-sref="items({ status: 'started' })" ui-sref-active="active" class="control-item">Started</a>
-			<a ui-sref="items({ status: 'done' })" ui-sref-active="active" class="control-item">Done</a>
+			<a ui-sref="items.board({ status: 'planned' })" ui-sref-active="active" class="control-item">Planned</a>
+			<a ui-sref="items.board({ status: 'started' })" ui-sref-active="active" class="control-item">Started</a>
+			<a ui-sref="items.board({ status: 'done' })" ui-sref-active="active" class="control-item">Done</a>
 		</div>
 	</div>
 </header>
@@ -43,7 +43,7 @@
     <div class="card">
       <ul class="table-view">
         <li ng-repeat="category in categories" class="table-view-cell">
-          <input ng-change="filterMobile()" type="checkbox" ng-model="category.selected">
+          <input ng-change="selectCategories()" type="checkbox" ng-model="category.selected">
           &nbsp;{{ category.name }}            
         </li>                        
       </ul>
