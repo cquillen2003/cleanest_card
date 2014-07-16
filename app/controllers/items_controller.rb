@@ -4,6 +4,10 @@ class ItemsController < ApplicationController
 
 	respond_to :json, :html
 
+  def default_serializer_options
+    { root: false }
+  end
+
   def index
     #category = current_user.categories.first
     #@items = category.items

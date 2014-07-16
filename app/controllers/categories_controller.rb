@@ -4,6 +4,10 @@ class CategoriesController < ApplicationController
 
 	respond_to :js, :json
 
+	def default_serializer_options
+    	{ root: false }
+  	end
+
 	def index
 		@categories = current_user.categories
 

@@ -9,6 +9,7 @@ gem 'faker', '1.0.1'
 
 gem 'pg'
 gem 'goinstant-auth'
+gem 'active_model_serializers'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
