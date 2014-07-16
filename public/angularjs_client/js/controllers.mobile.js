@@ -27,6 +27,7 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
   }
 
   $scope.$on('items:added', loadItems);
+  $scope.$on('items:updated', loadItems);
 
   loadItems();
 
@@ -47,10 +48,6 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 
   $scope.updateItem = function(item, attr) {
     ItemService.updateItem(item, attr);
-  }
-
-  $scope.expandItem = function(item) {
-    item.expand = !item.expand;
   }
 
 
@@ -81,6 +78,11 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
       //Then method also called in service
       $state.go('items',{status: 'planned'} );
     });
+  }
+
+  $scope.planProject = function(item) {
+    console.log('planProject()');
+    ItemService.planProject(item);
   }
 	
 

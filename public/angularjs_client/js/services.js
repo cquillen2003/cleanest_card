@@ -116,7 +116,9 @@ cleanCardServices.factory('ItemService', function($rootScope, Restangular) {
 			angular.forEach(attr, function(value, key) {
 				item[key] = value;
 			});
-			return item.put();
+			return item.put().then(function(item) {
+				$rootScope.$broadcast('items:updated');
+			});
 		},
 		removeItem: function(item) {
 			return item.remove().then(function(item) {
@@ -126,6 +128,25 @@ cleanCardServices.factory('ItemService', function($rootScope, Restangular) {
 		},
 
 		//Non RESTFUL actions
+
+		//Plan an item with tasks (aka project)
+		planProject: function(item) {
+			var tasks = [];
+			item.getList('items').then(function(items) {
+				tasks = items;
+
+				angular.forEach(tasks, function(task, key) {
+					task.status = 'planned';
+					task.put().then(function(task) {
+						//Broadcast 'items.updated' event only after last task updated
+						if (key === (tasks.length - 1)) {
+							$rootScope.$broadcast('items:updated');
+						}
+					});
+				});
+			});	
+		},
+
 		calculateNextStatus: function(currentStatus) {
 		  	if (currentStatus === 'backlog') {
 		  		return 'planned';

@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
 
 	respond_to :html, :js, :json
+
+	def default_serializer_options
+		{ root: false }
+	end
 	
 	def index
 		@item = Item.find(params[:item_id])

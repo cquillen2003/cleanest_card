@@ -22,14 +22,11 @@
 <div class="content">    
 
 	<ul class="table-view">
-	  <li ng-repeat-start="item in items | filter:{ status: 'backlog' }" ng-click="expandItem(item)" class="table-view-cell">
-	  	<!--
+	  <li ng-repeat-start="item in items | filter:{ status: 'backlog' }" class="table-view-cell">
 	  	<a ui-sref="items.view({itemId: item.id})">
 	 		{{ item.name }} ({{ item.status }})
-	  		<span class="badge">4</span>
+	  		<span ng-if="item.items_count > 0" class="badge">{{ item.items_count }}</span>
 	  	</a>
-	  -->
-	  	{{ item.name }}
 	  </li>
 	  <li ng-repeat-end ng-repeat="task in item.tasks" ng-if="item.expand" class="table-view-cell" style="background-color: #d9edf7">
 	  	{{ task.name }}
