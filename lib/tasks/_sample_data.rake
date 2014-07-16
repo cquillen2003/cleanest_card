@@ -106,11 +106,11 @@ def make_backlog_items
 				)
 				item.save
 				5.times do |n|
-					name = "#{user.first_name} #{item.name} step #{n}"
+					name = "#{user.first_name} #{item.name} task #{n}"
 					status = "backlog"
 					item_type = "Project Task"
-					step = item.steps.create!(:name => name, :status => status, :item_type => item_type)
-					step.save
+					task = item.tasks.create!(:name => name, :status => status, :item_type => item_type)
+					task.save
 				end
 			end
 		end
