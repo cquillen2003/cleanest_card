@@ -1,0 +1,63 @@
+<!-- Make sure all your bars are the first things in your <body> -->
+<header class="bar bar-nav">
+	<div>
+		<h1 class="title">Add New Item</h1>
+	</div>
+</header>
+
+<!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+<div class="content">
+
+	
+	<form>
+		<div class="content-padded">
+
+			<label>Name:</label>
+			<input ng-model="item.name" type="text">
+
+			<label>Description:</label>
+			<textarea rows="5"></textarea>
+
+			<label ng-show="showTasks">Tasks:</label>
+		</div>
+
+		<button ng-hide="showTasks" ng-click="showTasks = true" class="btn btn-link">Add tasks</button>
+		<div ng-show="showTasks" class="card">
+			<ul class="table-view">
+		    	<li ng-repeat="task in tasks" class="table-view-cell"
+		    		ng-swipe-left="showActions = true" ng-swipe-right="showActions = false">
+		    		<a href>
+		    			{{ task.name }} ({{ task.status }})
+					  	<button ng-show="showActions" ng-click="updateItem(task, {status: nextTaskStatus})" class="btn btn-positive">
+					  		{{ nextTaskStatus }}
+					  	</button>
+		    		</a>
+		    	</li>
+			</ul>
+		</div>
+		<div ng-show="showTasks" class="content-padded">
+			<input ng-model="task.name" type="text">
+			<button ng-click="addTask()" class="btn btn-positive">Add Task</button>
+		</div>
+
+		<br />
+		<br />
+		<br />
+		<br />
+
+		<div class="content-padded">
+			<button ng-click="addItem()" class="btn btn-positive btn-block">Add Item</button>
+		</div>
+
+		<!-- Added these to make sure button is within scroll reach -->
+		<br />
+		<br />
+		<br />
+
+	</form>
+
+</div>
+
+
+
+

@@ -107,10 +107,12 @@ cleanCardServices.factory('ItemService', function($rootScope, Restangular) {
 			return Restangular.one('items', id).get();
 		},
 		addItem: function(item) {
-			return baseItems.post(item).then(function(item) {
-				console.log('add item success called from service');
-				$rootScope.$broadcast('items:added');
-			});
+			return baseItems.post(item);
+			//Can't call then() in controller and reference item if called here
+			//return baseItems.post(item).then(function(item) {
+				//console.log('add item success called from service');
+				//$rootScope.$broadcast('items:added');
+			//});
 		},
 		updateItem: function(item, attr) {
 			angular.forEach(attr, function(value, key) {

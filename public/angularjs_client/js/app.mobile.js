@@ -90,7 +90,12 @@ cleanCard.config(function($stateProvider, $urlRouterProvider, $goConnectionProvi
 			url: '/{itemId:[0-9]{1,8}}', // will only match a contactId of one to eight number characters
 			templateUrl: 'angularjs_client/templates_mobile/item.html',
 			controller: 'ItemMobileCtrl'		
+		})
 
+		.state('items.new', {
+			url: '/new',
+			templateUrl: 'angularjs_client/templates_mobile/item-new.html',
+			controller: 'NewItemCtrl'		
 		})
 
 		.state('items.board', {

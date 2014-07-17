@@ -38,7 +38,7 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
     });
   }
 
-  $scope.$on('items:added', loadItems);
+  //$scope.$on('items:added', loadItems); //TODO: Remove then() calls from service
   $scope.$on('items:updated', loadItems);
   $scope.$on('project:planned', loadItems);
 
@@ -55,7 +55,9 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
     $scope.item.linkable_type = 'Category';
     $scope.item.linkable_id = 2;
 
-    ItemService.addItem($scope.item);
+    ItemService.addItem($scope.item).then(function(item) {
+      loadItems();
+    });
   }
 
   $scope.updateItem = function(item, attr) {
@@ -137,6 +139,42 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
   $scope.filterTasks = function(initialStatus) {
     $scope.taskFilter = initialStatus;
     $scope.nextTaskStatus = ItemService.calculateNextStatus(initialStatus);
+  }
+
+});
+
+
+cleanCardMobileControllers.controller('NewItemCtrl', function($rootScope, $scope, $stateParams, $state, ItemService, TaskService) {
+
+  $scope.item = {};
+  $scope.tasks = [];
+
+  $scope.addTask = function() {
+    $scope.task.status = 'planned';
+    $scope.tasks.push($scope.task);
+    $scope.task = {};
+    console.log($scope.tasks);
+  }
+
+  $scope.addItem = function() {
+    $scope.item.status = 'backlog';
+    $scope.item.linkable_type = 'Category';
+    $scope.item.linkable_id = 2;
+
+    ItemService.addItem($scope.item).then(function(item) {
+      if ($scope.tasks.length > 0) {
+        angular.forEach($scope.tasks, function(task, key) {
+          TaskService.addTask(item, task).then(function(task) {
+            if (key === ($scope.tasks.length - 1)) {
+              $state.go('items.backlog');
+            }
+          });
+        });
+      }
+      else {
+        $state.go('items.backlog');
+      }
+    });
   }
 
 });
