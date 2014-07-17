@@ -166,6 +166,19 @@ cleanCardServices.factory('ItemService', function($rootScope, Restangular) {
 });
 
 
+cleanCardServices.factory('TaskService', function($rootScope, Restangular) {
+
+	return {
+		addTask: function(item, task) {
+			return item.post('items', task).then(function(task) {
+				$rootScope.$broadcast('tasks:added');
+			});
+		}
+	}
+
+});
+
+
 cleanCardServices.factory('CategoryService', function(Restangular) {
 
 	var baseCategories = Restangular.all('categories');

@@ -22,30 +22,31 @@
 
 	<div class="content-padded">
 		<div class="segmented-control">
-			<a class="control-item active" href="#item1mobile">
+			<a class="control-item" ng-class="{active: taskFilter === 'planned'}" ng-click="taskFilter = 'planned'" href>
 				Planned
 			</a>
-			<a class="control-item" href="#item2mobile">
+			<a class="control-item" ng-class="{active: taskFilter === 'started'}" ng-click="taskFilter = 'started'" href>
 				Started
 			</a>
-			<a class="control-item" href="#item3mobile">
+			<a class="control-item" ng-class="{active: taskFilter === 'done'}" ng-click="taskFilter = 'done'" href>
 				Done
 			</a>
 		</div>
 	</div>
 
-	<div class="card">
+	<div class="card" style="min-height: 200px">
 		<ul class="table-view">
-	    	<li class="table-view-cell">Item 1</li>
-	    	<li class="table-view-cell">Item 2</li>
-	    	<li class="table-view-cell">Item 3</li>
-	    	<li class="table-view-cell">
-	    		<input type="text" placeholder="Full name">
-	    		<button class="btn btn-negative">Button</button>
+	    	<li ng-repeat="task in item.tasks | filter:{ status: taskFilter }" class="table-view-cell">
+	    		{{ task.name }} ({{ task.status }})
 	    	</li>
 		</ul>
 	</div>
-
+	<div ng-show="taskFilter === 'planned'" class="content-padded">
+		<form ng-submit="addTask()">
+			<input ng-model="task.name" type="text">
+			<button class="btn btn-positive">Add Task</button>
+		</form>
+	</div>
 
 	<br />
 	<br />

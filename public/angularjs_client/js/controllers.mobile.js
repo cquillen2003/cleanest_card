@@ -66,17 +66,25 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 });
 
 
-cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $scope, $stateParams, $state, ItemService) {
+cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $scope, $stateParams, $state, ItemService, TaskService) {
 
   //$scope.item = ItemService.find($stateParams.itemId);
+  function loadItem() {
+    ItemService.getItem($stateParams.itemId).then(function(item) {
+      item.getList('items').then(function(tasks) {
+        $scope.item = item;
+        $scope.item.tasks = tasks;
+        $scope.nextStatus = ItemService.calculateNextStatus($scope.item.status);
+      });
+    });
+  }
 
-  ItemService.getItem($stateParams.itemId).then(function(item) {
-    $scope.item = item;
-    $scope.nextStatus = ItemService.calculateNextStatus($scope.item.status);
-    console.log($scope.nextStatus);
-  });
+  $scope.$on('tasks:added', loadItem);
+
+  loadItem();
 
   $rootScope.showSubMenu = false;
+  $scope.taskFilter = 'planned';
 
   $scope.updateItem = function(item, attr) {
     ItemService.updateItem(item, attr).then(function(item) {
@@ -95,6 +103,13 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
   $scope.planProject = function(item) {
     console.log('planProject()');
     ItemService.planProject(item);
+  }
+
+  $scope.addTask = function() {
+    $scope.task.status = 'planned';
+    TaskService.addTask($scope.item, $scope.task).then(function(task) {
+      $scope.task.name = '';
+    });
   }
 	
 

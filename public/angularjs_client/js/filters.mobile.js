@@ -15,11 +15,12 @@ cleanCardFilters.filter('item', function() {
 			if (expandAll) {
 				if (item.items_count === 0) {
 					//Check category is selected
-					selectedCategories.forEach(function (categoryId) {
-						if (item.linkable_id === categoryId) {
-							filteredItems.push(item);
-						}
-					});					
+					filteredItems.push(item);
+					//selectedCategories.forEach(function (categoryId) {
+						//if (item.linkable_id === categoryId) {
+							
+						//}
+					//});					
 				}
 			}
 			else {

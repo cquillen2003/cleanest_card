@@ -33,7 +33,9 @@ class TasksController < ApplicationController
 		@task = @item.tasks.build(params[:task])
 		@task.save
 
-		respond_with(@item, @task)
+		#location inlcuded below because of strange error
+		#http://stackoverflow.com/questions/7303551/rails-respond-with-acting-different-in-index-and-create-method
+		respond_with(@item, @task, :location => "")
 	end
 	
 	def update
