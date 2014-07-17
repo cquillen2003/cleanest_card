@@ -40,6 +40,7 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 
   $scope.$on('items:added', loadItems);
   $scope.$on('items:updated', loadItems);
+  $scope.$on('project:planned', loadItems);
 
   loadItems();
 
@@ -59,6 +60,16 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
 
   $scope.updateItem = function(item, attr) {
     ItemService.updateItem(item, attr);
+  }
+
+  $scope.planItem = function(item) {
+    if (item.items_count > 0) {
+      ItemService.planProject(item);
+    }
+    else {
+      var attr = {status: 'planned'}
+      ItemService.updateItem(item, attr);
+    }
   }
 
   $scope.swipeItemLeft = function(item) {
@@ -84,10 +95,12 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
         $scope.item = item;
         $scope.item.tasks = tasks;
         $scope.nextStatus = ItemService.calculateNextStatus($scope.item.status);
+        console.log($scope.item);
       });
     });
   }
 
+  $scope.$on('project:planned', loadItem);
   $scope.$on('tasks:added', loadItem);
 
   loadItem();

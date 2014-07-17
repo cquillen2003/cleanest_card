@@ -140,7 +140,7 @@ cleanCardServices.factory('ItemService', function($rootScope, Restangular) {
 					task.put().then(function(task) {
 						//Broadcast 'items.updated' event only after last task updated
 						if (key === (tasks.length - 1)) {
-							$rootScope.$broadcast('items:updated');
+							$rootScope.$broadcast('project:planned');
 						}
 					});
 				});
