@@ -57,9 +57,18 @@ cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope,
     ItemService.addItem($scope.item);
   }
 
-
   $scope.updateItem = function(item, attr) {
     ItemService.updateItem(item, attr);
+  }
+
+  $scope.swipeItemLeft = function(item) {
+    if (item.items_count === 0 & item.status !== 'done') {
+      item.showActions = true;
+    }
+  }
+
+  $scope.swipeItemRight = function(item) {
+    item.showActions = false;
   }
 
 
@@ -85,13 +94,13 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
 
   $rootScope.showSubMenu = false;
   $scope.taskFilter = 'planned';
+  $scope.nextTaskStatus = 'started';
 
   $scope.updateItem = function(item, attr) {
     ItemService.updateItem(item, attr).then(function(item) {
       console.log('do anything?');
     });
   }
-
 
   $scope.deleteItem = function(item) {
     ItemService.removeItem(item).then(function(item) {
@@ -111,7 +120,11 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
       $scope.task.name = '';
     });
   }
-	
+
+  $scope.filterTasks = function(initialStatus) {
+    $scope.taskFilter = initialStatus;
+    $scope.nextTaskStatus = ItemService.calculateNextStatus(initialStatus);
+  }
 
 });
 
