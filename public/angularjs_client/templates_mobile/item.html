@@ -52,6 +52,7 @@
 	    	</li>
 		</ul>
 	</div>
+	<br />
 	<div ng-show="taskFilter === 'planned'" class="content-padded">
 		<form ng-submit="addTask()">
 			<input ng-model="task.name" type="text">
@@ -63,10 +64,15 @@
 	<br />
 
 	<div class="content-padded">
-		<button ng-show="item.items_count === 0" ng-click="updateItem(item, {status: nextStatus})" class="btn btn-block btn-outlined">{{ nextStatus }}</button>
+		<button ng-show="item.items_count === 0" ng-click="updateItem(item, {status: nextStatus.value})" class="btn btn-block btn-outlined">{{ nextStatus.button }}</button>
 		<button ng-show="item.items_count > 0 && item.status === 'backlog'" ng-click="planProject(item)" class="btn btn-block btn-outlined">Plan All</button>
 		<button ui-sref="items.edit({itemId: item.id})" class="btn btn-block btn-outlined">Edit</button>
 		<button ng-click="deleteItem(item)" class="btn btn-negative btn-block btn-outlined">Delete</button>
 	</div>
+
+	<!-- Added these to make sure button is within scroll reach -->
+	<br />
+	<br />
+	<br />
 
 </div>

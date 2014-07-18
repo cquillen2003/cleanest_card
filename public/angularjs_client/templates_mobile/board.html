@@ -27,8 +27,8 @@
 	  	<a ng-if="item.items_count === 0" ui-sref="items.view({itemId: item.id})"
 	  		ng-swipe-left="swipeItemLeft(item)" ng-swipe-right="swipeItemRight(item)">
 	  		{{ item.name}} ({{ item.status }}) {{ item.items_count }}
-		  	<button ng-show="item.showActions" ng-click="updateItem(item, {status: $parent.nextStatus})" class="btn btn-positive">
-		  		{{ $parent.nextStatus }}
+		  	<button ng-show="item.showActions" ng-click="updateItem(item, {status: $parent.nextStatus.value})" class="btn btn-positive">
+		  		{{ $parent.nextStatus.button }}
 		  	</button>	  		
 	  	</a>
 	  </li>

@@ -151,16 +151,17 @@ cleanCardServices.factory('ItemService', function($rootScope, Restangular) {
 
 		calculateNextStatus: function(currentStatus) {
 		  	if (currentStatus === 'backlog') {
-		  		return 'planned';
+		  		return {value: 'planned', button: 'Plan'};
 		  	}
 		  	else if (currentStatus === 'planned') {
-		  		return 'started';
+		  		return {value: 'started', button: 'Start'};
 		  	}
 		  	else if (currentStatus === 'started') {
-		  		return 'done';
+		  		return {value: 'done', button: 'Done'};
 		  	}
 		  	else {
-		  		return currentStatus;
+		  		return {value: 'done', button: 'Done'};
+		  		console.log('calculateNextStatus() called for done item');
 		  	}
 		}
 	}

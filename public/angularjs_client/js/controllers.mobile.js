@@ -117,15 +117,16 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
   $scope.nextTaskStatus = 'started';
 
   $scope.updateItem = function(item, attr) {
+    console.log('update item called');
     ItemService.updateItem(item, attr).then(function(item) {
-      console.log('do anything?');
+      loadItem();
     });
   }
 
   $scope.deleteItem = function(item) {
     ItemService.removeItem(item).then(function(item) {
       //Then method also called in service
-      $state.go('items',{status: 'planned'} );
+      $state.go('items.backlog');
     });
   }
 
@@ -143,13 +144,13 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
 
   $scope.filterTasks = function(initialStatus) {
     $scope.taskFilter = initialStatus;
-    $scope.nextTaskStatus = ItemService.calculateNextStatus(initialStatus);
+    $scope.nextTaskStatus = ItemService.calculateNextStatus(initialStatus).value;
   }
 
 });
 
 
-cleanCardMobileControllers.controller('NewItemCtrl', function($scope, CategoryService, ItemService, TaskService) {
+cleanCardMobileControllers.controller('NewItemCtrl', function($scope, $state, CategoryService, ItemService, TaskService) {
 
   CategoryService.getCategories().then(function(categories) {
     $scope.categories = categories;
@@ -161,7 +162,7 @@ cleanCardMobileControllers.controller('NewItemCtrl', function($scope, CategorySe
   });
 
   $scope.addTask = function() {
-    $scope.task.status = 'planned';
+    $scope.task.status = 'backlog';
     $scope.tasks.push($scope.task);
     $scope.task = {};
     console.log($scope.tasks);
@@ -198,7 +199,7 @@ cleanCardMobileControllers.controller('EditItemCtrl', function($scope, $statePar
 
   $scope.updateItem = function() {
     ItemService.updateItem($scope.item).then(function(item) {
-      console.log('item saved successfully!');
+      $state.go('items.view', {itemId: $stateParams.itemId});
     });
   }
 
