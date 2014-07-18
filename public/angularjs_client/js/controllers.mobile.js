@@ -97,7 +97,13 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
         $scope.item = item;
         $scope.item.tasks = tasks;
         $scope.nextStatus = ItemService.calculateNextStatus($scope.item.status);
-        console.log($scope.item);
+        
+        if ($scope.item.status === 'backlog') {
+          $scope.taskFilter = 'backlog';
+        }
+        else {
+          $scope.taskFilter = 'planned';
+        }
       });
     });
   }
@@ -108,7 +114,6 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
   loadItem();
 
   $rootScope.showSubMenu = false;
-  $scope.taskFilter = 'planned';
   $scope.nextTaskStatus = 'started';
 
   $scope.updateItem = function(item, attr) {
