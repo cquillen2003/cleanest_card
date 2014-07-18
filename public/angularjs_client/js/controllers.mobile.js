@@ -4,7 +4,7 @@ var cleanCardMobileControllers = angular.module('cleanCardMobileControllers', ['
 //Moving ui-independent logic to services per angular docs
 //This will become the desktop apps boards controller as well in the future
 
-cleanCardMobileControllers.controller('sessionsMobileCtrl', function($scope, $http, $state) {
+cleanCardMobileControllers.controller('sessionsMobileCtrl', function($rootScope, $scope, $http, $state) {
 
   //Quick and dirty check to see if user is already logged in
   //TODO: replace this with a more robust authentication solution
@@ -23,6 +23,10 @@ cleanCardMobileControllers.controller('sessionsMobileCtrl', function($scope, $ht
     }
 
     $http.post('/sessions', session).success(function(){
+      $rootScope.initializeCategories(); //On .run block
+    });
+
+    $rootScope.$on('initializeCategoriesSuccess', function() {
       $state.go('items.board', {status: 'planned'});
     });   
   }

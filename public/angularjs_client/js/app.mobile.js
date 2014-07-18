@@ -13,6 +13,8 @@ cleanCard.run(function($rootScope, CategoryService) {
 
 	//Category filter selection set on $rootScope to persist through navigation
 	//Tried putting this in CategoryService but it was messy
+	//Still messy because of the interaction with sessions/login controller
+	//TODO: clean this up
 
 	$rootScope.setSelectedCategoryIds = function() {
 		$rootScope.selectedCategoryIds = [];
@@ -25,15 +27,23 @@ cleanCard.run(function($rootScope, CategoryService) {
 	    console.log($rootScope.selectedCategoryIds);		
 	}
 
-	CategoryService.getCategories().then(function(categories) {
-		$rootScope.categories = categories;
-		
-		//Show all current user's categories by default
-		angular.forEach($rootScope.categories, function(category) {
-			category.selected = true;
+	$rootScope.initializeCategories = function() {
+
+		CategoryService.getCategories().then(function(categories) {
+			$rootScope.categories = categories;
+			
+			//Show all current user's categories by default
+			angular.forEach($rootScope.categories, function(category) {
+				category.selected = true;
+			});
+			$rootScope.setSelectedCategoryIds();
+
+			$rootScope.$broadcast('initializeCategoriesSuccess');
 		});
-		$rootScope.setSelectedCategoryIds();
-	});
+
+	}
+
+	$rootScope.initializeCategories();
 
 	$rootScope.expandAllText = 'Expand All';
 
