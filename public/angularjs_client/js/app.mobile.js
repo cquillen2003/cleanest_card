@@ -1,7 +1,6 @@
 var cleanCard = angular.module('cleanCard', [
 	'ngRoute',
 	'ui.router',
-	'cleanCardControllers',
 	'cleanCardMobileControllers',
 	'cleanCardServices',
 	'cleanCardFilters',

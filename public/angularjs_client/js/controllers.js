@@ -1,4 +1,4 @@
-var cleanCardControllers = angular.module('cleanCardControllers', ['ngTouch']);
+var cleanCardControllers = angular.module('cleanCardControllers', []);
 
 
 cleanCardControllers.controller('subMenuCtrl', function($rootScope, $scope) {
@@ -35,7 +35,7 @@ cleanCardControllers.controller('sessionsCtrl', function ($scope, $http, $state)
 });
 
  
-cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $stateParams, $routeParams, $filter, $location, Category, Item, Task, Items) {
+cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $http, $stateParams, $routeParams, $filter, $location, Category, Item, Task) {
 
 
   //Sessions controller stuff
@@ -145,9 +145,6 @@ cleanCardControllers.controller('cleanCardCtrl', function ($rootScope, $scope, $
       backlogFilter();
       filterBoard();
   });
-
-  console.log($scope.allItemsAndTasks);
-  console.log(Items.all());
 
   //$scope.allItems = Item.query({type: 'item'});  
 

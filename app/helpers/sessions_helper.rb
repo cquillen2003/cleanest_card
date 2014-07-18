@@ -30,9 +30,9 @@ module SessionsHelper
 	#Mobile detection and preference
 
 	def mobile_view
-		#if mobile_request?
+		if mobile_request?
 			prepend_view_path Rails.root + 'app' + 'views_mobile'
-		#end
+		end
 	end
 
 	def mobile_request?
