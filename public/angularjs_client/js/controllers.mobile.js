@@ -4,6 +4,22 @@ var cleanCardMobileControllers = angular.module('cleanCardMobileControllers', ['
 //Moving ui-independent logic to services per angular docs
 //This will become the desktop apps boards controller as well in the future
 
+cleanCardMobileControllers.controller('sessionsMobileCtrl', function($scope, $http, $state) {
+
+  $scope.create = function() {
+
+    if ($scope.user) {
+      var session = {email: $scope.user.email, password: $scope.user.password};
+    }
+
+    $http.post('/sessions', session).success(function(){
+      $state.go('items.board', {status: 'planned'});
+    });   
+  }
+
+});
+
+
 cleanCardMobileControllers.controller('BoardsCtrl', function($rootScope, $scope, $stateParams, ItemService, itemFilter) {
 
   //Header/Navigation controls (may move to separate controller and parent view eventually)

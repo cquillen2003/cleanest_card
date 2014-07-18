@@ -68,7 +68,7 @@ cleanCard.config(function($stateProvider, $urlRouterProvider, $goConnectionProvi
 
 
 	//Routes
-	$urlRouterProvider.otherwise('/backlog');
+	$urlRouterProvider.otherwise('/items/planned');
 
 	//cleanCardCtrl is binded to <body> (was, but not anymore)
 	$stateProvider
@@ -97,7 +97,7 @@ cleanCard.config(function($stateProvider, $urlRouterProvider, $goConnectionProvi
 			templateUrl: 'angularjs_client/templates_mobile/item-new.html',
 			controller: 'NewItemCtrl'		
 		})
-		
+
 		.state('items.board', {
 			url: '/:status',
 			templateUrl: 'angularjs_client/templates_mobile/board.html',
@@ -113,7 +113,7 @@ cleanCard.config(function($stateProvider, $urlRouterProvider, $goConnectionProvi
 		.state('login', {
 			url: '/sessions/new',
 			templateUrl: 'angularjs_client/templates_mobile/login.html',
-			controller: 'sessionsCtrl'
+			controller: 'sessionsMobileCtrl'
 		})
 
 });
