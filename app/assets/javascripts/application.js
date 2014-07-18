@@ -18,6 +18,6 @@
 //= require angular-resource
 //= require angular-route
 //= require angular-ui-router
-//= require perfect-scrollbar
-//= require jquery_nested_form
+//= require angular-touch
+//= require lodash.compat
 //= require_tree .
