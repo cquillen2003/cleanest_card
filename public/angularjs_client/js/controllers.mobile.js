@@ -149,7 +149,7 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
 });
 
 
-cleanCardMobileControllers.controller('NewItemCtrl', function($rootScope, $scope, $stateParams, $state, ItemService, TaskService) {
+cleanCardMobileControllers.controller('NewItemCtrl', function($scope, ItemService, TaskService) {
 
   $scope.item = {};
   $scope.tasks = [];
@@ -184,4 +184,19 @@ cleanCardMobileControllers.controller('NewItemCtrl', function($rootScope, $scope
 
 });
 
+
+cleanCardMobileControllers.controller('EditItemCtrl', function($scope, $stateParams, $state, ItemService) {
+
+  ItemService.getItem($stateParams.itemId).then(function(item) {
+    $scope.item = item;
+    console.log(item);
+  });
+
+  $scope.updateItem = function() {
+    ItemService.updateItem($scope.item).then(function(item) {
+      console.log('item saved successfully!');
+    });
+  }
+
+});
 

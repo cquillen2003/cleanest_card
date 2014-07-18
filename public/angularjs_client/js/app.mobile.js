@@ -97,12 +97,18 @@ cleanCard.config(function($stateProvider, $urlRouterProvider, $goConnectionProvi
 			templateUrl: 'angularjs_client/templates_mobile/item-new.html',
 			controller: 'NewItemCtrl'		
 		})
-
+		
 		.state('items.board', {
 			url: '/:status',
 			templateUrl: 'angularjs_client/templates_mobile/board.html',
 			controller: 'BoardsCtrl'
-		})		
+		})
+
+		.state('items.edit', {
+			url: '/:itemId/edit',
+			templateUrl: 'angularjs_client/templates_mobile/item-edit.html',
+			controller: 'EditItemCtrl'		
+		})
 
 		.state('login', {
 			url: '/sessions/new',
