@@ -18,6 +18,11 @@
 			<label>Description:</label>
 			<textarea rows="5"></textarea>
 
+			<label>Category:</label>
+			<select ng-model="item.linkable_id">
+			  <option ng-repeat="category in categories" value="{{ category.id }}">{{ category.name }}</option> 
+			</select>			
+
 			<label ng-show="showTasks">Tasks:</label>
 		</div>
 

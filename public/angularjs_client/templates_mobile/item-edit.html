@@ -18,6 +18,12 @@
 			<label>Description:</label>
 			<textarea ng-model="item.description" rows="5"></textarea>
 
+			<label ng-if="item.linkable_type === 'Category'">Category:</label>
+			<select ng-if="item.linkable_type === 'Category'" ng-model="item.linkable_id">
+			  <option ng-repeat="category in categories" ng-selected="item.linkable_id === category.id"
+			  	value="{{ category.id }}">{{ category.name }}</option> 
+			</select>
+
 			<label ng-if="item.items_count === 0 && item.status !== 'backlog'">Status:</label>
 			<select ng-if="item.items_count === 0 && item.status !== 'backlog'" ng-model="item.status" name="select">
 			  <option ng-selected="item.status === 'planned'" value="planned">Planned</option> 

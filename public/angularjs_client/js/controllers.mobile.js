@@ -149,10 +149,16 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
 });
 
 
-cleanCardMobileControllers.controller('NewItemCtrl', function($scope, ItemService, TaskService) {
+cleanCardMobileControllers.controller('NewItemCtrl', function($scope, CategoryService, ItemService, TaskService) {
 
-  $scope.item = {};
-  $scope.tasks = [];
+  CategoryService.getCategories().then(function(categories) {
+    $scope.categories = categories;
+
+    $scope.item = {};
+    $scope.tasks = [];
+    $scope.item.linkable_type = 'Category';
+    $scope.item.linkable_id = $scope.categories[0].id;
+  });
 
   $scope.addTask = function() {
     $scope.task.status = 'planned';
@@ -163,8 +169,6 @@ cleanCardMobileControllers.controller('NewItemCtrl', function($scope, ItemServic
 
   $scope.addItem = function() {
     $scope.item.status = 'backlog';
-    $scope.item.linkable_type = 'Category';
-    $scope.item.linkable_id = 2;
 
     ItemService.addItem($scope.item).then(function(item) {
       if ($scope.tasks.length > 0) {
