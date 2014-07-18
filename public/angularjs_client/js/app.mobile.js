@@ -43,6 +43,7 @@ cleanCard.run(function($rootScope, CategoryService) {
 cleanCard.config(function($stateProvider, $urlRouterProvider, $goConnectionProvider) {
 
 	//Authenticate user with GoInstant
+	/*
 	$goConnectionProvider.$set('https://goinstant.net/76134da4b781/my-application');
 
 	console.log(document.cookie);
@@ -65,10 +66,10 @@ cleanCard.config(function($stateProvider, $urlRouterProvider, $goConnectionProvi
 		}
 		console.log("goinstant connect with rails generated token succeeded!");
 	})
-
+	*/
 
 	//Routes
-	$urlRouterProvider.otherwise('/items/planned');
+	$urlRouterProvider.otherwise('/sessions/new');
 
 	//cleanCardCtrl is binded to <body> (was, but not anymore)
 	$stateProvider

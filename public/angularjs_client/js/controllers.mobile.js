@@ -6,6 +6,16 @@ var cleanCardMobileControllers = angular.module('cleanCardMobileControllers', ['
 
 cleanCardMobileControllers.controller('sessionsMobileCtrl', function($scope, $http, $state) {
 
+  //Quick and dirty check to see if user is already logged in
+  //TODO: replace this with a more robust authentication solution
+
+  //https://developer.mozilla.org/en-US/docs/Web/API/document.cookie
+  var rememberToken = document.cookie.replace(/(?:(?:^|.*;\s*)remember_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+  if(rememberToken) { //TODO: verify it's the correct rememberToken
+    $state.go('items.board', {status: 'planned'});
+  }
+
   $scope.create = function() {
 
     if ($scope.user) {
