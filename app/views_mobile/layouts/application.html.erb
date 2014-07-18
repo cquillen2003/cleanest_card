@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Ratchet template page</title>
+    <title>Clean Card Mobile</title>
 
     <!-- Sets initial viewport load and disables zooming  -->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
@@ -13,7 +13,9 @@
 
     <!-- Include the compiled Ratchet CSS -->
     <!-- <link href="ratchet.css" rel="stylesheet"> -->
-    <%= stylesheet_link_tag "application.mobile", media: "all" %>
+
+    <!-- stylesheet_link_tag causing error on Heroku, so including ratchet.css manually -->
+    <link href="/angularjs_client/css/ratchet.min.css" rel="stylesheet">
 
     <!-- Include the compiled Ratchet JS -->
     <!-- <script src="ratchet.js"></script> -->        

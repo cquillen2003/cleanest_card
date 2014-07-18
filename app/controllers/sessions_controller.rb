@@ -15,23 +15,23 @@ class SessionsController < ApplicationController
 			#Generate jwt (json web token) for GoInstant authentication per their docs:
 			#https://developers.goinstant.com/v1/security_and_auth/libraries/ruby.html
 
-			#TODO: do not commit this secret_key
-			secret_key = 'phNs7Vppl5iW-w9loG1t6lK20YqEe_bXuHlzuJqT8fOAQqOyF6NtUsVwWM9GUJo7zgBDRkkvvhLz4YobAfndCQ'
+			#TODO: do not commit this secret_key (whoops, I already did)
+			#secret_key = 'phNs7Vppl5iW-w9loG1t6lK20YqEe_bXuHlzuJqT8fOAQqOyF6NtUsVwWM9GUJo7zgBDRkkvvhLz4YobAfndCQ'
 
-			signer = GoInstant::Auth::Signer.new(secret_key)
+			#signer = GoInstant::Auth::Signer.new(secret_key)
 
-			token = signer.sign({
-				:domain => 'myrailsapp.com', #TODO: replace me
-				:id => user.id,
-				:user_id => user.id, #TODO: might be able to get rid of this, need to see how GoInstant handles it
-				:display_name => current_user.first_name,
-				:email => current_user.email
-			})
+			#token = signer.sign({
+				#:domain => 'myrailsapp.com', #TODO: replace me
+				#:id => user.id,
+				#:user_id => user.id, #TODO: might be able to get rid of this, need to see how GoInstant handles it
+				#:display_name => current_user.first_name,
+				#:email => current_user.email
+			#})
 
-			cookies.permanent[:goinstant_token] = token
+			#cookies.permanent[:goinstant_token] = token
 
-			redirect_to current_url
-			#render :nothing => true
+			#redirect_to current_url
+			render :nothing => true
 		else
 			flash.now[:error] = 'Invalid email/password combination'
 			render 'new'
