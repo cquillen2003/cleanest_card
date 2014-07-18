@@ -149,7 +149,7 @@ cleanCardMobileControllers.controller('ItemMobileCtrl', function($rootScope, $sc
   $scope.updateItem = function(item, attr) {
     console.log('update item called');
     ItemService.updateItem(item, attr).then(function(item) {
-      loadItem();
+      //loadItem(); //Keep taskFilter from chaning to planned, lookout for regressions
     });
   }
 
