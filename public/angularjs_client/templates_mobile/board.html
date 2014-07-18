@@ -22,11 +22,11 @@
 	<ul class="table-view">
 	  <li ng-repeat="item in items | filter:{ status: filteredStatus }" class="table-view-cell">
 	  	<a ng-if="item.items_count > 0" ui-sref="items.view({itemId: item.id})">
-		  	{{ item.name }} ({{ item.status }}) <span class="badge">{{ item.items_count }}</span>
+		  	{{ item.name }} <span class="badge">{{ item.items_count }}</span>
 	  	</a>
 	  	<a ng-if="item.items_count === 0" ui-sref="items.view({itemId: item.id})"
 	  		ng-swipe-left="swipeItemLeft(item)" ng-swipe-right="swipeItemRight(item)">
-	  		{{ item.name}} ({{ item.status }}) {{ item.items_count }}
+	  		{{ item.name}}
 		  	<button ng-show="item.showActions" ng-click="updateItem(item, {status: $parent.nextStatus.value})" class="btn btn-positive">
 		  		{{ $parent.nextStatus.button }}
 		  	</button>	  		

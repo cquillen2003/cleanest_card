@@ -11,7 +11,7 @@
 	<div class="card">
 		<ul class="table-view">
 			<li class="table-view-cell">
-				<h4>{{ item.name }} ({{ item.status }})</h4>
+				<h4>{{ item.name }}</h4>
 			</li>
 		</ul>
 	</div>
@@ -40,7 +40,7 @@
 	    	<li ng-repeat="task in item.tasks | filter:{ status: taskFilter }" class="table-view-cell"
 	    		ng-swipe-left="showActions = true" ng-swipe-right="showActions = false">
 	    		<a href>
-	    			{{ task.name }} ({{ task.status }})
+	    			{{ task.name }}
 				  	<button ng-show="showActions" ng-click="updateItem(task, {status: nextTaskStatus})" class="btn btn-positive">
 				  		{{ nextTaskStatus }}
 				  	</button>

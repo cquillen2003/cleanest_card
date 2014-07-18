@@ -22,7 +22,7 @@
 	  <li ng-repeat-start="item in items | filter:{ status: 'backlog' }" class="table-view-cell"
 	  	ng-swipe-left="showActions = true" ng-swipe-right="showActions = false">
 	  	<a ui-sref="items.view({itemId: item.id})">
-	 		{{ item.name }} ({{ item.status }})
+	 		{{ item.name }}
 	  		<span ng-if="item.items_count > 0" class="badge">{{ item.items_count }}</span>
 		  	<button ng-show="showActions" ng-click="planItem(item)" class="btn btn-positive">
 		  		Plan
