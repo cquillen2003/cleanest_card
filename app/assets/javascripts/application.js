@@ -14,10 +14,10 @@
 //= require jquery_ujs
 //= require jquery-ui-1.10.3.custom
 //= require bootstrap
-//= require angular.min
-//= require angular-resource.min
-//= require angular-route.min
-//= require angular-ui-router.min
+//= require angular
+//= require angular-resource
+//= require angular-route
+//= require angular-ui-router
 //= require perfect-scrollbar
 //= require jquery_nested_form
 //= require_tree .

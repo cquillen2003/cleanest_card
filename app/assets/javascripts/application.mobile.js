@@ -10,10 +10,10 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require angular.min
-//= require angular-resource.min
-//= require angular-route.min
-//= require angular-ui-router.min
-//= require angular-touch.min
-//= require lodash.compat.min
+//= require angular
+//= require angular-resource
+//= require angular-route
+//= require angular-ui-router
+//= require angular-touch
+//= require lodash.compat
 
